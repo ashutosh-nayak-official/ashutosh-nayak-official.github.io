@@ -41,41 +41,70 @@
 
 /* ========== LIGHT MODE ========== */
 [data-theme="light"] {
-  --bg: #f4f6fb;
+  --bg: #f0f2f8;
   --bg-elevated: #ffffff;
-  --surface: rgba(0,0,0,0.03);
-  --surface-hover: rgba(0,0,0,0.06);
-  --border: rgba(0,0,0,0.08);
-  --border-accent: rgba(0,100,200,0.2);
-  --text: #1a1d2e;
-  --text-dim: #5a5f7a;
-  --text-muted: #a0a4b8;
-  --cyan: #0080CC;
-  --cyan-glow: rgba(0,128,204,0.1);
-  --amber: #D48A00;
-  --amber-glow: rgba(212,138,0,0.08);
-  --magenta: #CC2E8A;
-  --green: #00B870;
+  --surface: rgba(0,40,100,0.04);
+  --surface-hover: rgba(0,40,100,0.07);
+  --border: rgba(0,40,100,0.10);
+  --border-accent: rgba(0,100,200,0.25);
+  --text: #111827;
+  --text-dim: #4b5563;
+  --text-muted: #9ca3af;
+  --cyan: #0066CC;
+  --cyan-glow: rgba(0,102,204,0.12);
+  --amber: #B45309;
+  --amber-glow: rgba(180,83,9,0.10);
+  --magenta: #BE185D;
+  --green: #059669;
 }
-[data-theme="light"] body::before { opacity: 0.012; }
+[data-theme="light"] body::before { opacity: 0.018; }
+[data-theme="light"] body {
+  background: linear-gradient(160deg, #f0f2f8 0%, #e8ecf4 40%, #f0f2f8 100%);
+}
 [data-theme="light"] nav {
-  background: rgba(244,246,251,0.8);
-  border-bottom-color: rgba(0,0,0,0.06);
+  background: rgba(240,242,248,0.85);
+  border-bottom-color: rgba(0,40,100,0.08);
+  box-shadow: 0 1px 12px rgba(0,40,100,0.06);
+}
+[data-theme="light"] nav.scrolled {
+  box-shadow: 0 4px 24px rgba(0,40,100,0.10);
 }
 [data-theme="light"] .cursor-dot { background: var(--cyan); mix-blend-mode: normal; }
-[data-theme="light"] .cursor-ring { border-color: rgba(0,128,204,0.35); }
-[data-theme="light"] .hero-mesh .orb-1 { background: radial-gradient(circle, rgba(0,128,204,0.1), transparent 70%); }
-[data-theme="light"] .hero-mesh .orb-2 { background: radial-gradient(circle, rgba(212,138,0,0.08), transparent 70%); }
-[data-theme="light"] .hero-mesh .orb-3 { background: radial-gradient(circle, rgba(204,46,138,0.05), transparent 70%); }
+[data-theme="light"] .cursor-ring { border-color: rgba(0,102,204,0.4); }
+[data-theme="light"] .hero-mesh .orb { filter: blur(80px); }
+[data-theme="light"] .hero-mesh .orb-1 {
+  background: radial-gradient(circle, rgba(0,102,204,0.35), transparent 70%);
+  width: 700px; height: 700px;
+}
+[data-theme="light"] .hero-mesh .orb-2 {
+  background: radial-gradient(circle, rgba(180,83,9,0.28), transparent 70%);
+  width: 600px; height: 600px;
+}
+[data-theme="light"] .hero-mesh .orb-3 {
+  background: radial-gradient(circle, rgba(190,24,93,0.2), transparent 70%);
+  width: 500px; height: 500px;
+}
 [data-theme="light"] .hero-grid {
   background-image:
-    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0,40,100,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,40,100,0.07) 1px, transparent 1px);
 }
 [data-theme="light"] .hero-name .last {
-  background: linear-gradient(135deg, #0080CC, #D48A00);
+  background: linear-gradient(135deg, #0066CC, #B45309);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .hero-tag {
+  background: rgba(0,102,204,0.06);
+  border-color: rgba(0,102,204,0.2);
+  box-shadow: 0 2px 12px rgba(0,102,204,0.08);
+}
+[data-theme="light"] .hero-stat .num {
+  color: var(--cyan);
+  text-shadow: none;
+}
+[data-theme="light"] .hero-stat:hover .num {
+  text-shadow: 0 0 16px rgba(0,102,204,0.25), 0 0 32px rgba(0,102,204,0.1);
 }
 [data-theme="light"] .nav-cta {
   border-color: var(--cyan) !important;
@@ -84,28 +113,151 @@
 [data-theme="light"] .nav-cta:hover {
   background: var(--cyan) !important;
   color: #fff !important;
-  box-shadow: 0 0 24px rgba(0,128,204,0.25);
+  box-shadow: 0 4px 20px rgba(0,102,204,0.3);
 }
-[data-theme="light"] .project-card { background: #fff; border-color: rgba(0,0,0,0.08); }
-[data-theme="light"] .project-card:hover { border-color: rgba(0,128,204,0.25); }
-[data-theme="light"] .skill-category { background: #fff; border-color: rgba(0,0,0,0.08); }
-[data-theme="light"] .skill-category:hover { border-color: rgba(0,128,204,0.25); }
-[data-theme="light"] .skill-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); color: var(--text-dim); }
-[data-theme="light"] .skill-item:hover { background: var(--cyan-glow); border-color: rgba(0,128,204,0.2); color: var(--cyan); }
-[data-theme="light"] .cert-card { background: #fff; border-color: rgba(0,0,0,0.08); color: var(--text); }
-[data-theme="light"] .cert-card:hover { border-color: var(--amber); }
-[data-theme="light"] .contact-link { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); color: var(--text); }
-[data-theme="light"] .contact-link:hover { border-color: var(--cyan); background: var(--cyan-glow); }
+[data-theme="light"] .project-card {
+  background: #fff;
+  border-color: rgba(0,40,100,0.08);
+  box-shadow: 0 2px 16px rgba(0,40,100,0.06);
+}
+[data-theme="light"] .project-card:hover {
+  border-color: rgba(0,102,204,0.3);
+  box-shadow: 0 12px 40px rgba(0,102,204,0.12), 0 4px 16px rgba(0,40,100,0.08);
+}
+[data-theme="light"] .project-card:hover .project-card-visual .pv-icon {
+  filter: drop-shadow(0 0 30px rgba(0,102,204,0.4));
+}
+[data-theme="light"] .project-card:hover .project-tag {
+  border-color: rgba(0,102,204,0.2);
+  background: rgba(0,102,204,0.06);
+  color: var(--cyan);
+}
+[data-theme="light"] .skill-category {
+  background: #fff;
+  border-color: rgba(0,40,100,0.08);
+  box-shadow: 0 2px 12px rgba(0,40,100,0.04);
+}
+[data-theme="light"] .skill-category:hover {
+  border-color: rgba(0,102,204,0.25);
+  box-shadow: 0 8px 32px rgba(0,102,204,0.08);
+}
+[data-theme="light"] .skill-item {
+  background: rgba(0,40,100,0.04);
+  border-color: rgba(0,40,100,0.08);
+  color: var(--text-dim);
+}
+[data-theme="light"] .skill-item:hover {
+  background: rgba(0,102,204,0.1);
+  border-color: rgba(0,102,204,0.25);
+  color: var(--cyan);
+  box-shadow: 0 2px 12px rgba(0,102,204,0.1);
+}
+[data-theme="light"] .cert-card {
+  background: #fff;
+  border-color: rgba(0,40,100,0.08);
+  color: var(--text);
+  box-shadow: 0 2px 12px rgba(0,40,100,0.05);
+}
+[data-theme="light"] .cert-card:hover {
+  border-color: var(--amber);
+  box-shadow: 0 8px 32px rgba(180,83,9,0.12);
+}
+[data-theme="light"] .cert-card::after {
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(0,102,204,0.06) 45%,
+    rgba(0,102,204,0.12) 50%,
+    rgba(0,102,204,0.06) 55%,
+    transparent 60%
+  );
+}
+[data-theme="light"] .contact-link {
+  background: #fff;
+  border-color: rgba(0,40,100,0.1);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,40,100,0.05);
+}
+[data-theme="light"] .contact-link:hover {
+  border-color: var(--cyan);
+  background: rgba(0,102,204,0.06);
+  box-shadow: 0 8px 28px rgba(0,102,204,0.15);
+}
 [data-theme="light"] .contact-heading .gradient {
-  background: linear-gradient(135deg, var(--cyan), var(--amber), var(--magenta));
+  background: linear-gradient(135deg, #0066CC, #B45309, #BE185D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-[data-theme="light"] .exp-nav-item.active { background: rgba(0,128,204,0.05); }
-[data-theme="light"] .rh-icon { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); }
-[data-theme="light"] footer { border-top-color: rgba(0,0,0,0.06); }
-[data-theme="light"] .project-card-visual .pv-label { color: rgba(255,255,255,0.5); }
+[data-theme="light"] .exp-nav-item.active {
+  background: rgba(0,102,204,0.06);
+  border-left-color: var(--cyan);
+}
+[data-theme="light"] .rh-icon {
+  background: rgba(0,40,100,0.04);
+  border-color: rgba(0,40,100,0.08);
+}
+[data-theme="light"] .role-highlight:hover .rh-icon {
+  background: rgba(0,102,204,0.08);
+  border-color: rgba(0,102,204,0.2);
+}
+[data-theme="light"] footer {
+  border-top-color: rgba(0,40,100,0.08);
+}
+[data-theme="light"] .project-card-visual .pv-label { color: rgba(255,255,255,0.6); }
 [data-theme="light"] ::selection { background: var(--cyan); color: #fff; }
+
+/* Light mode section heading shimmer uses richer tones */
+[data-theme="light"] .section-heading:hover {
+  background: linear-gradient(135deg, #111827, #0066CC, #111827);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Light mode about word highlights pop more */
+[data-theme="light"] .about-word.highlight.lit { color: #0066CC; font-weight: 500; }
+
+/* Light mode scroll progress bar */
+[data-theme="light"] .scroll-progress-bar {
+  background: linear-gradient(90deg, #0066CC, #B45309) !important;
+}
+
+/* Light mode contact mesh orbs — much stronger */
+[data-theme="light"] .contact-mesh .orb:first-child {
+  background: radial-gradient(circle, rgba(0,102,204,0.3), transparent 70%) !important;
+  width: 600px !important; height: 600px !important;
+}
+[data-theme="light"] .contact-mesh .orb:last-child {
+  background: radial-gradient(circle, rgba(180,83,9,0.22), transparent 70%) !important;
+  width: 500px !important; height: 500px !important;
+}
+
+/* Light mode body has subtle ambient color washes behind sections */
+[data-theme="light"] .skills-section::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,102,204,0.1), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="light"] .skills-section { position: relative; }
+
+[data-theme="light"] .about-section::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(180,83,9,0.08), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="light"] .about-section { position: relative; }
 
 /* ========== THEME TOGGLE BUTTON ========== */
 .theme-toggle {
@@ -983,6 +1135,184 @@ footer p {
   .certs-row { grid-template-columns: 1fr; }
   .contact-links { flex-direction: column; align-items: center; }
 }
+/* ========== PARTICLE CANVAS ========== */
+#particleCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+[data-theme="light"] #particleCanvas { opacity: 0.45; }
+
+/* ========== ENHANCED ANIMATIONS ========== */
+@keyframes glitchFlicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.4; transform: translateX(-2px); }
+  94% { opacity: 1; transform: translateX(0); }
+  96% { opacity: 0.6; transform: translateX(1px); }
+  97% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatSubtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Hero name glitch on hover */
+.hero-name:hover .last {
+  animation: glitchFlicker 0.4s ease;
+}
+
+/* Hero stat counter glow pulse */
+.hero-stat .num {
+  transition: text-shadow 0.3s, transform 0.3s;
+}
+.hero-stat:hover .num {
+  text-shadow: 0 0 20px var(--cyan-glow), 0 0 40px rgba(0,240,255,0.15);
+  transform: scale(1.08);
+}
+
+/* Project card 3D tilt */
+.project-card {
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+.project-card .project-card-visual .pv-icon {
+  transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), filter 0.4s;
+}
+.project-card:hover .project-card-visual .pv-icon {
+  transform: scale(1.15) translateY(-4px);
+  filter: drop-shadow(0 0 40px currentColor);
+}
+
+/* Skill items ripple effect */
+.skill-item {
+  position: relative;
+  overflow: hidden;
+}
+.skill-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), var(--cyan-glow) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.skill-item:hover::before {
+  opacity: 1;
+}
+
+/* Contact links magnetic hover */
+.contact-link {
+  transition: all 0.3s cubic-bezier(0.25,1,0.5,1);
+}
+.contact-link:hover {
+  border-color: var(--cyan);
+  background: var(--cyan-glow);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 32px var(--cyan-glow);
+}
+
+/* Cert card shine effect */
+.cert-card {
+  position: relative;
+  overflow: hidden;
+}
+.cert-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255,255,255,0.04) 45%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%) rotate(0deg);
+  transition: transform 0.8s cubic-bezier(0.25,1,0.5,1);
+  pointer-events: none;
+}
+.cert-card:hover::after {
+  transform: translateX(60%) rotate(0deg);
+}
+
+/* Nav active indicator */
+nav.scrolled {
+  box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+}
+[data-theme="light"] nav.scrolled {
+  box-shadow: 0 4px 24px rgba(0,40,100,0.10);
+}
+
+/* Section divider lines */
+.section-label::before {
+  transition: width 0.6s cubic-bezier(0.25,1,0.5,1);
+  width: 0;
+}
+.section-label.visible::before {
+  width: 24px;
+}
+
+/* Hero tag typing cursor blink enhancement */
+.hero-tag {
+  overflow: hidden;
+}
+
+/* Floating animation for scroll indicator */
+.hero-scroll-line {
+  animation: fadeUp 0.8s 1.3s forwards, floatSubtle 3s 2.5s ease-in-out infinite;
+}
+
+/* Project tag hover glow */
+.project-tag {
+  transition: all 0.3s;
+}
+.project-card:hover .project-tag {
+  border-color: var(--border-accent);
+  background: var(--cyan-glow);
+}
+
+/* Smooth page transitions */
+.section-heading {
+  background-size: 200% auto;
+}
+.section-heading:hover {
+  background: linear-gradient(135deg, var(--text), var(--cyan), var(--text));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Experience role highlight icon bounce */
+.rh-icon {
+  transition: transform 0.3s cubic-bezier(0.25,1,0.5,1), background 0.3s;
+}
+.role-highlight:hover .rh-icon {
+  transform: scale(1.15) rotate(-5deg);
+  background: var(--cyan-glow);
+  border-color: var(--border-accent);
+}
+
+/* Nav logo pulse on hover */
+.nav-logo:hover .dot {
+  animation: pulse 0.6s ease-in-out 3;
+  box-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan);
+}
+
 </style>
 </head>
 <body>
@@ -990,6 +1320,9 @@ footer p {
 <!-- CURSOR -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PARTICLE NETWORK CANVAS -->
+<canvas id="particleCanvas"></canvas>
 
 <!-- NAV -->
 <nav>
@@ -1456,7 +1789,7 @@ footer p {
     <h2 class="contact-heading">Let's Build<br><span class="gradient">Something Intelligent</span></h2>
     <p class="contact-sub">Building at the intersection of GenAI architecture, Cloud/DevOps, AI/ML Ops, and collaborative innovation.</p>
     <div class="contact-links">
-      <a href="mailto:ashutosh.nayak@email.com" class="contact-link" aria-label="Send email">
+      <a href="/cdn-cgi/l/email-protection#b6d7c5dec3c2d9c5de98d8d7cfd7ddf6d3dbd7dfda98d5d9db" class="contact-link" aria-label="Send email">
         <span class="cl-icon">✉️</span> Email Me
       </a>
       <a href="https://www.linkedin.com/in/ashutosh-nayak-81an" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Visit LinkedIn profile">
@@ -1474,11 +1807,108 @@ footer p {
   <p>© 2026 Ashutosh Nayak — Designed with scroll-driven soul.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ============================================================
 // UTILITIES
 // ============================================================
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+
+// ============================================================
+// PARTICLE NETWORK BACKGROUND
+// ============================================================
+(function() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [], mouse = { x: -1000, y: -1000 };
+  const PARTICLE_COUNT = 60;
+  const CONNECTION_DIST = 150;
+  const MOUSE_RADIUS = 200;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  document.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.r = Math.random() * 1.5 + 0.5;
+    }
+    update() {
+      // Mouse repulsion
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS) {
+        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.02;
+        this.vx += dx * force;
+        this.vy += dy * force;
+      }
+      this.vx *= 0.99;
+      this.vy *= 0.99;
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0) this.x = w;
+      if (this.x > w) this.x = 0;
+      if (this.y < 0) this.y = h;
+      if (this.y > h) this.y = 0;
+    }
+    draw() {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, isLight ? this.r * 1.5 : this.r, 0, Math.PI * 2);
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--cyan').trim() || '#00F0FF';
+      ctx.globalAlpha = isLight ? 0.55 : 0.6;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    const cyan = getComputedStyle(document.documentElement).getPropertyValue('--cyan').trim() || '#00F0FF';
+    
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+      
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const lineAlphaMultiplier = isLight ? 0.2 : 0.15;
+      const lineWidth = isLight ? 0.8 : 0.5;
+      
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECTION_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = cyan;
+          ctx.globalAlpha = (1 - dist / CONNECTION_DIST) * lineAlphaMultiplier;
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
 
 // ============================================================
 // THEME TOGGLE (LIGHT / DARK)
@@ -1492,6 +1922,8 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
   btn.addEventListener('click', () => {
     const isLight = root.getAttribute('data-theme') === 'light';
+    // Add a quick flash transition
+    document.body.style.transition = 'background 0.5s ease';
     if (isLight) {
       root.removeAttribute('data-theme');
       localStorage.setItem('theme', 'dark');
@@ -1499,11 +1931,12 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
       root.setAttribute('data-theme', 'light');
       localStorage.setItem('theme', 'light');
     }
+    setTimeout(() => { document.body.style.transition = ''; }, 600);
   });
 })();
 
 // ============================================================
-// CUSTOM CURSOR
+// CUSTOM CURSOR WITH MAGNETIC EFFECT
 // ============================================================
 (function() {
   const dot = document.getElementById('cursorDot');
@@ -1518,26 +1951,150 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
   });
 
   function animateRing() {
-    rx += (mx - rx) * 0.15;
-    ry += (my - ry) * 0.15;
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
     ring.style.left = rx - 20 + 'px';
     ring.style.top = ry - 20 + 'px';
     requestAnimationFrame(animateRing);
   }
   animateRing();
 
-  document.querySelectorAll('a, .nav-cta, .project-card, .skill-item, .contact-link, .theme-toggle').forEach(el => {
+  // Magnetic effect for interactive elements
+  const magneticEls = document.querySelectorAll('a, .nav-cta, .project-card, .skill-item, .contact-link, .theme-toggle, .cert-card');
+  magneticEls.forEach(el => {
     el.addEventListener('mouseenter', () => {
       ring.style.width = '56px';
       ring.style.height = '56px';
       ring.style.borderColor = 'rgba(0,240,255,0.7)';
       ring.style.left = (rx - 28) + 'px';
       ring.style.top = (ry - 28) + 'px';
+      dot.style.transform = 'scale(1.5)';
     });
     el.addEventListener('mouseleave', () => {
       ring.style.width = '40px';
       ring.style.height = '40px';
       ring.style.borderColor = 'rgba(0,240,255,0.4)';
+      dot.style.transform = 'scale(1)';
+      el.style.transform = '';
+    });
+
+    // Magnetic pull toward cursor
+    el.addEventListener('mousemove', (e) => {
+      if (el.classList.contains('project-card') || el.classList.contains('cert-card')) return; // skip cards (they have tilt)
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.15;
+      const dy = (e.clientY - cy) * 0.15;
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  });
+})();
+
+// ============================================================
+// ANIMATED NUMBER COUNTERS
+// ============================================================
+(function() {
+  const stats = document.querySelectorAll('.hero-stat .num');
+  let counted = false;
+
+  function animateCount(el) {
+    const raw = el.textContent.trim();
+    const hasPlus = raw.includes('+');
+    const hasPercent = raw.includes('%');
+    const hasX = raw.includes('×');
+    const numStr = raw.replace(/[^0-9.]/g, '');
+    const target = parseFloat(numStr);
+    if (isNaN(target)) return;
+
+    const duration = 2000;
+    const startTime = performance.now();
+    const isDecimal = numStr.includes('.');
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      let current = eased * target;
+      
+      let display;
+      if (isDecimal) {
+        display = current.toFixed(0);
+      } else {
+        display = Math.floor(current).toString();
+      }
+      
+      let suffix = '';
+      if (hasPercent) suffix += '%';
+      if (hasPlus) suffix += '+';
+      if (hasX) suffix = '×';
+      
+      el.textContent = display + suffix;
+      
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = raw; // restore original
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !counted) {
+        counted = true;
+        stats.forEach((s, i) => {
+          setTimeout(() => animateCount(s), i * 150);
+        });
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(s => observer.observe(s));
+})();
+
+// ============================================================
+// 3D TILT EFFECT ON PROJECT CARDS
+// ============================================================
+(function() {
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / centerY * -6;
+      const rotateY = (x - centerX) / centerX * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.25,1,0.5,1)';
+      setTimeout(() => { card.style.transition = ''; }, 500);
+    });
+
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'none';
+    });
+  });
+})();
+
+// ============================================================
+// SKILL ITEM RIPPLE POSITIONING
+// ============================================================
+(function() {
+  document.querySelectorAll('.skill-item').forEach(item => {
+    item.addEventListener('mousemove', e => {
+      const rect = item.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      item.style.setProperty('--ripple-x', x + '%');
+      item.style.setProperty('--ripple-y', y + '%');
     });
   });
 })();
@@ -1593,7 +2150,7 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 })();
 
 // ============================================================
-// PROJECTS — HORIZONTAL SCROLL
+// PROJECTS — HORIZONTAL SCROLL WITH PROGRESS
 // ============================================================
 (function() {
   const outer = document.getElementById('projectsScroll');
@@ -1605,6 +2162,13 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
     const progress = clamp(-rect.top / scrollable, 0, 1);
     const maxTranslate = track.scrollWidth - window.innerWidth + 80;
     track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+    
+    // Parallax on individual cards
+    const cards = track.querySelectorAll('.project-card');
+    cards.forEach((card, i) => {
+      const offset = Math.sin((progress * Math.PI) + i * 0.5) * 10;
+      card.style.marginTop = offset + 'px';
+    });
   }
 
   window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
@@ -1660,12 +2224,74 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.2 });
 
   els.forEach(el => observer.observe(el));
+})();
+
+// ============================================================
+// PARALLAX ON HERO ORBs
+// ============================================================
+(function() {
+  const orbs = document.querySelectorAll('.hero-mesh .orb');
+  let ticking = false;
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.pageYOffset;
+        orbs.forEach((orb, i) => {
+          const speed = (i + 1) * 0.08;
+          orb.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+// ============================================================
+// NAV SCROLL SHADOW
+// ============================================================
+(function() {
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+})();
+
+// ============================================================
+// HERO TAG TYPING EFFECT
+// ============================================================
+(function() {
+  const tag = document.querySelector('.hero-tag');
+  if (!tag) return;
+  const blink = tag.querySelector('.blink');
+  const textNode = tag.childNodes[tag.childNodes.length - 1];
+  const fullText = textNode ? textNode.textContent.trim() : '';
+  if (!fullText) return;
+
+  textNode.textContent = '';
+  let i = 0;
+
+  function type() {
+    if (i < fullText.length) {
+      textNode.textContent = fullText.slice(0, i + 1);
+      i++;
+      setTimeout(type, 50 + Math.random() * 40);
+    }
+  }
+  // Start typing after the fadeUp animation completes
+  setTimeout(type, 1200);
 })();
 
 // ============================================================
@@ -1702,6 +2328,22 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       toggle.classList.remove('active');
     });
   });
+})();
+
+// ============================================================
+// SCROLL PROGRESS BAR
+// ============================================================
+(function() {
+  const bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--amber));z-index:10001;transition:width 0.1s;width:0;pointer-events:none;';
+  document.body.appendChild(bar);
+  
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    bar.style.width = progress + '%';
+  }, { passive: true });
 })();
 </script>
 </body>
