@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ashutosh Nayak — GenAI Architect & Cloud/DevOps Engineer</title>
+<meta name="description" content="Ashutosh Nayak — GenAI Architect & Cloud/DevOps Engineer specializing in RAG pipelines, Agentic AI, AWS infrastructure, and Terraform automation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -91,7 +92,7 @@
 [data-theme="light"] .skill-category:hover { border-color: rgba(0,128,204,0.25); }
 [data-theme="light"] .skill-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); color: var(--text-dim); }
 [data-theme="light"] .skill-item:hover { background: var(--cyan-glow); border-color: rgba(0,128,204,0.2); color: var(--cyan); }
-[data-theme="light"] .cert-card { background: #fff; border-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .cert-card { background: #fff; border-color: rgba(0,0,0,0.08); color: var(--text); }
 [data-theme="light"] .cert-card:hover { border-color: var(--amber); }
 [data-theme="light"] .contact-link { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); color: var(--text); }
 [data-theme="light"] .contact-link:hover { border-color: var(--cyan); background: var(--cyan-glow); }
@@ -170,7 +171,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: 9000;
   pointer-events: none;
   opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -255,10 +256,11 @@ nav {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 120px 40px 80px;
+  padding: 120px 40px 40px;
 }
 
 /* Mesh gradient background */
@@ -356,6 +358,7 @@ nav {
   display: block;
   background: linear-gradient(135deg, var(--cyan), var(--amber));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -403,11 +406,11 @@ nav {
 }
 
 .hero-scroll-line {
-  position: absolute;
-  bottom: 40px; left: 50%;
-  transform: translateX(-50%);
+  margin-top: auto;
+  align-self: center;
   display: flex; flex-direction: column;
   align-items: center; gap: 12px;
+  padding-top: 48px;
   opacity: 0;
   animation: fadeUp 0.8s 1.3s forwards;
 }
@@ -771,41 +774,67 @@ nav {
 /* Certifications */
 .certs-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
   margin-top: 48px;
 }
 .cert-card {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  display: flex; align-items: flex-start; gap: 16px;
+  border-radius: 20px;
+  padding: 28px;
+  display: flex; align-items: center; gap: 20px;
   opacity: 0; transform: translateY(30px);
-  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.25,1,0.5,1), border-color 0.3s;
+  transition: opacity 0.6s, transform 0.6s cubic-bezier(0.25,1,0.5,1), border-color 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  cursor: pointer;
 }
 .cert-card.visible { opacity: 1; transform: translateY(0); }
-.cert-card:hover { border-color: var(--amber); }
+.cert-card:hover { border-color: var(--amber); box-shadow: 0 8px 32px rgba(255,184,0,0.08); transform: translateY(-3px); }
 .cert-badge {
-  width: 48px; height: 48px;
-  border-radius: 12px;
-  background: var(--amber-glow);
-  border: 1px solid rgba(255,184,0,0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
+  width: 72px; height: 72px;
   flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.cert-badge img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 4px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  transition: transform 0.3s;
+}
+.cert-card:hover .cert-badge img {
+  transform: scale(1.08);
+}
+.cert-info {
+  flex: 1;
+  min-width: 0;
 }
 .cert-info h4 {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-bottom: 4px;
+  color: var(--text);
 }
 .cert-info p {
   font-size: 12px;
   color: var(--text-muted);
+  margin-bottom: 6px;
 }
+.cert-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyan);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.cert-card:hover .cert-verify { opacity: 1; }
 
 /* ========== CONTACT ========== */
 .contact-section {
@@ -830,6 +859,7 @@ nav {
 .contact-heading .gradient {
   background: linear-gradient(135deg, var(--cyan), var(--amber), var(--magenta));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .contact-sub {
@@ -890,11 +920,50 @@ footer p {
   letter-spacing: 0.02em;
 }
 
+/* ========== MOBILE MENU TOGGLE ========== */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+.mobile-menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.mobile-menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+.mobile-menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 900px) {
-  .hero { padding: 120px 24px 80px; }
-  nav .nav-links a:not(.nav-cta) { display: none; }
-  nav .nav-links { gap: 12px; }
+  .hero { padding: 120px 24px 40px; }
+  .mobile-menu-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--bg-elevated);
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-120%);
+    transition: transform 0.3s cubic-bezier(0.25,1,0.5,1);
+    z-index: 999;
+  }
+  .nav-links.mobile-open { transform: translateY(0); }
+  .nav-links a { display: block !important; font-size: 16px; }
+  nav .nav-links { gap: 16px; }
   .exp-inner { grid-template-columns: 1fr; gap: 32px; }
   .exp-timeline-nav { flex-direction: row; overflow-x: auto; }
   .exp-nav-item { border-left: none; border-bottom: 2px solid var(--border); padding: 12px 16px; white-space: nowrap; }
@@ -925,6 +994,9 @@ footer p {
 <!-- NAV -->
 <nav>
   <div class="nav-logo"><span class="dot"></span> ashutosh.dev</div>
+  <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
@@ -950,7 +1022,7 @@ footer p {
   <div class="hero-content">
     <div class="hero-tag">
       <span class="blink"></span>
-      AVAILABLE FOR OPPORTUNITIES
+      EXPLORING WHAT'S NEXT
     </div>
     <h1 class="hero-name">
       <span class="first">Ashutosh</span>
@@ -1054,11 +1126,11 @@ footer p {
           </div>
           <div class="exp-detail" data-idx="1">
             <div class="role-title">Full Stack & Cloud Platform Engineer</div>
-            <div class="role-company">Cozentus Technologies — PSA BDP Project</div>
+            <div class="role-company">Cozentus Technologies, Bhubaneswar</div>
             <div class="role-highlights">
               <div class="role-highlight">
                 <div class="rh-icon">🚢</div>
-                <div class="rh-text">Delivered an <strong>AI-powered vessel tracking system</strong> for PSA BDP — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.</div>
+                <div class="rh-text">Delivered an <strong>AI-powered vessel tracking system</strong> for 3PL — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">☁️</div>
@@ -1139,7 +1211,7 @@ footer p {
           <div class="pv-label">Supply Chain AI</div>
         </div>
         <div class="project-card-body">
-          <h3>Track & Trace — PSA BDP</h3>
+          <h3>Track & Trace — 3PL</h3>
           <p>Real-time vessel visibility for 15,000+ ships globally. ML-powered predictive ETAs with AIS feeds, geofencing, and interactive global mapping.</p>
           <div class="project-tags">
             <span class="project-tag">ML</span>
@@ -1186,7 +1258,7 @@ footer p {
           </div>
         </div>
       </div>
-      <!-- Card 5 -->
+      <!-- Card 6 -->
       <div class="project-card">
         <div class="project-card-visual">
           <div class="pv-bg" style="background: linear-gradient(135deg, #280a0a, #470d1a, #330514);"></div>
@@ -1329,27 +1401,46 @@ footer p {
       <span class="section-label">Certifications</span>
     </div>
     <div class="certs-row" id="certsRow">
-      <div class="cert-card">
-        <div class="cert-badge">🏅</div>
+      <a href="https://www.credly.com/badges/50474776-14fd-448c-9065-e9afd8b5f8c1/public_url" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="Verify AWS Certified GenAI Developer Professional Early Adopter on Credly">
+        <div class="cert-badge">
+          <img src="assets/badges/aws-certified-generative-ai-developer-professional-EA.png" alt="AWS Certified Generative AI Developer - Professional Early Adopter badge" loading="lazy">
+        </div>
         <div class="cert-info">
           <h4>AWS Certified GenAI Developer — Professional Early Adopter</h4>
           <p>Amazon Web Services</p>
+          <span class="cert-verify">↗ Verify on Credly</span>
         </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-badge">🏅</div>
+      </a>
+      <a href="https://www.credly.com/badges/2690d4e9-b081-4710-8dba-c2b5a4563804/public_url" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="Verify AWS Certified GenAI Developer Professional on Credly">
+        <div class="cert-badge">
+          <img src="assets/badges/aws-certified-generative-ai-developer-professional.png" alt="AWS Certified Generative AI Developer - Professional badge" loading="lazy">
+        </div>
+        <div class="cert-info">
+          <h4>AWS Certified GenAI Developer — Professional</h4>
+          <p>Amazon Web Services</p>
+          <span class="cert-verify">↗ Verify on Credly</span>
+        </div>
+      </a>
+      <a href="https://www.credly.com/badges/b8b0dd03-129a-41d5-b0fa-bb38bbf9d6fb/public_url" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="Verify AWS Certified Machine Learning Specialty on Credly">
+        <div class="cert-badge">
+          <img src="assets/badges/aws-certified-machine-learning-specialty.png" alt="AWS Certified Machine Learning - Specialty badge" loading="lazy">
+        </div>
         <div class="cert-info">
           <h4>AWS Certified Machine Learning — Specialty</h4>
           <p>Amazon Web Services</p>
+          <span class="cert-verify">↗ Verify on Credly</span>
         </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-badge">🏅</div>
+      </a>
+      <a href="https://www.credly.com/badges/aefab590-c7db-46f8-a15f-a3bcd2123d5e/public_url" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="Verify AWS Certified Developer Associate on Credly">
+        <div class="cert-badge">
+          <img src="assets/badges/aws-certified-developer-associate.png" alt="AWS Certified Developer - Associate badge" loading="lazy">
+        </div>
         <div class="cert-info">
           <h4>AWS Certified Developer — Associate</h4>
           <p>Amazon Web Services</p>
+          <span class="cert-verify">↗ Verify on Credly</span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1363,15 +1454,15 @@ footer p {
   <div class="contact-inner">
     <span class="section-label">Contact</span>
     <h2 class="contact-heading">Let's Build<br><span class="gradient">Something Intelligent</span></h2>
-    <p class="contact-sub">Open to GenAI architecture roles, Cloud/DevOps engineering, AI/ML Ops consulting, and collaborative innovation projects.</p>
+    <p class="contact-sub">Building at the intersection of GenAI architecture, Cloud/DevOps, AI/ML Ops, and collaborative innovation.</p>
     <div class="contact-links">
-      <a href="mailto:ashutosh.nayak.formal@gmail.com" class="contact-link">
+      <a href="mailto:ashutosh.nayak@email.com" class="contact-link" aria-label="Send email">
         <span class="cl-icon">✉️</span> Email Me
       </a>
-      <a href="https://www.linkedin.com/in/ashutosh-nayak-81an" target="_blank" class="contact-link">
+      <a href="https://www.linkedin.com/in/ashutosh-nayak-81an" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Visit LinkedIn profile">
         <span class="cl-icon">💼</span> LinkedIn
       </a>
-      <a href="tel:+919778108181" class="contact-link">
+      <a href="tel:+919778108181" class="contact-link" aria-label="Call phone number">
         <span class="cl-icon">📱</span> +91 977 810 8181
       </a>
     </div>
@@ -1585,10 +1676,33 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
     e.preventDefault();
     const target = document.querySelector(a.getAttribute('href'));
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   });
 });
+
+// ============================================================
+// MOBILE HAMBURGER MENU
+// ============================================================
+(function() {
+  const toggle = document.getElementById('mobileMenuToggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (!toggle || !navLinks) return;
+
+  toggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+    toggle.classList.toggle('active');
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('mobile-open');
+      toggle.classList.remove('active');
+    });
+  });
+})();
 </script>
 </body>
 </html>
