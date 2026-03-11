@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ashutosh Nayak — GenAI Architect & Cloud/DevOps Engineer</title>
-<meta name="description" content="Ashutosh Nayak — GenAI Architect & Cloud/DevOps Engineer specializing in RAG pipelines, Agentic AI, AWS infrastructure, and Terraform automation.">
+<title>Ashutosh Nayak — GenAI Developer & Cloud/DevOps Engineer</title>
+<meta name="description" content="Ashutosh Nayak — GenAI Developer & Cloud/DevOps Engineer specializing in RAG pipelines, Agentic AI, AWS infrastructure, and Terraform automation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -466,9 +466,53 @@ nav {
 
 .hero-content {
   position: relative; z-index: 2;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+.hero-photo {
+  flex-shrink: 0;
+  position: relative;
+  width: 380px;
+  opacity: 0;
+  transform: translateX(40px) scale(0.95);
+  animation: heroPhotoIn 1.2s 0.6s cubic-bezier(0.25,1,0.5,1) forwards;
+}
+@keyframes heroPhotoIn {
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+.hero-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s;
+}
+.hero-photo:hover img {
+  transform: translateY(-4px);
+}
+/* Subtle glow ring behind photo */
+.hero-photo::before {
+  content: '';
+  position: absolute;
+  top: 15%; left: 10%;
+  width: 80%; height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,240,255,0.05) 0%, transparent 70%);
+  filter: blur(50px);
+  z-index: -1;
+  animation: orbFloat 15s infinite ease-in-out;
+}
+/* Light mode adjustments */
+[data-theme="light"] .hero-photo::before {
+  background: radial-gradient(circle, rgba(0,102,204,0.06) 0%, transparent 70%);
 }
 
 .hero-tag {
@@ -1098,6 +1142,11 @@ footer p {
 /* ========== RESPONSIVE ========== */
 @media (max-width: 900px) {
   .hero { padding: 120px 24px 40px; }
+  .hero-content { flex-direction: column-reverse; gap: 20px; text-align: center; }
+  .hero-photo { width: 260px; }
+  .hero-photo::before { display: none; }
+  .hero-tag { margin-left: auto; margin-right: auto; }
+  .hero-stats { justify-content: center; }
   .mobile-menu-toggle { display: flex; }
   .nav-links {
     position: fixed;
@@ -1134,6 +1183,7 @@ footer p {
   .skills-grid { grid-template-columns: 1fr; }
   .certs-row { grid-template-columns: 1fr; }
   .contact-links { flex-direction: column; align-items: center; }
+  .hero-photo { width: 220px; }
 }
 /* ========== PARTICLE CANVAS ========== */
 #particleCanvas {
@@ -1313,6 +1363,117 @@ nav.scrolled {
   box-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan);
 }
 
+/* ========== LANGUAGE SWITCHER ========== */
+.lang-switcher {
+  position: relative;
+  z-index: 1002;
+}
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.03em;
+}
+.lang-btn:hover {
+  border-color: var(--cyan);
+  color: var(--text);
+  background: var(--cyan-glow);
+}
+.lang-btn .lang-flag {
+  font-size: 16px;
+  line-height: 1;
+}
+.lang-btn .lang-arrow {
+  font-size: 8px;
+  transition: transform 0.3s;
+  color: var(--text-muted);
+}
+.lang-switcher.open .lang-btn .lang-arrow {
+  transform: rotate(180deg);
+}
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.96);
+  transition: all 0.25s cubic-bezier(0.25,1,0.5,1);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  backdrop-filter: blur(20px);
+}
+[data-theme="light"] .lang-dropdown {
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(0,40,100,0.12);
+}
+.lang-switcher.open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.lang-option:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.lang-option.active {
+  background: var(--cyan-glow);
+  color: var(--cyan);
+  border: 1px solid var(--border-accent);
+}
+.lang-option .lang-flag {
+  font-size: 18px;
+}
+.lang-option .lang-name {
+  flex: 1;
+}
+.lang-option .lang-check {
+  font-size: 12px;
+  color: var(--cyan);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.lang-option.active .lang-check {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .lang-switcher { order: -1; }
+  .lang-dropdown {
+    right: auto;
+    left: 0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1331,15 +1492,44 @@ nav.scrolled {
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
+    <a href="#about" data-i18n="nav_about">About</a>
+    <a href="#experience" data-i18n="nav_experience">Experience</a>
+    <a href="#projects" data-i18n="nav_projects">Projects</a>
+    <a href="#skills" data-i18n="nav_skills">Skills</a>
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" id="langBtn" aria-label="Change language">
+        <span class="lang-flag" id="langFlag">🇬🇧</span>
+        <span id="langCode">EN</span>
+        <span class="lang-arrow">▼</span>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-option active" data-lang="en">
+          <span class="lang-flag">🇬🇧</span>
+          <span class="lang-name">English</span>
+          <span class="lang-check">✓</span>
+        </button>
+        <button class="lang-option" data-lang="de">
+          <span class="lang-flag">🇩🇪</span>
+          <span class="lang-name">Deutsch</span>
+          <span class="lang-check">✓</span>
+        </button>
+        <button class="lang-option" data-lang="nl">
+          <span class="lang-flag">🇳🇱</span>
+          <span class="lang-name">Nederlands</span>
+          <span class="lang-check">✓</span>
+        </button>
+        <button class="lang-option" data-lang="pl">
+          <span class="lang-flag">🇵🇱</span>
+          <span class="lang-name">Polski</span>
+          <span class="lang-check">✓</span>
+        </button>
+      </div>
+    </div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
       <span class="icon-moon">🌙</span>
       <span class="icon-sun">☀️</span>
     </button>
-    <a href="#contact" class="nav-cta">Let's Talk</a>
+    <a href="#contact" class="nav-cta" data-i18n="nav_contact">Let's Talk</a>
   </div>
 </nav>
 
@@ -1347,49 +1537,53 @@ nav.scrolled {
 <section class="hero">
   <div class="hero-mesh">
     <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </div>
   <div class="hero-grid"></div>
 
   <div class="hero-content">
+    <div class="hero-text">
     <div class="hero-tag">
       <span class="blink"></span>
-      EXPLORING WHAT'S NEXT
+      <span data-i18n="hero_tag">EXPLORING WHAT'S NEXT</span>
     </div>
     <h1 class="hero-name">
       <span class="first">Ashutosh</span>
       <span class="last">Nayak</span>
     </h1>
-    <p class="hero-role">
-      <strong>GenAI Architect</strong> & <strong>Cloud/DevOps Engineer</strong> — building intelligent systems with LLMs, Agentic AI, and RAG pipelines while architecting scalable cloud infrastructure with <strong>Terraform</strong>, CI/CD, and <strong>AWS</strong>.
+    <p class="hero-role" data-i18n-html="hero_role">
+      <strong>GenAI Developer</strong> & <strong>Cloud/DevOps Engineer</strong> — building intelligent systems with LLMs, Agentic AI, and RAG pipelines while architecting scalable cloud infrastructure with <strong>Terraform</strong>, CI/CD, and <strong>AWS</strong>.
     </p>
     <div class="hero-stats">
       <div class="hero-stat">
         <span class="num">5+</span>
-        <span class="lbl">Years Experience</span>
+        <span class="lbl" data-i18n="stat_experience">Years Experience</span>
       </div>
       <div class="hero-stat">
         <span class="num">99%+</span>
-        <span class="lbl">Platform Uptime</span>
+        <span class="lbl" data-i18n="stat_uptime">Platform Uptime</span>
       </div>
       <div class="hero-stat">
         <span class="num">15+</span>
-        <span class="lbl">AI/Cloud Workshops</span>
+        <span class="lbl" data-i18n="stat_workshops">AI/Cloud Workshops</span>
       </div>
       <div class="hero-stat">
-        <span class="num">4×</span>
-        <span class="lbl">CEO Bonus Awarded</span>
+        <span class="num">4</span>
+        <span class="lbl" data-i18n="stat_bonus">CEO Bonus Awarded</span>
       </div>
       <div class="hero-stat">
         <span class="num">95%</span>
-        <span class="lbl">Project Success Rate</span>
+        <span class="lbl" data-i18n="stat_success">Project Success Rate</span>
       </div>
+    </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/photos/Ghibli.png" alt="Ashutosh Nayak" loading="eager">
     </div>
   </div>
 
   <div class="hero-scroll-line">
-    <span>Scroll</span>
+    <span data-i18n="hero_scroll">Scroll</span>
     <div class="scroll-line"></div>
   </div>
 </section>
@@ -1397,8 +1591,8 @@ nav.scrolled {
 <!-- ABOUT — WORD-BY-WORD REVEAL -->
 <section class="about-section" id="about">
   <div class="about-inner">
-    <span class="section-label">About</span>
-    <h2 class="section-heading">The Short Version</h2>
+    <span class="section-label" data-i18n="about_label">About</span>
+    <h2 class="section-heading" data-i18n="about_heading">The Short Version</h2>
     <div class="about-text-reveal" id="aboutReveal"></div>
   </div>
 </section>
@@ -1406,8 +1600,8 @@ nav.scrolled {
 <!-- EXPERIENCE — STICKY CROSSFADE -->
 <section class="exp-section" id="experience">
   <div class="exp-header">
-    <span class="section-label">Experience</span>
-    <h2 class="section-heading">Where I've Built Things</h2>
+    <span class="section-label" data-i18n="exp_label">Experience</span>
+    <h2 class="section-heading" data-i18n="exp_heading">Where I've Built Things</h2>
   </div>
   <div class="exp-scroll-container" id="expScroll">
     <div class="exp-sticky">
@@ -1415,71 +1609,71 @@ nav.scrolled {
         <div class="exp-timeline-nav">
           <div class="exp-nav-item active" data-idx="0">
             <div class="exp-period">Jun 2023 → Present</div>
-            <div class="exp-title">Technical Manager Lead</div>
+            <div class="exp-title" data-i18n="exp_title_1">Technical Manager Lead</div>
           </div>
           <div class="exp-nav-item" data-idx="1">
             <div class="exp-period">Jun 2021 → Mar 2023</div>
-            <div class="exp-title">Full Stack Developer</div>
+            <div class="exp-title" data-i18n="exp_title_2">Full Stack Developer</div>
           </div>
         </div>
         <div class="exp-detail-panel">
           <div class="exp-detail active" data-idx="0">
-            <div class="role-title">Technical Manager — Lead Innovation</div>
+            <div class="role-title" data-i18n="role_title_1">Technical Manager — Lead Innovation</div>
             <div class="role-company">Cozentus Technologies, Bhubaneswar</div>
             <div class="role-highlights">
               <div class="role-highlight">
                 <div class="rh-icon">🤖</div>
-                <div class="rh-text">Architected a <strong>RAG chatbot with Agentic AI & AWS Bedrock</strong>, integrating tool calling for dynamic task execution across enterprise workflows.</div>
+                <div class="rh-text" data-i18n-html="rh_1_1">Designed and Developed a <strong>RAG chatbot with Agentic AI & AWS Bedrock</strong>, integrating tool calling for dynamic task execution across enterprise workflows.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">🕷️</div>
-                <div class="rh-text">Built a <strong>self-healing Agentic Scraping solution</strong> with MCP server integration — natural language interaction, email/Excel logging, and anomaly detection.</div>
+                <div class="rh-text" data-i18n-html="rh_1_2">Built a <strong>self-healing Agentic Scraping solution</strong> with MCP server integration — natural language interaction, email/Excel logging, and anomaly detection.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">☁️</div>
-                <div class="rh-text">Architected <strong>AWS cloud infrastructure</strong> for enterprise apps using EC2, VPC, S3, Lambda, API Gateway, CloudWatch, and DynamoDB with <strong>99%+ uptime</strong>.</div>
+                <div class="rh-text" data-i18n-html="rh_1_3">Designed <strong>AWS cloud infrastructure</strong> for enterprise apps using EC2, VPC, S3, Lambda, API Gateway, CloudWatch, and DynamoDB with <strong>99%+ uptime</strong>.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">⚙️</div>
-                <div class="rh-text">Designed an <strong>n8n + Terraform automation pipeline</strong> for on-demand IaC provisioning, cutting deployment time by <strong>80%</strong>. Standardized environments with <strong>Terraform & Ansible</strong>.</div>
+                <div class="rh-text" data-i18n-html="rh_1_4">Designed an <strong>n8n + Terraform automation pipeline</strong> for on-demand IaC provisioning, cutting deployment time by <strong>80%</strong>. Standardized environments with <strong>Terraform & Ansible</strong>.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">📉</div>
-                <div class="rh-text">Drove <strong>cloud cost optimization</strong> with AWS Cost Explorer, resource right-sizing, and reserved instances. Established <strong>proactive CloudWatch monitoring</strong> reducing MTTR for critical incidents.</div>
+                <div class="rh-text" data-i18n-html="rh_1_5">Drove <strong>cloud cost optimization</strong> with AWS Cost Explorer, resource right-sizing, and reserved instances. Established <strong>proactive CloudWatch monitoring</strong> reducing MTTR for critical incidents.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">🎓</div>
-                <div class="rh-text">Led <strong>15+ cloud & GenAI workshops</strong> for 20+ developers, accelerating organizational adoption of cloud-native AI practices.</div>
+                <div class="rh-text" data-i18n-html="rh_1_6">Led <strong>15+ cloud & GenAI workshops</strong> for 20+ developers, accelerating organizational adoption of cloud-native AI practices.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">🏆</div>
-                <div class="rh-text">Awarded <strong>CEO Bonus for 4 consecutive years</strong> for delivering high-impact innovative solutions with a <strong>95% project success rate</strong>.</div>
+                <div class="rh-text" data-i18n-html="rh_1_7">Awarded <strong>CEO Bonus for 4 consecutive years</strong> for delivering high-impact innovative solutions with a <strong>95% project success rate</strong>.</div>
               </div>
             </div>
           </div>
           <div class="exp-detail" data-idx="1">
-            <div class="role-title">Full Stack & Cloud Platform Engineer</div>
+            <div class="role-title" data-i18n="role_title_2">Full Stack & Cloud Platform Engineer</div>
             <div class="role-company">Cozentus Technologies, Bhubaneswar</div>
             <div class="role-highlights">
               <div class="role-highlight">
                 <div class="rh-icon">🚢</div>
-                <div class="rh-text">Delivered an <strong>AI-powered vessel tracking system</strong> for 3PL — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.</div>
+                <div class="rh-text" data-i18n-html="rh_2_1">Delivered an <strong>AI-powered vessel tracking system</strong> for 3PL — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">☁️</div>
-                <div class="rh-text">Designed and managed <strong>AWS cloud hosting infrastructure</strong> (EC2, S3, RDS, Lambda, CloudWatch) ensuring <strong>high availability and fault tolerance</strong> for mission-critical supply chain apps.</div>
+                <div class="rh-text" data-i18n-html="rh_2_2">Designed and managed <strong>AWS cloud hosting infrastructure</strong> (EC2, S3, RDS, Lambda, CloudWatch) ensuring <strong>high availability and fault tolerance</strong> for mission-critical supply chain apps.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">🔄</div>
-                <div class="rh-text">Built and maintained <strong>CI/CD pipelines for 10+ applications</strong>, automating build, test, and deployment. Configured <strong>VPC, security groups, load balancers, and DNS</strong>.</div>
+                <div class="rh-text" data-i18n-html="rh_2_3">Built and maintained <strong>CI/CD pipelines for 10+ applications</strong>, automating build, test, and deployment. Configured <strong>VPC, security groups, load balancers, and DNS</strong>.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">🧠</div>
-                <div class="rh-text">Enhanced ETA accuracy with <strong>ML algorithms & LLM-assisted reasoning</strong> analyzing schedules, port congestion, and event data.</div>
+                <div class="rh-text" data-i18n-html="rh_2_4">Enhanced ETA accuracy with <strong>ML algorithms & LLM-assisted reasoning</strong> analyzing schedules, port congestion, and event data.</div>
               </div>
               <div class="role-highlight">
                 <div class="rh-icon">📊</div>
-                <div class="rh-text">Integrated <strong>GenAI-powered analytics</strong> (Qlik, ThoughtSpot, RAG dashboards) into 5+ apps, improving data access for <strong>300+ global users</strong>.</div>
+                <div class="rh-text" data-i18n-html="rh_2_5">Integrated <strong>GenAI-powered analytics</strong> (Qlik, ThoughtSpot, RAG dashboards) into 5+ apps, improving data access for <strong>300+ global users</strong>.</div>
               </div>
             </div>
           </div>
@@ -1492,8 +1686,8 @@ nav.scrolled {
 <!-- PROJECTS — HORIZONTAL SCROLL -->
 <section class="projects-section" id="projects">
   <div class="projects-header">
-    <span class="section-label">Projects</span>
-    <h2 class="section-heading">Featured Work</h2>
+    <span class="section-label" data-i18n="projects_label">Projects</span>
+    <h2 class="section-heading" data-i18n="projects_heading">Featured Work</h2>
   </div>
 </section>
 <div class="projects-scroll-outer" id="projectsScroll">
@@ -1507,8 +1701,8 @@ nav.scrolled {
           <div class="pv-label">Agentic AI</div>
         </div>
         <div class="project-card-body">
-          <h3>RAG Chatbot with Agentic AI</h3>
-          <p>Enterprise-grade conversational AI powered by AWS Bedrock with tool calling for dynamic task execution, prompt engineering, and LLM fine-tuning.</p>
+          <h3 data-i18n="proj_1_title">RAG Chatbot with Agentic AI</h3>
+          <p data-i18n="proj_1_desc">Enterprise-grade conversational AI powered by AWS Bedrock with tool calling for dynamic task execution, prompt engineering, and LLM fine-tuning.</p>
           <div class="project-tags">
             <span class="project-tag">AWS Bedrock</span>
             <span class="project-tag">RAG</span>
@@ -1526,8 +1720,8 @@ nav.scrolled {
           <div class="pv-label">MCP Server</div>
         </div>
         <div class="project-card-body">
-          <h3>Agentic Scraping + MCP</h3>
-          <p>Self-healing web scraping with natural language interaction. MCP server integrates email, Excel logging, anomaly detection, and database updates in real-time.</p>
+          <h3 data-i18n="proj_2_title">Agentic Scraping + MCP</h3>
+          <p data-i18n="proj_2_desc">Self-healing web scraping with natural language interaction. MCP server integrates email, Excel logging, anomaly detection, and database updates in real-time.</p>
           <div class="project-tags">
             <span class="project-tag">MCP</span>
             <span class="project-tag">NLP</span>
@@ -1544,8 +1738,8 @@ nav.scrolled {
           <div class="pv-label">Supply Chain AI</div>
         </div>
         <div class="project-card-body">
-          <h3>Track & Trace — 3PL</h3>
-          <p>Real-time vessel visibility for 15,000+ ships globally. ML-powered predictive ETAs with AIS feeds, geofencing, and interactive global mapping.</p>
+          <h3 data-i18n="proj_3_title">Track & Trace — 3PL</h3>
+          <p data-i18n="proj_3_desc">Real-time vessel visibility for 15,000+ ships globally. ML-powered predictive ETAs with AIS feeds, geofencing, and interactive global mapping.</p>
           <div class="project-tags">
             <span class="project-tag">ML</span>
             <span class="project-tag">AIS</span>
@@ -1562,8 +1756,8 @@ nav.scrolled {
           <div class="pv-label">Cloud Infrastructure</div>
         </div>
         <div class="project-card-body">
-          <h3>Enterprise Cloud Hosting Platform</h3>
-          <p>Centralized AWS hosting platform serving as backbone for multiple enterprise apps. End-to-end IaC with Terraform, automated monitoring, self-healing, and alerting for rapid incident response.</p>
+          <h3 data-i18n="proj_4_title">Enterprise Cloud Hosting Platform</h3>
+          <p data-i18n="proj_4_desc">Centralized AWS hosting platform serving as backbone for multiple enterprise apps. End-to-end IaC with Terraform, automated monitoring, self-healing, and alerting for rapid incident response.</p>
           <div class="project-tags">
             <span class="project-tag">AWS</span>
             <span class="project-tag">Terraform</span>
@@ -1581,8 +1775,8 @@ nav.scrolled {
           <div class="pv-label">DevOps AI</div>
         </div>
         <div class="project-card-body">
-          <h3>n8n Terraform Automation</h3>
-          <p>Automation pipeline enabling on-demand Terraform script generation, reducing infrastructure provisioning time by 80% across the engineering org.</p>
+          <h3 data-i18n="proj_5_title">n8n Terraform Automation</h3>
+          <p data-i18n="proj_5_desc">Automation pipeline enabling on-demand Terraform script generation, reducing infrastructure provisioning time by 80% across the engineering org.</p>
           <div class="project-tags">
             <span class="project-tag">n8n</span>
             <span class="project-tag">Terraform</span>
@@ -1599,8 +1793,8 @@ nav.scrolled {
           <div class="pv-label">IoT / Hackathon</div>
         </div>
         <div class="project-card-body">
-          <h3>Smart Drainage System — Winner</h3>
-          <p>Smart Odisha Hackathon winning project: IoT-based smart drainage system with flood detection and real-time management for the Govt. of Odisha.</p>
+          <h3 data-i18n="proj_6_title">Smart Drainage System — Winner</h3>
+          <p data-i18n="proj_6_desc">Smart Odisha Hackathon winning project: IoT-based smart drainage system with flood detection and real-time management for the Govt. of Odisha.</p>
           <div class="project-tags">
             <span class="project-tag">IoT</span>
             <span class="project-tag">Hackathon Winner</span>
@@ -1615,14 +1809,14 @@ nav.scrolled {
 <!-- SKILLS & CERTS -->
 <section class="skills-section" id="skills">
   <div class="skills-inner">
-    <span class="section-label">Skills & Certifications</span>
-    <h2 class="section-heading">The Arsenal</h2>
+    <span class="section-label" data-i18n="skills_label">Skills & Certifications</span>
+    <h2 class="section-heading" data-i18n="skills_heading">The Arsenal</h2>
 
     <div class="skills-grid" id="skillsGrid">
       <div class="skill-category">
         <div class="skill-cat-header">
           <div class="skill-cat-icon" style="background: var(--cyan-glow); border: 1px solid rgba(0,240,255,0.15);">🧠</div>
-          <div class="skill-cat-title">GenAI Stack</div>
+          <div class="skill-cat-title" data-i18n="skill_genai">GenAI Stack</div>
         </div>
         <div class="skill-items">
           <span class="skill-item">RAG Pipelines</span>
@@ -1640,7 +1834,7 @@ nav.scrolled {
       <div class="skill-category">
         <div class="skill-cat-header">
           <div class="skill-cat-icon" style="background: var(--amber-glow); border: 1px solid rgba(255,184,0,0.15);">☁️</div>
-          <div class="skill-cat-title">AWS Cloud</div>
+          <div class="skill-cat-title" data-i18n="skill_aws">AWS Cloud</div>
         </div>
         <div class="skill-items">
           <span class="skill-item">EC2 / ECS / EKS</span>
@@ -1662,7 +1856,7 @@ nav.scrolled {
       <div class="skill-category">
         <div class="skill-cat-header">
           <div class="skill-cat-icon" style="background: rgba(0,232,143,0.1); border: 1px solid rgba(0,232,143,0.15);">🔧</div>
-          <div class="skill-cat-title">DevOps & Infrastructure</div>
+          <div class="skill-cat-title" data-i18n="skill_devops">DevOps & Infrastructure</div>
         </div>
         <div class="skill-items">
           <span class="skill-item">Terraform</span>
@@ -1682,7 +1876,7 @@ nav.scrolled {
       <div class="skill-category">
         <div class="skill-cat-header">
           <div class="skill-cat-icon" style="background: rgba(255,60,172,0.1); border: 1px solid rgba(255,60,172,0.15);">💻</div>
-          <div class="skill-cat-title">Languages & Frameworks</div>
+          <div class="skill-cat-title" data-i18n="skill_langs">Languages & Frameworks</div>
         </div>
         <div class="skill-items">
           <span class="skill-item">Python</span>
@@ -1700,7 +1894,7 @@ nav.scrolled {
       <div class="skill-category">
         <div class="skill-cat-header">
           <div class="skill-cat-icon" style="background: rgba(100,140,255,0.1); border: 1px solid rgba(100,140,255,0.15);">📈</div>
-          <div class="skill-cat-title">AI / ML & Analytics</div>
+          <div class="skill-cat-title" data-i18n="skill_aiml">AI / ML & Analytics</div>
         </div>
         <div class="skill-items">
           <span class="skill-item">Deep Learning</span>
@@ -1714,7 +1908,7 @@ nav.scrolled {
       <div class="skill-category">
         <div class="skill-cat-header">
           <div class="skill-cat-icon" style="background: rgba(255,100,50,0.1); border: 1px solid rgba(255,100,50,0.15);">🛡️</div>
-          <div class="skill-cat-title">Security & Networking</div>
+          <div class="skill-cat-title" data-i18n="skill_security">Security & Networking</div>
         </div>
         <div class="skill-items">
           <span class="skill-item">IAM Policies</span>
@@ -1731,7 +1925,7 @@ nav.scrolled {
 
     <!-- Certs -->
     <div style="margin-top: 64px;">
-      <span class="section-label">Certifications</span>
+      <span class="section-label" data-i18n="certs_label">Certifications</span>
     </div>
     <div class="certs-row" id="certsRow">
       <a href="https://www.credly.com/badges/50474776-14fd-448c-9065-e9afd8b5f8c1/public_url" target="_blank" rel="noopener noreferrer" class="cert-card" aria-label="Verify AWS Certified GenAI Developer Professional Early Adopter on Credly">
@@ -1781,16 +1975,15 @@ nav.scrolled {
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="contact-mesh">
-    <div class="orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,240,255,0.08), transparent 70%); top: -20%; right: -10%; filter: blur(100px);"></div>
     <div class="orb" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,184,0,0.06), transparent 70%); bottom: -10%; left: -5%; filter: blur(100px);"></div>
   </div>
   <div class="contact-inner">
-    <span class="section-label">Contact</span>
-    <h2 class="contact-heading">Let's Build<br><span class="gradient">Something Intelligent</span></h2>
-    <p class="contact-sub">Building at the intersection of GenAI architecture, Cloud/DevOps, AI/ML Ops, and collaborative innovation.</p>
+    <span class="section-label" data-i18n="contact_label">Contact</span>
+    <h2 class="contact-heading" data-i18n-html="contact_heading">Let's Build<br><span class="gradient">Something Intelligent</span></h2>
+    <p class="contact-sub" data-i18n="contact_sub">Building at the intersection of GenAI architecture, Cloud/DevOps, AI/ML Ops, and collaborative innovation.</p>
     <div class="contact-links">
       <a href="/cdn-cgi/l/email-protection#b6d7c5dec3c2d9c5de98d8d7cfd7ddf6d3dbd7dfda98d5d9db" class="contact-link" aria-label="Send email">
-        <span class="cl-icon">✉️</span> Email Me
+        <span class="cl-icon">✉️</span> <span data-i18n="contact_email">Email Me</span>
       </a>
       <a href="https://www.linkedin.com/in/ashutosh-nayak-81an" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Visit LinkedIn profile">
         <span class="cl-icon">💼</span> LinkedIn
@@ -1804,7 +1997,7 @@ nav.scrolled {
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Ashutosh Nayak — Designed with scroll-driven soul.</p>
+  <p data-i18n="footer">© 2026 Ashutosh Nayak — Designed with soul.</p>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -2104,7 +2297,7 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 // ============================================================
 (function() {
   const container = document.getElementById('aboutReveal');
-  const text = "I architect {intelligent systems} that bridge the gap between {large language models} and real-world enterprise problems — and I build the {cloud infrastructure} that powers them. From designing {RAG pipelines} and {Agentic AI} workflows to deploying {scalable infrastructure} with {Terraform}, {CI/CD pipelines}, and {AWS cloud architecture} — I turn complex AI capabilities into products that teams actually ship. On the DevOps side, I've driven {80% faster provisioning} with IaC automation, maintained {99%+ platform uptime}, and led cloud cost optimization initiatives. My work spans {logistics}, {supply chain}, and {finance}, where I've built systems tracking {15,000+ vessels globally} and led innovation teams that consistently deliver with a {95% success rate}.";
+  const text = "I design and develop {intelligent systems} that bridge the gap between {large} {language} {models} and real-world enterprise problems and build the {cloud infrastructure} that powers them. From designing {RAG pipelines} and {Agentic AI} workflows to deploying {scalable infrastructure} with {Terraform}, {CI/CD pipelines}, and {AWS cloud architecture}, I turn complex AI capabilities into products that teams actually ship. On the DevOps side, I've driven {80% faster provisioning} with IaC automation, maintained {99%+ platform uptime}, and led cloud cost optimization initiatives. My work spans {logistics}, {supply chain}, and {finance}, where I've built systems tracking {15,000+ vessels globally} and led innovation teams that consistently deliver with a {95% success rate}.";
 
   const words = text.split(' ');
   container.innerHTML = words.map((w, i) => {
@@ -2275,17 +2468,17 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 (function() {
   const tag = document.querySelector('.hero-tag');
   if (!tag) return;
-  const blink = tag.querySelector('.blink');
-  const textNode = tag.childNodes[tag.childNodes.length - 1];
-  const fullText = textNode ? textNode.textContent.trim() : '';
+  const textSpan = tag.querySelector('[data-i18n="hero_tag"]');
+  if (!textSpan) return;
+  const fullText = textSpan.textContent.trim();
   if (!fullText) return;
 
-  textNode.textContent = '';
+  textSpan.textContent = '';
   let i = 0;
 
   function type() {
     if (i < fullText.length) {
-      textNode.textContent = fullText.slice(0, i + 1);
+      textSpan.textContent = fullText.slice(0, i + 1);
       i++;
       setTimeout(type, 50 + Math.random() * 40);
     }
@@ -2335,6 +2528,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
 // ============================================================
 (function() {
   const bar = document.createElement('div');
+  bar.className = 'scroll-progress-bar';
   bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--amber));z-index:10001;transition:width 0.1s;width:0;pointer-events:none;';
   document.body.appendChild(bar);
   
@@ -2344,6 +2538,264 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
     const progress = (scrollTop / docHeight) * 100;
     bar.style.width = progress + '%';
   }, { passive: true });
+})();
+
+// ============================================================
+// MULTILINGUAL TRANSLATION SYSTEM
+// ============================================================
+(function() {
+  const translations = {
+    en: {
+      nav_about: "About", nav_experience: "Experience", nav_projects: "Projects", nav_skills: "Skills", nav_contact: "Let's Talk",
+      hero_tag: "EXPLORING WHAT'S NEXT",
+      hero_role: '<strong>GenAI Developer</strong> & <strong>Cloud/DevOps Engineer</strong> — building intelligent systems with LLMs, Agentic AI, and RAG pipelines while architecting scalable cloud infrastructure with <strong>Terraform</strong>, CI/CD, and <strong>AWS</strong>.',
+      stat_experience: "Years Experience", stat_uptime: "Platform Uptime", stat_workshops: "AI/Cloud Workshops", stat_bonus: "CEO Bonus Awarded", stat_success: "Project Success Rate",
+      hero_scroll: "Scroll",
+      about_label: "About", about_heading: "The Short Version",
+      about_text: "I design and develop {intelligent systems} that bridge the gap between {large} {language} {models} and real-world enterprise problems and build the {cloud infrastructure} that powers them. From designing {RAG pipelines} and {Agentic AI} workflows to deploying {scalable infrastructure} with {Terraform}, {CI/CD pipelines}, and {AWS cloud architecture}, I turn complex AI capabilities into products that teams actually ship. On the DevOps side, I've driven {80% faster provisioning} with IaC automation, maintained {99%+ platform uptime}, and led cloud cost optimization initiatives. My work spans {logistics}, {supply chain}, and {finance}, where I've built systems tracking {15,000+ vessels globally} and led innovation teams that consistently deliver with a {95% success rate}.",
+      exp_label: "Experience", exp_heading: "Where I've Built Things",
+      exp_title_1: "Technical Manager Lead", exp_title_2: "Full Stack Developer",
+      role_title_1: "Technical Manager — Lead Innovation", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Designed and Developed a <strong>RAG chatbot with Agentic AI & AWS Bedrock</strong>, integrating tool calling for dynamic task execution across enterprise workflows.',
+      rh_1_2: 'Built a <strong>self-healing Agentic Scraping solution</strong> with MCP server integration — natural language interaction, email/Excel logging, and anomaly detection.',
+      rh_1_3: 'Designed <strong>AWS cloud infrastructure</strong> for enterprise apps using EC2, VPC, S3, Lambda, API Gateway, CloudWatch, and DynamoDB with <strong>99%+ uptime</strong>.',
+      rh_1_4: 'Designed an <strong>n8n + Terraform automation pipeline</strong> for on-demand IaC provisioning, cutting deployment time by <strong>80%</strong>. Standardized environments with <strong>Terraform & Ansible</strong>.',
+      rh_1_5: 'Drove <strong>cloud cost optimization</strong> with AWS Cost Explorer, resource right-sizing, and reserved instances. Established <strong>proactive CloudWatch monitoring</strong> reducing MTTR for critical incidents.',
+      rh_1_6: 'Led <strong>15+ cloud & GenAI workshops</strong> for 20+ developers, accelerating organizational adoption of cloud-native AI practices.',
+      rh_1_7: 'Awarded <strong>CEO Bonus for 4 consecutive years</strong> for delivering high-impact innovative solutions with a <strong>95% project success rate</strong>.',
+      rh_2_1: 'Delivered an <strong>AI-powered vessel tracking system</strong> for 3PL — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.',
+      rh_2_2: 'Designed and managed <strong>AWS cloud hosting infrastructure</strong> (EC2, S3, RDS, Lambda, CloudWatch) ensuring <strong>high availability and fault tolerance</strong> for mission-critical supply chain apps.',
+      rh_2_3: 'Built and maintained <strong>CI/CD pipelines for 10+ applications</strong>, automating build, test, and deployment. Configured <strong>VPC, security groups, load balancers, and DNS</strong>.',
+      rh_2_4: 'Enhanced ETA accuracy with <strong>ML algorithms & LLM-assisted reasoning</strong> analyzing schedules, port congestion, and event data.',
+      rh_2_5: 'Integrated <strong>GenAI-powered analytics</strong> (Qlik, ThoughtSpot, RAG dashboards) into 5+ apps, improving data access for <strong>300+ global users</strong>.',
+      projects_label: "Projects", projects_heading: "Featured Work",
+      proj_1_title: "RAG Chatbot with Agentic AI", proj_1_desc: "Enterprise-grade conversational AI powered by AWS Bedrock with tool calling for dynamic task execution, prompt engineering, and LLM fine-tuning.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Self-healing web scraping with natural language interaction. MCP server integrates email, Excel logging, anomaly detection, and database updates in real-time.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Real-time vessel visibility for 15,000+ ships globally. ML-powered predictive ETAs with AIS feeds, geofencing, and interactive global mapping.",
+      proj_4_title: "Enterprise Cloud Hosting Platform", proj_4_desc: "Centralized AWS hosting platform serving as backbone for multiple enterprise apps. End-to-end IaC with Terraform, automated monitoring, self-healing, and alerting for rapid incident response.",
+      proj_5_title: "n8n Terraform Automation", proj_5_desc: "Automation pipeline enabling on-demand Terraform script generation, reducing infrastructure provisioning time by 80% across the engineering org.",
+      proj_6_title: "Smart Drainage System — Winner", proj_6_desc: "Smart Odisha Hackathon winning project: IoT-based smart drainage system with flood detection and real-time management for the Govt. of Odisha.",
+      skills_label: "Skills & Certifications", skills_heading: "The Arsenal",
+      skill_genai: "GenAI Stack", skill_aws: "AWS Cloud", skill_devops: "DevOps & Infrastructure", skill_langs: "Languages & Frameworks", skill_aiml: "AI / ML & Analytics", skill_security: "Security & Networking",
+      certs_label: "Certifications",
+      contact_label: "Contact", contact_heading: 'Let\'s Build<br><span class="gradient">Something Intelligent</span>',
+      contact_sub: "Building at the intersection of GenAI architecture, Cloud/DevOps, AI/ML Ops, and collaborative innovation.",
+      contact_email: "Email Me",
+      footer: "© 2026 Ashutosh Nayak — Designed with soul."
+    },
+    de: {
+      nav_about: "Über mich", nav_experience: "Erfahrung", nav_projects: "Projekte", nav_skills: "Fähigkeiten", nav_contact: "Kontakt",
+      hero_tag: "DIE ZUKUNFT ERKUNDEN",
+      hero_role: '<strong>GenAI-Entwickler</strong> & <strong>Cloud/DevOps-Ingenieur</strong> — Entwicklung intelligenter Systeme mit LLMs, Agentic AI und RAG-Pipelines bei gleichzeitiger Architektur skalierbarer Cloud-Infrastruktur mit <strong>Terraform</strong>, CI/CD und <strong>AWS</strong>.',
+      stat_experience: "Jahre Erfahrung", stat_uptime: "Plattform-Verfügbarkeit", stat_workshops: "AI/Cloud-Workshops", stat_bonus: "CEO-Bonus erhalten", stat_success: "Projekterfolgsquote",
+      hero_scroll: "Scrollen",
+      about_label: "Über mich", about_heading: "Die Kurzfassung",
+      about_text: "Ich entwerfe und entwickle {intelligente Systeme}, die die Lücke zwischen {großen} {Sprach-} {modellen} und realen Unternehmensproblemen schließen und die {Cloud-Infrastruktur} aufbauen, die sie antreibt. Vom Design von {RAG-Pipelines} und {Agentic AI}-Workflows bis zum Deployment {skalierbarer Infrastruktur} mit {Terraform}, {CI/CD-Pipelines} und {AWS-Cloud-Architektur} verwandle ich komplexe KI-Fähigkeiten in Produkte, die Teams tatsächlich ausliefern. Auf der DevOps-Seite habe ich {80% schnellere Bereitstellung} durch IaC-Automatisierung erreicht, eine {99%+ Plattform-Verfügbarkeit} aufrechterhalten und Cloud-Kostenoptimierungsinitiativen geleitet. Meine Arbeit erstreckt sich über {Logistik}, {Lieferkette} und {Finanzen}, wo ich Systeme zur Verfolgung von {15.000+ Schiffen weltweit} gebaut und Innovationsteams geleitet habe, die konsequent mit einer {95% Erfolgsquote} liefern.",
+      exp_label: "Erfahrung", exp_heading: "Wo ich Dinge gebaut habe",
+      exp_title_1: "Technischer Manager", exp_title_2: "Full-Stack-Entwickler",
+      role_title_1: "Technischer Manager — Innovationsleitung", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Entwurf und Entwicklung eines <strong>RAG-Chatbots mit Agentic AI & AWS Bedrock</strong>, Integration von Tool-Aufrufen für dynamische Aufgabenausführung über Unternehmens-Workflows.',
+      rh_1_2: 'Aufbau einer <strong>selbstheilenden Agentic-Scraping-Lösung</strong> mit MCP-Server-Integration — natürlichsprachige Interaktion, E-Mail-/Excel-Protokollierung und Anomalieerkennung.',
+      rh_1_3: 'Entwurf der <strong>AWS-Cloud-Infrastruktur</strong> für Unternehmensanwendungen mit EC2, VPC, S3, Lambda, API Gateway, CloudWatch und DynamoDB mit <strong>99%+ Verfügbarkeit</strong>.',
+      rh_1_4: 'Entwurf einer <strong>n8n + Terraform-Automatisierungspipeline</strong> für On-Demand-IaC-Bereitstellung mit <strong>80%</strong> Reduzierung der Deployment-Zeit. Standardisierung der Umgebungen mit <strong>Terraform & Ansible</strong>.',
+      rh_1_5: 'Vorantreiben der <strong>Cloud-Kostenoptimierung</strong> mit AWS Cost Explorer, Ressourcen-Rightsizing und reservierten Instanzen. Etablierung von <strong>proaktivem CloudWatch-Monitoring</strong> zur Reduzierung der MTTR bei kritischen Vorfällen.',
+      rh_1_6: 'Leitung von <strong>15+ Cloud- & GenAI-Workshops</strong> für 20+ Entwickler, Beschleunigung der organisatorischen Einführung cloud-nativer KI-Praktiken.',
+      rh_1_7: 'Auszeichnung mit dem <strong>CEO-Bonus für 4 aufeinanderfolgende Jahre</strong> für die Bereitstellung hochwirksamer innovativer Lösungen mit einer <strong>95% Projekterfolgsquote</strong>.',
+      rh_2_1: 'Bereitstellung eines <strong>KI-gestützten Schiffsverfolgungssystems</strong> für 3PL — Echtzeit-Sichtbarkeit und prädiktive ETAs für <strong>15.000+ Schiffe weltweit</strong> mit 99% Verfügbarkeit.',
+      rh_2_2: 'Entwurf und Verwaltung der <strong>AWS-Cloud-Hosting-Infrastruktur</strong> (EC2, S3, RDS, Lambda, CloudWatch) mit <strong>hoher Verfügbarkeit und Fehlertoleranz</strong> für geschäftskritische Supply-Chain-Apps.',
+      rh_2_3: 'Aufbau und Wartung von <strong>CI/CD-Pipelines für 10+ Anwendungen</strong>, Automatisierung von Build, Test und Deployment. Konfiguration von <strong>VPC, Sicherheitsgruppen, Load Balancern und DNS</strong>.',
+      rh_2_4: 'Verbesserung der ETA-Genauigkeit mit <strong>ML-Algorithmen & LLM-gestütztem Reasoning</strong> zur Analyse von Fahrplänen, Hafenüberlastung und Ereignisdaten.',
+      rh_2_5: 'Integration von <strong>GenAI-gestützter Analytik</strong> (Qlik, ThoughtSpot, RAG-Dashboards) in 5+ Apps, Verbesserung des Datenzugangs für <strong>300+ globale Nutzer</strong>.',
+      projects_label: "Projekte", projects_heading: "Ausgewählte Arbeiten",
+      proj_1_title: "RAG-Chatbot mit Agentic AI", proj_1_desc: "Konversations-KI auf Enterprise-Niveau, angetrieben von AWS Bedrock mit Tool-Aufrufen für dynamische Aufgabenausführung, Prompt Engineering und LLM-Fine-Tuning.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Selbstheilendes Web-Scraping mit natürlichsprachiger Interaktion. MCP-Server integriert E-Mail, Excel-Protokollierung, Anomalieerkennung und Datenbank-Updates in Echtzeit.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Echtzeit-Schiffssichtbarkeit für 15.000+ Schiffe weltweit. ML-gestützte prädiktive ETAs mit AIS-Feeds, Geofencing und interaktiver globaler Kartierung.",
+      proj_4_title: "Enterprise Cloud-Hosting-Plattform", proj_4_desc: "Zentralisierte AWS-Hosting-Plattform als Backbone für mehrere Unternehmensanwendungen. End-to-End-IaC mit Terraform, automatisiertes Monitoring, Self-Healing und Alerting.",
+      proj_5_title: "n8n Terraform-Automatisierung", proj_5_desc: "Automatisierungspipeline für die On-Demand-Generierung von Terraform-Skripten, Reduzierung der Infrastruktur-Bereitstellungszeit um 80%.",
+      proj_6_title: "Smart Drainage System — Gewinner", proj_6_desc: "Smart Odisha Hackathon-Gewinnerprojekt: IoT-basiertes intelligentes Entwässerungssystem mit Hochwassererkennung und Echtzeit-Management für die Regierung von Odisha.",
+      skills_label: "Fähigkeiten & Zertifizierungen", skills_heading: "Das Arsenal",
+      skill_genai: "GenAI-Stack", skill_aws: "AWS Cloud", skill_devops: "DevOps & Infrastruktur", skill_langs: "Sprachen & Frameworks", skill_aiml: "KI / ML & Analytik", skill_security: "Sicherheit & Netzwerk",
+      certs_label: "Zertifizierungen",
+      contact_label: "Kontakt", contact_heading: 'Lassen Sie uns<br><span class="gradient">etwas Intelligentes bauen</span>',
+      contact_sub: "An der Schnittstelle von GenAI-Architektur, Cloud/DevOps, AI/ML Ops und kollaborativer Innovation.",
+      contact_email: "E-Mail senden",
+      footer: "© 2026 Ashutosh Nayak — Mit Leidenschaft gestaltet."
+    },
+    nl: {
+      nav_about: "Over mij", nav_experience: "Ervaring", nav_projects: "Projecten", nav_skills: "Vaardigheden", nav_contact: "Contact",
+      hero_tag: "DE TOEKOMST VERKENNEN",
+      hero_role: '<strong>GenAI-ontwikkelaar</strong> & <strong>Cloud/DevOps-engineer</strong> — bouwen van intelligente systemen met LLMs, Agentic AI en RAG-pipelines, terwijl ik schaalbare cloudinfrastructuur ontwerp met <strong>Terraform</strong>, CI/CD en <strong>AWS</strong>.',
+      stat_experience: "Jaar Ervaring", stat_uptime: "Platform Uptime", stat_workshops: "AI/Cloud Workshops", stat_bonus: "CEO Bonus Ontvangen", stat_success: "Projectsuccesratio",
+      hero_scroll: "Scrollen",
+      about_label: "Over mij", about_heading: "De Korte Versie",
+      about_text: "Ik ontwerp en ontwikkel {intelligente systemen} die de kloof overbruggen tussen {grote} {taal-} {modellen} en echte bedrijfsproblemen en bouw de {cloudinfrastructuur} die ze aandrijft. Van het ontwerpen van {RAG-pipelines} en {Agentic AI}-workflows tot het implementeren van {schaalbare infrastructuur} met {Terraform}, {CI/CD-pipelines} en {AWS-cloudarchitectuur}, transformeer ik complexe AI-mogelijkheden in producten die teams daadwerkelijk leveren. Aan de DevOps-kant heb ik {80% snellere provisioning} bereikt met IaC-automatisering, een {99%+ platform uptime} onderhouden en cloud-kostenoptimalisatie-initiatieven geleid. Mijn werk bestrijkt {logistiek}, {supply chain} en {financiën}, waar ik systemen heb gebouwd die {15.000+ schepen wereldwijd} volgen en innovatieteams heb geleid die consequent leveren met een {95% succesratio}.",
+      exp_label: "Ervaring", exp_heading: "Waar ik dingen heb gebouwd",
+      exp_title_1: "Technisch Manager", exp_title_2: "Full Stack-ontwikkelaar",
+      role_title_1: "Technisch Manager — Innovatieleider", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Ontwerp en ontwikkeling van een <strong>RAG-chatbot met Agentic AI & AWS Bedrock</strong>, met tool-aanroepen voor dynamische taakuitvoering in bedrijfsworkflows.',
+      rh_1_2: 'Bouw van een <strong>zelfherstellende Agentic Scraping-oplossing</strong> met MCP-serverintegratie — natuurlijke taalinteractie, e-mail/Excel-logging en anomaliedetectie.',
+      rh_1_3: 'Ontwerp van <strong>AWS-cloudinfrastructuur</strong> voor bedrijfsapplicaties met EC2, VPC, S3, Lambda, API Gateway, CloudWatch en DynamoDB met <strong>99%+ uptime</strong>.',
+      rh_1_4: 'Ontwerp van een <strong>n8n + Terraform-automatiseringspipeline</strong> voor on-demand IaC-provisioning, met <strong>80%</strong> reductie van deployment-tijd. Standaardisering van omgevingen met <strong>Terraform & Ansible</strong>.',
+      rh_1_5: 'Aansturing van <strong>cloud-kostenoptimalisatie</strong> met AWS Cost Explorer, resource right-sizing en gereserveerde instanties. Opzet van <strong>proactieve CloudWatch-monitoring</strong> ter vermindering van MTTR bij kritieke incidenten.',
+      rh_1_6: 'Leiding van <strong>15+ cloud- & GenAI-workshops</strong> voor 20+ ontwikkelaars, versnelling van organisatiebrede adoptie van cloud-native AI-praktijken.',
+      rh_1_7: 'Ontvangst van de <strong>CEO Bonus voor 4 opeenvolgende jaren</strong> voor het leveren van impactvolle innovatieve oplossingen met een <strong>95% projectsuccesratio</strong>.',
+      rh_2_1: 'Levering van een <strong>AI-aangedreven scheepstrackingsysteem</strong> voor 3PL — realtime zichtbaarheid en voorspellende ETAs voor <strong>15.000+ schepen wereldwijd</strong> met 99% uptime.',
+      rh_2_2: 'Ontwerp en beheer van <strong>AWS cloud-hostinginfrastructuur</strong> (EC2, S3, RDS, Lambda, CloudWatch) met <strong>hoge beschikbaarheid en fouttolerantie</strong> voor bedrijfskritische supply chain-apps.',
+      rh_2_3: 'Bouw en onderhoud van <strong>CI/CD-pipelines voor 10+ applicaties</strong>, automatisering van build, test en deployment. Configuratie van <strong>VPC, beveiligingsgroepen, load balancers en DNS</strong>.',
+      rh_2_4: 'Verbetering van ETA-nauwkeurigheid met <strong>ML-algoritmen & LLM-ondersteunde redenering</strong> voor analyse van roosters, havenoverlasting en gebeurtenisdata.',
+      rh_2_5: 'Integratie van <strong>GenAI-aangedreven analytics</strong> (Qlik, ThoughtSpot, RAG-dashboards) in 5+ apps, verbetering van datatoegang voor <strong>300+ wereldwijde gebruikers</strong>.',
+      projects_label: "Projecten", projects_heading: "Uitgelicht Werk",
+      proj_1_title: "RAG-chatbot met Agentic AI", proj_1_desc: "Enterprise-niveau conversationele AI aangedreven door AWS Bedrock met tool-aanroepen voor dynamische taakuitvoering, prompt engineering en LLM fine-tuning.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Zelfherstellend web scraping met natuurlijke taalinteractie. MCP-server integreert e-mail, Excel-logging, anomaliedetectie en database-updates in realtime.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Realtime scheepszichtbaarheid voor 15.000+ schepen wereldwijd. ML-aangedreven voorspellende ETAs met AIS-feeds, geofencing en interactieve wereldwijde kaarten.",
+      proj_4_title: "Enterprise Cloud Hosting Platform", proj_4_desc: "Gecentraliseerd AWS-hostingplatform als backbone voor meerdere bedrijfsapplicaties. End-to-end IaC met Terraform, geautomatiseerde monitoring, self-healing en alerting.",
+      proj_5_title: "n8n Terraform Automatisering", proj_5_desc: "Automatiseringspipeline voor on-demand generatie van Terraform-scripts, reductie van infrastructuurprovisioningtijd met 80%.",
+      proj_6_title: "Smart Drainage Systeem — Winnaar", proj_6_desc: "Smart Odisha Hackathon winnend project: IoT-gebaseerd slim drainagesysteem met overstromingsdetectie en realtimebeheer voor de overheid van Odisha.",
+      skills_label: "Vaardigheden & Certificeringen", skills_heading: "Het Arsenaal",
+      skill_genai: "GenAI Stack", skill_aws: "AWS Cloud", skill_devops: "DevOps & Infrastructuur", skill_langs: "Talen & Frameworks", skill_aiml: "AI / ML & Analytics", skill_security: "Beveiliging & Netwerken",
+      certs_label: "Certificeringen",
+      contact_label: "Contact", contact_heading: 'Laten we<br><span class="gradient">iets intelligents bouwen</span>',
+      contact_sub: "Op het kruispunt van GenAI-architectuur, Cloud/DevOps, AI/ML Ops en collaboratieve innovatie.",
+      contact_email: "E-mail sturen",
+      footer: "© 2026 Ashutosh Nayak — Ontworpen met passie."
+    },
+    pl: {
+      nav_about: "O mnie", nav_experience: "Doświadczenie", nav_projects: "Projekty", nav_skills: "Umiejętności", nav_contact: "Kontakt",
+      hero_tag: "ODKRYWAM PRZYSZŁOŚĆ",
+      hero_role: '<strong>Deweloper GenAI</strong> i <strong>Inżynier Cloud/DevOps</strong> — budowanie inteligentnych systemów z LLM, Agentic AI i pipeline\'ami RAG, jednocześnie projektując skalowalną infrastrukturę chmurową z <strong>Terraform</strong>, CI/CD i <strong>AWS</strong>.',
+      stat_experience: "Lat doświadczenia", stat_uptime: "Dostępność platformy", stat_workshops: "Warsztaty AI/Cloud", stat_bonus: "Bonus CEO przyznany", stat_success: "Wskaźnik sukcesu",
+      hero_scroll: "Przewiń",
+      about_label: "O mnie", about_heading: "Krótka wersja",
+      about_text: "Projektuję i rozwijam {inteligentne systemy}, które wypełniają lukę między {dużymi} {modelami} {językowymi} a rzeczywistymi problemami biznesowymi i buduję {infrastrukturę chmurową}, która je zasila. Od projektowania {pipeline'ów RAG} i workflow'ów {Agentic AI} po wdrażanie {skalowalnej infrastruktury} z {Terraform}, {pipeline'ami CI/CD} i {architekturą chmury AWS}, przekształcam złożone możliwości AI w produkty, które zespoły faktycznie dostarczają. Po stronie DevOps osiągnąłem {80% szybsze provisioning} dzięki automatyzacji IaC, utrzymuję {99%+ dostępność platformy} i prowadzę inicjatywy optymalizacji kosztów chmury. Moja praca obejmuje {logistykę}, {łańcuch dostaw} i {finanse}, gdzie budowałem systemy śledzące {15 000+ statków na świecie} i prowadziłem zespoły innowacyjne, które konsekwentnie dostarczają z {95% wskaźnikiem sukcesu}.",
+      exp_label: "Doświadczenie", exp_heading: "Gdzie budowałem",
+      exp_title_1: "Kierownik Techniczny", exp_title_2: "Deweloper Full Stack",
+      role_title_1: "Kierownik Techniczny — Lider Innowacji", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Zaprojektowanie i rozwinięcie <strong>chatbota RAG z Agentic AI i AWS Bedrock</strong>, integracja wywołań narzędzi do dynamicznego wykonywania zadań w workflow\'ach korporacyjnych.',
+      rh_1_2: 'Budowa <strong>samonaprawiającego się rozwiązania Agentic Scraping</strong> z integracją serwera MCP — interakcja w języku naturalnym, logowanie e-mail/Excel i wykrywanie anomalii.',
+      rh_1_3: 'Projektowanie <strong>infrastruktury chmury AWS</strong> dla aplikacji korporacyjnych z EC2, VPC, S3, Lambda, API Gateway, CloudWatch i DynamoDB z <strong>99%+ dostępnością</strong>.',
+      rh_1_4: 'Zaprojektowanie <strong>pipeline\'u automatyzacji n8n + Terraform</strong> do provisioningu IaC na żądanie, skrócenie czasu wdrożenia o <strong>80%</strong>. Standaryzacja środowisk z <strong>Terraform i Ansible</strong>.',
+      rh_1_5: 'Prowadzenie <strong>optymalizacji kosztów chmury</strong> z AWS Cost Explorer, odpowiednim doborem zasobów i instancjami zarezerwowanymi. Ustanowienie <strong>proaktywnego monitoringu CloudWatch</strong> zmniejszającego MTTR dla krytycznych incydentów.',
+      rh_1_6: 'Prowadzenie <strong>15+ warsztatów cloud i GenAI</strong> dla 20+ programistów, przyspieszenie organizacyjnego wdrażania natywnych dla chmury praktyk AI.',
+      rh_1_7: 'Otrzymanie <strong>Bonusu CEO przez 4 kolejne lata</strong> za dostarczanie innowacyjnych rozwiązań o dużym wpływie z <strong>95% wskaźnikiem sukcesu projektów</strong>.',
+      rh_2_1: 'Dostarczenie <strong>systemu śledzenia statków opartego na AI</strong> dla 3PL — widoczność w czasie rzeczywistym i predykcyjne ETA dla <strong>15 000+ statków na świecie</strong> z 99% dostępnością.',
+      rh_2_2: 'Projektowanie i zarządzanie <strong>infrastrukturą hostingu chmury AWS</strong> (EC2, S3, RDS, Lambda, CloudWatch) zapewniając <strong>wysoką dostępność i tolerancję błędów</strong> dla krytycznych aplikacji łańcucha dostaw.',
+      rh_2_3: 'Budowa i utrzymanie <strong>pipeline\'ów CI/CD dla 10+ aplikacji</strong>, automatyzacja budowania, testowania i wdrażania. Konfiguracja <strong>VPC, grup bezpieczeństwa, load balancerów i DNS</strong>.',
+      rh_2_4: 'Poprawa dokładności ETA za pomocą <strong>algorytmów ML i rozumowania wspomaganego przez LLM</strong> analizujących harmonogramy, zatory portowe i dane o zdarzeniach.',
+      rh_2_5: 'Integracja <strong>analityki opartej na GenAI</strong> (Qlik, ThoughtSpot, dashboardy RAG) w 5+ aplikacjach, poprawa dostępu do danych dla <strong>300+ globalnych użytkowników</strong>.',
+      projects_label: "Projekty", projects_heading: "Wyróżnione prace",
+      proj_1_title: "Chatbot RAG z Agentic AI", proj_1_desc: "Konwersacyjna AI klasy enterprise zasilana przez AWS Bedrock z wywołaniami narzędzi do dynamicznego wykonywania zadań, prompt engineering i fine-tuning LLM.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Samonaprawiający się web scraping z interakcją w języku naturalnym. Serwer MCP integruje e-mail, logowanie Excel, wykrywanie anomalii i aktualizacje bazy danych w czasie rzeczywistym.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Widoczność statków w czasie rzeczywistym dla 15 000+ statków na świecie. Predykcyjne ETA oparte na ML z feedami AIS, geofencingiem i interaktywnym mapowaniem.",
+      proj_4_title: "Enterprise Cloud Hosting Platform", proj_4_desc: "Scentralizowana platforma hostingowa AWS jako kręgosłup wielu aplikacji korporacyjnych. End-to-end IaC z Terraform, automatyczny monitoring, self-healing i alerting.",
+      proj_5_title: "Automatyzacja n8n Terraform", proj_5_desc: "Pipeline automatyzacji do generowania skryptów Terraform na żądanie, redukcja czasu provisioningu infrastruktury o 80%.",
+      proj_6_title: "Smart Drainage System — Zwycięzca", proj_6_desc: "Zwycięski projekt Smart Odisha Hackathon: inteligentny system drenażowy oparty na IoT z detekcją powodzi i zarządzaniem w czasie rzeczywistym dla rządu Odisha.",
+      skills_label: "Umiejętności i Certyfikaty", skills_heading: "Arsenał",
+      skill_genai: "Stos GenAI", skill_aws: "Chmura AWS", skill_devops: "DevOps i Infrastruktura", skill_langs: "Języki i Frameworki", skill_aiml: "AI / ML i Analityka", skill_security: "Bezpieczeństwo i Sieci",
+      certs_label: "Certyfikaty",
+      contact_label: "Kontakt", contact_heading: 'Zbudujmy<br><span class="gradient">coś inteligentnego</span>',
+      contact_sub: "Na przecięciu architektury GenAI, Cloud/DevOps, AI/ML Ops i współpracy innowacyjnej.",
+      contact_email: "Wyślij e-mail",
+      footer: "© 2026 Ashutosh Nayak — Zaprojektowane z pasją."
+    }
+  };
+
+  const langMeta = {
+    en: { flag: '🇬🇧', code: 'EN' },
+    de: { flag: '🇩🇪', code: 'DE' },
+    nl: { flag: '🇳🇱', code: 'NL' },
+    pl: { flag: '🇵🇱', code: 'PL' }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'en';
+
+  function applyTranslations(lang) {
+    const t = translations[lang];
+    if (!t) return;
+
+    // Update text content for data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) {
+        el.textContent = t[key];
+      }
+    });
+
+    // Update innerHTML for data-i18n-html elements
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) {
+        el.innerHTML = t[key];
+      }
+    });
+
+    // Update about text reveal
+    if (t.about_text) {
+      const container = document.getElementById('aboutReveal');
+      if (container) {
+        const words = t.about_text.split(' ');
+        container.innerHTML = words.map((w, i) => {
+          const isHighlight = w.startsWith('{') || w.endsWith('}');
+          const clean = w.replace(/[{}]/g, '');
+          const cls = isHighlight ? 'about-word highlight lit' : 'about-word lit';
+          return '<span class="' + cls + '" data-index="' + i + '">' + clean + ' </span>';
+        }).join('');
+      }
+    }
+
+    // Update hero tag typing text (re-trigger typing effect)
+    const heroTagSpan = document.querySelector('.hero-tag [data-i18n="hero_tag"]');
+    if (heroTagSpan && t.hero_tag) {
+      heroTagSpan.textContent = t.hero_tag;
+    }
+
+    // Update lang button display
+    const meta = langMeta[lang];
+    if (meta) {
+      document.getElementById('langFlag').textContent = meta.flag;
+      document.getElementById('langCode').textContent = meta.code;
+    }
+
+    // Update active state in dropdown
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.classList.toggle('active', opt.dataset.lang === lang);
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+  }
+
+  // Language switcher toggle
+  const switcher = document.getElementById('langSwitcher');
+  const langBtn = document.getElementById('langBtn');
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    switcher.classList.toggle('open');
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!switcher.contains(e.target)) {
+      switcher.classList.remove('open');
+    }
+  });
+
+  // Language option click
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const lang = opt.dataset.lang;
+      applyTranslations(lang);
+      switcher.classList.remove('open');
+    });
+  });
+
+  // Apply saved language on load
+  if (currentLang !== 'en') {
+    applyTranslations(currentLang);
+  }
 })();
 </script>
 </body>
