@@ -751,7 +751,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
         container.innerHTML = words.map((w, i) => {
           const isHighlight = w.startsWith('{') || w.endsWith('}');
           const clean = w.replace(/[{}]/g, '');
-          const cls = isHighlight ? 'about-word highlight lit' : 'about-word lit';
+          const cls = isHighlight ? 'about-word highlight lit no-ignite' : 'about-word lit no-ignite';
           return '<span class="' + cls + '" data-index="' + i + '">' + clean + ' </span>';
         }).join('');
       }

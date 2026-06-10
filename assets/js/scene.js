@@ -37,6 +37,7 @@
     camera.position.set(0, 0, 50);
     buildStarfield();
     buildSolarSystem();
+    buildAsteroidField();
     document.body.classList.add('scene-active');
     window.addEventListener('resize', onResize);
     if (!isMobile) document.addEventListener('mousemove', (e) => {
@@ -145,6 +146,39 @@
       glows.forEach(function (s) { s.material.opacity = name === 'light' ? 0.35 : 1; });
     });
     landmarks.hero = g; scene.add(g);
+  }
+
+  // About landmark: sparse drifting asteroid field
+  function buildAsteroidField() {
+    const g = new THREE.Group();
+    const COUNT = isMobile ? 25 : 60;
+    const rocks = [];
+    for (let i = 0; i < COUNT; i++) {
+      const size = 0.5 + Math.random() * 2;
+      const rock = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(size, 0),
+        new THREE.MeshStandardMaterial({ color: 0x6a6a72, roughness: 1, flatShading: true }));
+      rock.position.set(
+        (Math.random() - 0.5) * 300,
+        (Math.random() - 0.5) * 160,
+        (Math.random() - 0.5) * 400);
+      rock.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+      rocks.push({ mesh: rock, spin: 0.05 + Math.random() * 0.25, axis: Math.floor(Math.random() * 3) });
+      g.add(rock);
+    }
+    const dir = new THREE.DirectionalLight(0x96b4ff, 1.4);
+    dir.position.set(0.5, 1, 0.8);
+    g.add(dir);
+    tickers.push(function (dt) {
+      if (reduced) return;
+      for (let i = 0; i < rocks.length; i++) {
+        const r = rocks[i];
+        if (r.axis === 0) r.mesh.rotation.x += r.spin * dt;
+        else if (r.axis === 1) r.mesh.rotation.y += r.spin * dt;
+        else r.mesh.rotation.z += r.spin * dt;
+      }
+    });
+    landmarks.about = g; scene.add(g);
   }
 
   // Map each anchor section's page position to a Z depth. Landmark groups
