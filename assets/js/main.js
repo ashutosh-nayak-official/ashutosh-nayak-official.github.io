@@ -12,6 +12,7 @@ document.addEventListener('scene:fallback', () => {
     const docH = document.documentElement.scrollHeight - window.innerHeight;
     return docH > 0 ? window.pageYOffset / docH : 0;
   }
+  if (window.SpaceScene) window.SpaceScene.setScrollProgress(pageProgress());
   window.addEventListener('scroll', () => {
     if (window.SpaceScene) window.SpaceScene.setScrollProgress(pageProgress());
   }, { passive: true });
@@ -92,6 +93,7 @@ window.__startParticles = function () {
   for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
   function animate() {
+    if (document.body.classList.contains('scene-active')) { window.__particlesStarted = false; return; }
     ctx.clearRect(0, 0, w, h);
     const cyan = getComputedStyle(document.documentElement).getPropertyValue('--cyan').trim() || '#00F0FF';
     
@@ -1004,6 +1006,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
 // ============================================================
 (function () {
   const syncTheme = () => {
+    if (window.__sceneFallback) return;
     if (!window.SpaceScene) return;
     const magic = document.documentElement.hasAttribute('data-magic');
     const light = document.documentElement.getAttribute('data-theme') === 'light';

@@ -16,7 +16,7 @@
   };
 
   function fail() {
-    document.dispatchEvent(new CustomEvent('scene:fallback'));
+    setTimeout(function () { document.dispatchEvent(new CustomEvent('scene:fallback')); }, 0);
     return false;
   }
 
@@ -27,6 +27,7 @@
     try {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: true });
     } catch (e) { return fail(); }
+    canvas.addEventListener('webglcontextlost', function (e) { e.preventDefault(); fail(); });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     scene = new THREE.Scene();
@@ -42,6 +43,7 @@
     });
     ready = true;
     layout();
+    camera.position.z = 50 - progress * (PATH + 50);
     requestAnimationFrame(animate);
     return true;
   }
@@ -74,6 +76,7 @@
   // (added by later tasks into `landmarks`) are re-positioned here.
   const ANCHORS = ['hero', 'about', 'experience', 'wormhole', 'projects', 'skills', 'contact'];
   const depths = {};
+  function docTop(el) { return el.getBoundingClientRect().top + window.scrollY; }
   function sectionFraction(id) {
     const docH = document.documentElement.scrollHeight - innerHeight;
     if (docH <= 0) return 0;
@@ -82,12 +85,12 @@
       const exp = document.getElementById('expScroll');
       const proj = document.getElementById('projectsScroll');
       if (!exp || !proj) return 0.45;
-      return ((exp.offsetTop + exp.offsetHeight + proj.offsetTop) / 2 - innerHeight / 2) / docH;
+      return ((docTop(exp) + exp.offsetHeight + docTop(proj)) / 2 - innerHeight / 2) / docH;
     }
     const map = { about: 'about', experience: 'expScroll', projects: 'projectsScroll', skills: 'skills', contact: 'contact' };
     const el = document.getElementById(map[id]);
     if (!el) return 0;
-    return Math.min(1, Math.max(0, (el.offsetTop + el.offsetHeight / 2 - innerHeight / 2) / docH));
+    return Math.min(1, Math.max(0, (docTop(el) + el.offsetHeight / 2 - innerHeight / 2) / docH));
   }
   function layout() {
     if (!ready) return;
@@ -155,6 +158,7 @@
       get camera() { return camera; }, landmarks, tickers, themeListeners,
       PALETTES, depths, isMobile, reduced, PATH,
       get ready() { return ready; },
+      get theme() { return theme; },
     },
   };
   init();
