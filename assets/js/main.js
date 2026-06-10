@@ -438,11 +438,22 @@ else setTimeout(() => {
 (function () {
   const target = document.getElementById('skills');
   if (!target) return;
+  const tryFire = () => {
+    if (window.__sceneFallback) { observer.disconnect(); return true; }
+    if (window.SpaceScene && window.SpaceScene._internals && window.SpaceScene._internals.ready) {
+      window.SpaceScene.triggerSupernova();
+      observer.disconnect();
+      return true;
+    }
+    return false;
+  };
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (window.SpaceScene) window.SpaceScene.triggerSupernova();
-        observer.disconnect();
+      if (entry.isIntersecting && !tryFire()) {
+        let attempts = 0;
+        const retry = setInterval(() => {
+          if (tryFire() || ++attempts >= 10) clearInterval(retry);
+        }, 800);
       }
     });
   }, { threshold: Math.min(0.25, (window.innerHeight * 0.5) / Math.max(1, target.offsetHeight)) });
