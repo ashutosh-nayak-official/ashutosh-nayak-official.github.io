@@ -99,7 +99,7 @@
       ctx.fillStyle = grad; ctx.fillRect(0, 0, 128, 128);
       const spr = new THREE.Sprite(new THREE.SpriteMaterial({
         map: new THREE.CanvasTexture(c), transparent: true,
-        blending: THREE.AdditiveBlending, depthWrite: false }));
+        blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
       spr.scale.setScalar(size); g.add(spr); glows.push(spr);
     });
     // Planets: [radius, orbitR, speed, color, hasRing]
@@ -242,14 +242,14 @@
     const tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(3, 2);
     const mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide,
-      transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+      transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, fog: false });
     const tube = new THREE.Mesh(geo, mat);
     tube.rotation.x = Math.PI / 2;            // cylinder axis along Z
     g.add(tube);
     // Entry ring of warped light
     const ring = new THREE.Mesh(new THREE.TorusGeometry(30, 1.2, 16, 64),
       new THREE.MeshBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0,
-        blending: THREE.AdditiveBlending, depthWrite: false }));
+        blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
     ring.position.z = 250; g.add(ring);
     tickers.push(function (dt) {
       // Fade + swirl only while the camera is within ±300 of the wormhole center.
@@ -293,7 +293,7 @@
     ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 256);
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({
       map: new THREE.CanvasTexture(c), transparent: true,
-      blending: THREE.AdditiveBlending, depthWrite: false }));
+      blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
     halo.scale.setScalar(64); g.add(halo);
     // Accretion disk particles on a warped annulus
     const N = isMobile ? 900 : 2500;
@@ -316,8 +316,13 @@
     geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
     const disk = new THREE.Points(geo, new THREE.PointsMaterial({
       size: 1.6, vertexColors: true, transparent: true, opacity: 0.9,
-      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true }));
+      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true, fog: false }));
     disk.rotation.x = 1.15; g.add(disk);
+    // Light mode: ink-print restraint — additive glows tone down on paper
+    themeListeners.push(function (p, name) {
+      halo.material.opacity = name === 'light' ? 0.5 : 1;
+      disk.material.opacity = name === 'light' ? 0.65 : 0.9;
+    });
     tickers.push(function (dt) {
       if (reduced) return;
       const p = disk.geometry.attributes.position;
@@ -389,7 +394,7 @@
       bGeo.setAttribute('position', new THREE.BufferAttribute(bPos, 3));
       const bMat = new THREE.PointsMaterial({ color: 0xfff2cc, size: 2.2,
         transparent: true, opacity: 1, blending: THREE.AdditiveBlending,
-        depthWrite: false, sizeAttenuation: true });
+        depthWrite: false, sizeAttenuation: true, fog: false });
       const burst = new THREE.Points(bGeo, bMat);
       g.add(burst);
       // assign each debris particle a shell direction + a final constellation target
@@ -409,7 +414,7 @@
       fctx.fillStyle = fg; fctx.fillRect(0, 0, 128, 128);
       const flash = new THREE.Sprite(new THREE.SpriteMaterial({
         map: new THREE.CanvasTexture(fc), transparent: true,
-        blending: THREE.AdditiveBlending, depthWrite: false }));
+        blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
       flash.scale.setScalar(1); g.add(flash);
       let novaT = 0;
       function novaTick(dt) {
@@ -478,10 +483,14 @@
     geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
     const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: 1.4,
       vertexColors: true, transparent: true, opacity: 0.95,
-      blending: THREE.AdditiveBlending, depthWrite: false }));
+      blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
     g.add(pts);
     g.rotation.x = 0.9; g.position.y = -10;
     tickers.push(function (dt) { if (!reduced) pts.rotation.y += dt * 0.03; });
+    // Light mode: galaxy prints as faint ink swirl on chart paper
+    themeListeners.push(function (p, name) {
+      pts.material.opacity = name === 'light' ? 0.55 : 0.95;
+    });
     landmarks.contact = g; scene.add(g);
   }
 
@@ -593,7 +602,7 @@
     if (!ready) return;
     const p = PALETTES[theme];
     starLayers.forEach((l) => l.material.color.setHex(p.star));
-    scene.fog.color.setHex(theme === 'light' ? 0xf0f2f8 : 0x030308);
+    scene.fog.color.setHex(theme === 'light' ? 0xf4f1e8 : 0x030308); // chart-paper haze in light
     themeListeners.forEach((fn) => fn(p, theme));
   }
 

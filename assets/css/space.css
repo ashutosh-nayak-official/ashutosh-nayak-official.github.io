@@ -29,54 +29,74 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ========== LIGHT MODE ========== */
+/* ========== LIGHT MODE: STAR CHART / OBSERVATORY BLUEPRINT ==========
+   Aged chart paper, ink-blue annotations, hairline borders.
+   The 3D scene renders as ink-dot stars on paper behind this. */
 [data-theme="light"] {
-  --bg: #f0f2f8;
-  --bg-elevated: #ffffff;
-  --surface: rgba(0,40,100,0.04);
-  --surface-hover: rgba(0,40,100,0.07);
-  --border: rgba(0,40,100,0.10);
-  --border-accent: rgba(0,100,200,0.25);
-  --text: #111827;
-  --text-dim: #4b5563;
-  --text-muted: #9ca3af;
+  --bg: #f4f1e8;
+  --bg-elevated: #fbf9f2;
+  --surface: rgba(26,42,74,0.04);
+  --surface-hover: rgba(26,42,74,0.08);
+  --border: rgba(26,42,74,0.18);
+  --border-accent: rgba(0,102,204,0.35);
+  --text: #1a2a4a;
+  --text-dim: #4a5a78;
+  --text-muted: #8a96ad;
   --cyan: #0066CC;
-  --cyan-glow: rgba(0,102,204,0.12);
-  --amber: #B45309;
+  --cyan-glow: rgba(0,102,204,0.10);
+  --amber: #b45309;
   --amber-glow: rgba(180,83,9,0.10);
-  --magenta: #BE185D;
-  --green: #059669;
+  --magenta: #7c3aed;
+  --green: #047857;
 }
 [data-theme="light"] body::before { opacity: 0.018; }
 [data-theme="light"] body {
-  background: linear-gradient(160deg, #f0f2f8 0%, #e8ecf4 40%, #f0f2f8 100%);
+  background: linear-gradient(160deg, #f4f1e8 0%, #efe9dc 40%, #f4f1e8 100%);
+}
+/* Star-chart graph grid over the paper */
+[data-theme="light"] body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(26,42,74,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,42,74,0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 [data-theme="light"] nav {
-  background: rgba(240,242,248,0.85);
-  border-bottom-color: rgba(0,40,100,0.08);
-  box-shadow: 0 1px 12px rgba(0,40,100,0.06);
+  background: rgba(244,241,232,0.88);
+  border-bottom-color: rgba(26,42,74,0.15);
+  box-shadow: 0 1px 0 rgba(26,42,74,0.06);
 }
 [data-theme="light"] nav.scrolled {
-  box-shadow: 0 4px 24px rgba(0,40,100,0.10);
+  box-shadow: 0 1px 0 rgba(26,42,74,0.10), 0 2px 8px rgba(26,42,74,0.06);
 }
 [data-theme="light"] .cursor-dot { background: var(--cyan); mix-blend-mode: normal; }
 [data-theme="light"] .cursor-ring { border-color: rgba(0,102,204,0.4); }
 [data-theme="light"] .hero-name .last {
-  background: linear-gradient(135deg, #0066CC, #B45309);
+  background: linear-gradient(135deg, #0066CC, #b45309);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 [data-theme="light"] .hero-tag {
-  background: rgba(0,102,204,0.06);
-  border-color: rgba(0,102,204,0.2);
-  box-shadow: 0 2px 12px rgba(0,102,204,0.08);
+  background: rgba(0,102,204,0.05);
+  border-color: rgba(0,102,204,0.25);
+  box-shadow: none;
+}
+/* Ink corner ticks on HUD framing elements */
+[data-theme="light"] .hero-tag::before,
+[data-theme="light"] .hero-tag::after,
+[data-theme="light"] .exp-detail-panel::before,
+[data-theme="light"] .exp-detail-panel::after,
+[data-theme="light"] .project-card::before,
+[data-theme="light"] .project-card::after {
+  border-color: rgba(26,42,74,0.5);
 }
 [data-theme="light"] .hero-stat .num {
-  color: var(--cyan);
+  color: #0066CC;
   text-shadow: none;
 }
 [data-theme="light"] .hero-stat:hover .num {
-  text-shadow: 0 0 16px rgba(0,102,204,0.25), 0 0 32px rgba(0,102,204,0.1);
+  text-shadow: 0 0 12px rgba(0,102,204,0.18);
 }
 [data-theme="light"] .nav-cta {
   border-color: var(--cyan) !important;
@@ -85,102 +105,104 @@
 [data-theme="light"] .nav-cta:hover {
   background: var(--cyan) !important;
   color: #fff !important;
-  box-shadow: 0 4px 20px rgba(0,102,204,0.3);
+  box-shadow: 0 2px 8px rgba(26,42,74,0.15);
 }
+/* Chart panels: off-white paper, hairline ink borders, faint paper shadows */
 [data-theme="light"] .project-card {
-  background: #fff;
-  border-color: rgba(0,40,100,0.08);
-  box-shadow: 0 2px 16px rgba(0,40,100,0.06);
+  background: #fbf9f2;
+  border-color: rgba(26,42,74,0.18);
+  box-shadow: 0 1px 3px rgba(26,42,74,0.08);
 }
 [data-theme="light"] .project-card:hover {
-  border-color: rgba(0,102,204,0.3);
-  box-shadow: 0 12px 40px rgba(0,102,204,0.12), 0 4px 16px rgba(0,40,100,0.08);
+  border-color: rgba(0,102,204,0.45);
+  box-shadow: 0 2px 8px rgba(26,42,74,0.12);
 }
 [data-theme="light"] .project-card:hover .project-card-visual .pv-icon {
-  filter: drop-shadow(0 0 30px rgba(0,102,204,0.4));
+  filter: drop-shadow(0 1px 4px rgba(0,102,204,0.25));
 }
 [data-theme="light"] .project-card:hover .project-tag {
-  border-color: rgba(0,102,204,0.2);
-  background: rgba(0,102,204,0.06);
+  border-color: rgba(0,102,204,0.25);
+  background: rgba(0,102,204,0.05);
   color: var(--cyan);
 }
 [data-theme="light"] .skill-category {
-  background: #fff;
-  border-color: rgba(0,40,100,0.08);
-  box-shadow: 0 2px 12px rgba(0,40,100,0.04);
+  background: #fbf9f2;
+  border-color: rgba(26,42,74,0.18);
+  box-shadow: 0 1px 3px rgba(26,42,74,0.08);
 }
 [data-theme="light"] .skill-category:hover {
-  border-color: rgba(0,102,204,0.25);
-  box-shadow: 0 8px 32px rgba(0,102,204,0.08);
+  border-color: rgba(0,102,204,0.45);
+  box-shadow: 0 2px 8px rgba(26,42,74,0.10);
 }
 [data-theme="light"] .skill-item {
-  background: rgba(0,40,100,0.04);
-  border-color: rgba(0,40,100,0.08);
+  background: rgba(26,42,74,0.04);
+  border-color: rgba(26,42,74,0.14);
   color: var(--text-dim);
 }
 [data-theme="light"] .skill-item:hover {
-  background: rgba(0,102,204,0.1);
-  border-color: rgba(0,102,204,0.25);
+  background: rgba(0,102,204,0.07);
+  border-color: rgba(0,102,204,0.35);
   color: var(--cyan);
-  box-shadow: 0 2px 12px rgba(0,102,204,0.1);
+  box-shadow: none;
 }
 [data-theme="light"] .cert-card {
-  background: #fff;
-  border-color: rgba(0,40,100,0.08);
+  background: #fbf9f2;
+  border-color: rgba(26,42,74,0.18);
   color: var(--text);
-  box-shadow: 0 2px 12px rgba(0,40,100,0.05);
+  box-shadow: 0 1px 3px rgba(26,42,74,0.08);
 }
 [data-theme="light"] .cert-card:hover {
-  border-color: var(--amber);
-  box-shadow: 0 8px 32px rgba(180,83,9,0.12);
+  border-color: rgba(180,83,9,0.55);
+  box-shadow: 0 2px 8px rgba(26,42,74,0.12);
 }
 [data-theme="light"] .cert-card::after {
   background: linear-gradient(
     115deg,
     transparent 40%,
-    rgba(0,102,204,0.06) 45%,
-    rgba(0,102,204,0.12) 50%,
-    rgba(0,102,204,0.06) 55%,
+    rgba(0,102,204,0.03) 45%,
+    rgba(0,102,204,0.06) 50%,
+    rgba(0,102,204,0.03) 55%,
     transparent 60%
   );
 }
 [data-theme="light"] .contact-link {
-  background: #fff;
-  border-color: rgba(0,40,100,0.1);
+  background: #fbf9f2;
+  border-color: rgba(26,42,74,0.18);
   color: var(--text);
-  box-shadow: 0 2px 8px rgba(0,40,100,0.05);
+  box-shadow: 0 1px 3px rgba(26,42,74,0.08);
 }
 [data-theme="light"] .contact-link:hover {
-  border-color: var(--cyan);
-  background: rgba(0,102,204,0.06);
-  box-shadow: 0 8px 28px rgba(0,102,204,0.15);
+  border-color: rgba(0,102,204,0.45);
+  background: rgba(0,102,204,0.04);
+  box-shadow: 0 2px 8px rgba(26,42,74,0.12);
 }
 [data-theme="light"] .contact-heading .gradient {
-  background: linear-gradient(135deg, #0066CC, #B45309, #BE185D);
+  background: linear-gradient(135deg, #0066CC, #7c3aed, #b45309);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/* Chart scanline on the active mission-log entry */
 [data-theme="light"] .exp-nav-item.active {
-  background: rgba(0,102,204,0.06);
-  border-left-color: var(--cyan);
+  background: rgba(0,102,204,0.05) repeating-linear-gradient(transparent 0 2px, rgba(0,102,204,0.05) 2px 4px);
+  border-left-color: #0066CC;
 }
 [data-theme="light"] .rh-icon {
-  background: rgba(0,40,100,0.04);
-  border-color: rgba(0,40,100,0.08);
+  background: rgba(26,42,74,0.04);
+  border-color: rgba(26,42,74,0.14);
 }
 [data-theme="light"] .role-highlight:hover .rh-icon {
-  background: rgba(0,102,204,0.08);
-  border-color: rgba(0,102,204,0.2);
+  background: rgba(0,102,204,0.06);
+  border-color: rgba(0,102,204,0.3);
 }
 [data-theme="light"] footer {
-  border-top-color: rgba(0,40,100,0.08);
+  border-top-color: rgba(26,42,74,0.15);
 }
 [data-theme="light"] .project-card-visual .pv-label { color: rgba(255,255,255,0.6); }
-[data-theme="light"] ::selection { background: var(--cyan); color: #fff; }
+[data-theme="light"] ::selection { background: #0066CC; color: #fff; }
 
-/* Light mode section heading shimmer uses richer tones */
+/* Light mode section heading shimmer uses ink tones */
 [data-theme="light"] .section-heading:hover {
-  background: linear-gradient(135deg, #111827, #0066CC, #111827);
+  background: linear-gradient(135deg, #1a2a4a, #0066CC, #1a2a4a);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -188,21 +210,21 @@
   animation: shimmer 3s linear infinite;
 }
 
-/* Light mode about word highlights pop more */
+/* Light mode about word highlights in accent ink */
 [data-theme="light"] .about-word.highlight.lit { color: #0066CC; font-weight: 500; }
 
 /* Light mode scroll progress bar */
 [data-theme="light"] .scroll-progress-bar {
-  background: linear-gradient(90deg, #0066CC, #B45309) !important;
+  background: linear-gradient(90deg, #0066CC, #b45309) !important;
 }
 
-/* Light mode body has subtle ambient color washes behind sections */
+/* Faint ink washes behind sections — chart-paper subtlety */
 [data-theme="light"] .skills-section::before {
   content: '';
   position: absolute;
   top: -100px; right: -200px;
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0,102,204,0.1), transparent 70%);
+  background: radial-gradient(circle, rgba(0,102,204,0.05), transparent 70%);
   filter: blur(80px);
   pointer-events: none;
   z-index: 0;
@@ -214,7 +236,7 @@
   position: absolute;
   bottom: -80px; left: -150px;
   width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(180,83,9,0.08), transparent 70%);
+  background: radial-gradient(circle, rgba(180,83,9,0.04), transparent 70%);
   filter: blur(80px);
   pointer-events: none;
   z-index: 0;
@@ -1287,7 +1309,7 @@ nav.scrolled {
   box-shadow: 0 4px 30px rgba(0,0,0,0.15);
 }
 [data-theme="light"] nav.scrolled {
-  box-shadow: 0 4px 24px rgba(0,40,100,0.10);
+  box-shadow: 0 1px 0 rgba(26,42,74,0.10), 0 2px 8px rgba(26,42,74,0.06);
 }
 
 /* Section divider lines */
@@ -1398,8 +1420,9 @@ nav.scrolled {
   backdrop-filter: blur(20px);
 }
 [data-theme="light"] .lang-dropdown {
-  background: #fff;
-  box-shadow: 0 12px 40px rgba(0,40,100,0.12);
+  background: #fbf9f2;
+  border-color: rgba(26,42,74,0.18);
+  box-shadow: 0 2px 8px rgba(26,42,74,0.12);
 }
 .lang-switcher.open .lang-dropdown {
   opacity: 1;
@@ -1538,6 +1561,8 @@ nav.scrolled {
 [data-magic="true"][data-theme="light"] ::selection { background: #ae0001; color: #fff; }
 [data-magic="true"][data-theme="light"] .lang-dropdown { background: #fdf3e0; }
 [data-magic="true"][data-theme="light"] .exp-nav-item.active { background: rgba(116,0,1,0.06); border-left-color: var(--cyan); }
+/* Star-chart graph grid belongs to the observatory theme only — not parchment */
+[data-magic="true"][data-theme="light"] body::after { content: none; }
 
 /* ----- HP: Body & General ----- */
 [data-magic="true"] body {
@@ -1751,7 +1776,7 @@ nav.scrolled {
 }
 .wand-toggle:hover::after { opacity: 1; }
 [data-theme="light"] .wand-toggle {
-  background: rgba(255,255,255,0.9);
+  background: rgba(251,249,242,0.9);
   border-color: rgba(116,0,1,0.3);
 }
 .wand-toggle .wand-icon { position: relative; z-index: 1; transition: transform 0.4s; }
