@@ -428,7 +428,7 @@ else setTimeout(() => {
         observer.disconnect();
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: Math.min(0.25, (window.innerHeight * 0.5) / Math.max(1, target.offsetHeight)) });
   observer.observe(target);
 })();
 

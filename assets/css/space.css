@@ -1685,6 +1685,7 @@ nav.scrolled {
 
 /* ----- HP: Projects ----- */
 [data-magic="true"] .project-card { border-radius: 12px; }
+[data-magic="true"] .project-card-visual { border-radius: 11px 11px 0 0; }
 [data-magic="true"] .project-card::before, [data-magic="true"] .project-card::after { border-color: #D3A625; }
 [data-magic="true"] .project-card:hover {
   border-color: #D3A625;
