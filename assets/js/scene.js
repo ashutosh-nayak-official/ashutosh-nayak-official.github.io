@@ -484,8 +484,12 @@
     const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: 1.4,
       vertexColors: true, transparent: true, opacity: 0.95,
       blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
-    g.add(pts);
-    g.rotation.x = 0.9; g.position.y = -10;
+    const inner2 = new THREE.Group();
+    inner2.add(pts);                      // pts spins about its own Y (disk normal)
+    inner2.rotation.x = 0.9;              // tilt applied outside the spin
+    inner2.position.z = -300;             // straight back from the camera path
+    g.add(inner2);
+    g.position.y = -10;
     tickers.push(function (dt) { if (!reduced) pts.rotation.y += dt * 0.03; });
     // Light mode: galaxy prints as faint ink swirl on chart paper
     themeListeners.push(function (p, name) {
