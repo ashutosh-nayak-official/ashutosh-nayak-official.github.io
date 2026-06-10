@@ -458,28 +458,6 @@ else setTimeout(() => {
 })();
 
 // ============================================================
-// PARALLAX ON HERO ORBs
-// ============================================================
-(function() {
-  const orbs = document.querySelectorAll('.hero-mesh .orb');
-  let ticking = false;
-  
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.pageYOffset;
-        orbs.forEach((orb, i) => {
-          const speed = (i + 1) * 0.08;
-          orb.style.transform = `translateY(${scrollY * speed}px)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-})();
-
-// ============================================================
 // NAV SCROLL SHADOW
 // ============================================================
 (function() {

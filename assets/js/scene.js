@@ -35,6 +35,7 @@
     camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 2000);
     camera.position.set(0, 0, 50);
     buildStarfield();
+    buildSolarSystem();
     document.body.classList.add('scene-active');
     window.addEventListener('resize', onResize);
     if (!isMobile) document.addEventListener('mousemove', (e) => {
@@ -70,6 +71,68 @@
       starLayers.push(pts);
       scene.add(pts);
     });
+  }
+
+  // Hero landmark: miniature live solar system
+  function buildSolarSystem() {
+    const g = new THREE.Group();
+    // Sun: core sphere + 2 additive glow sprites
+    const sun = new THREE.Mesh(
+      new THREE.SphereGeometry(8, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0xffb547 }));
+    g.add(sun);
+    [22, 40].forEach((size, i) => {
+      const c = document.createElement('canvas'); c.width = c.height = 128;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grad.addColorStop(0, i ? 'rgba(255,181,71,0.35)' : 'rgba(255,220,150,0.9)');
+      grad.addColorStop(1, 'rgba(255,181,71,0)');
+      ctx.fillStyle = grad; ctx.fillRect(0, 0, 128, 128);
+      const spr = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: new THREE.CanvasTexture(c), transparent: true,
+        blending: THREE.AdditiveBlending, depthWrite: false }));
+      spr.scale.setScalar(size); g.add(spr);
+    });
+    // Planets: [radius, orbitR, speed, color, hasRing]
+    const DEFS = [
+      [1.0, 16, 1.6, 0x9c9c9c, 0], [1.6, 22, 1.17, 0xd8a05a, 0],
+      [1.7, 29, 1.0, 0x3a7bd5, 0], [1.3, 37, 0.8, 0xc1440e, 0],
+      [4.2, 52, 0.43, 0xc9a06c, 0], [3.6, 68, 0.32, 0xe0c47c, 1],
+      [2.4, 82, 0.23, 0x7fd4d4, 0], [2.3, 94, 0.18, 0x3f54ba, 0],
+    ];
+    const planets = [];
+    DEFS.forEach(function (def) {
+      const r = def[0], oR = def[1], sp = def[2], col = def[3], ring = def[4];
+      const pivot = new THREE.Object3D();
+      pivot.rotation.y = Math.random() * Math.PI * 2;
+      const m = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 24),
+        new THREE.MeshStandardMaterial({ color: col, roughness: 0.85 }));
+      m.position.x = oR; pivot.add(m); g.add(pivot);
+      if (ring) {
+        const rg = new THREE.Mesh(new THREE.RingGeometry(r * 1.5, r * 2.4, 48),
+          new THREE.MeshBasicMaterial({ color: 0xd9c79a, side: THREE.DoubleSide,
+            transparent: true, opacity: 0.55 }));
+        rg.rotation.x = Math.PI / 2.4; m.add(rg);
+      }
+      const orbit = new THREE.Mesh(new THREE.RingGeometry(oR - 0.06, oR + 0.06, 96),
+        new THREE.MeshBasicMaterial({ color: 0x96b4ff, transparent: true, opacity: 0.12, side: THREE.DoubleSide }));
+      orbit.rotation.x = Math.PI / 2; g.add(orbit);
+      planets.push({ pivot: pivot, speed: sp });
+    });
+    // r160 defaults useLegacyLights=false (since r155), so PointLight intensity is
+    // physical (candela) with inverse-square decay: 600 cd gives ~2.3 lux at the
+    // innermost orbit (r=16) fading naturally to the outer planets.
+    g.add(new THREE.PointLight(0xffd9a0, 600, 400, 2));
+    g.add(new THREE.AmbientLight(0x404060, 0.6));
+    g.rotation.x = 0.42;                       // tilt the orbital plane toward viewer
+    g.position.set(isMobile ? 0 : 38, -6, 0);  // offset right of hero text on desktop
+    tickers.push(function (dt) {
+      if (!reduced) planets.forEach(function (p) { p.pivot.rotation.y += p.speed * dt * 0.25; });
+    });
+    themeListeners.push(function (p, name) {
+      sun.material.color.setHex(name === 'magic' ? 0xd3a625 : 0xffb547);
+    });
+    landmarks.hero = g; scene.add(g);
   }
 
   // Map each anchor section's page position to a Z depth. Landmark groups
