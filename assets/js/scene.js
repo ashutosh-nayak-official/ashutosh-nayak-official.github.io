@@ -39,6 +39,7 @@
     buildSolarSystem();
     buildAsteroidField();
     buildMars();
+    buildWormhole();
     document.body.classList.add('scene-active');
     window.addEventListener('resize', onResize);
     if (!isMobile) document.addEventListener('mousemove', (e) => {
@@ -216,6 +217,59 @@
       if (!reduced) mars.rotation.y += 0.02 * dt * Math.PI;
     });
     landmarks.experience = g; scene.add(g);
+  }
+
+  // Transition landmark: scroll-scrubbed wormhole tunnel (experience → projects)
+  function buildWormhole() {
+    const g = new THREE.Group();
+    const geo = new THREE.CylinderGeometry(30, 30, 500, 48, 24, true);
+    // Procedural swirl texture
+    const c = document.createElement('canvas'); c.width = 512; c.height = 512;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#030308'; ctx.fillRect(0, 0, 512, 512);
+    for (let i = 0; i < 70; i++) {
+      ctx.strokeStyle = 'hsla(' + (185 + Math.random() * 80) + ', 90%, ' + (55 + Math.random() * 25) + '%, ' + (0.25 + Math.random() * 0.5) + ')';
+      ctx.lineWidth = 1 + Math.random() * 2.5;
+      ctx.beginPath();
+      const y = Math.random() * 512;
+      ctx.moveTo(0, y); ctx.bezierCurveTo(170, y + 40, 340, y - 40, 512, y);
+      ctx.stroke();
+    }
+    const tex = new THREE.CanvasTexture(c);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(3, 2);
+    const mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide,
+      transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+    const tube = new THREE.Mesh(geo, mat);
+    tube.rotation.x = Math.PI / 2;            // cylinder axis along Z
+    g.add(tube);
+    // Entry ring of warped light
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(30, 1.2, 16, 64),
+      new THREE.MeshBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0,
+        blending: THREE.AdditiveBlending, depthWrite: false }));
+    ring.position.z = 250; g.add(ring);
+    tickers.push(function (dt) {
+      // Fade + swirl only while the camera is within ±300 of the wormhole center.
+      // k scrubs with scroll (reversible); FOV stretch sells the tunnel rush.
+      const d = Math.abs(camera.position.z - g.position.z);
+      const k = Math.max(0, 1 - d / 300);
+      mat.opacity = k * 0.85;
+      ring.material.opacity = k * 0.9;
+      if (!reduced) {
+        // Texture-space motion: offset.y = rush along the tube axis,
+        // offset.x = swirl around it (rotating the mesh would wobble it
+        // since rotation.x = π/2 moved the cylinder axis off local Z).
+        if (k > 0) { tex.offset.y -= dt * 1.5 * k; tex.offset.x += dt * 0.25 * k; }
+        const targetFov = 60 + k * 28;
+        if (Math.abs(camera.fov - targetFov) > 0.01) {
+          camera.fov = targetFov;
+          camera.updateProjectionMatrix();
+        }
+      }
+    });
+    themeListeners.push(function (p, name) {
+      ring.material.color.setHex(name === 'magic' ? 0xd3a625 : (name === 'light' ? 0x0066cc : 0x00e5ff));
+    });
+    landmarks.wormhole = g; scene.add(g);
   }
 
   // Map each anchor section's page position to a Z depth. Landmark groups
