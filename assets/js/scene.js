@@ -38,6 +38,7 @@
     buildStarfield();
     buildSolarSystem();
     buildAsteroidField();
+    buildMars();
     document.body.classList.add('scene-active');
     window.addEventListener('resize', onResize);
     if (!isMobile) document.addEventListener('mousemove', (e) => {
@@ -180,6 +181,42 @@
       }
     });
     landmarks.about = g; scene.add(g);
+  }
+
+  // Experience landmark: Mars with procedural surface
+  function buildMars() {
+    const g = new THREE.Group();
+    // Procedural canvas texture: rusty base, darker blotches, polar cap
+    const c = document.createElement('canvas'); c.width = 512; c.height = 256;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#c1440e'; ctx.fillRect(0, 0, 512, 256);
+    for (let i = 0; i < 40; i++) {
+      const x = Math.random() * 512, y = 30 + Math.random() * 200;
+      const rx = 15 + Math.random() * 60, ry = 8 + Math.random() * 30;
+      ctx.fillStyle = 'rgba(' + (70 + Math.random() * 40) + ',' + (25 + Math.random() * 15) + ',10,' + (0.15 + Math.random() * 0.25) + ')';
+      ctx.beginPath(); ctx.ellipse(x, y, rx, ry, Math.random() * Math.PI, 0, Math.PI * 2); ctx.fill();
+    }
+    // Polar cap (texture top = north pole)
+    const cap = ctx.createRadialGradient(256, 8, 2, 256, 8, 60);
+    cap.addColorStop(0, 'rgba(245,240,235,0.95)');
+    cap.addColorStop(0.6, 'rgba(235,228,220,0.55)');
+    cap.addColorStop(1, 'rgba(235,228,220,0)');
+    ctx.fillStyle = cap; ctx.fillRect(0, 0, 512, 40);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    const mars = new THREE.Mesh(
+      new THREE.SphereGeometry(26, 48, 48),
+      new THREE.MeshStandardMaterial({ map: tex, roughness: 0.95 }));
+    g.add(mars);
+    const sun = new THREE.DirectionalLight(0xffe0c0, 2.6);
+    sun.position.set(0.8, 0.4, 1);
+    g.add(sun); g.add(sun.target);
+    g.position.x = isMobile ? 0 : -70;
+    g.position.y = isMobile ? 35 : 10;
+    tickers.push(function (dt) {
+      if (!reduced) mars.rotation.y += 0.02 * dt * Math.PI;
+    });
+    landmarks.experience = g; scene.add(g);
   }
 
   // Map each anchor section's page position to a Z depth. Landmark groups

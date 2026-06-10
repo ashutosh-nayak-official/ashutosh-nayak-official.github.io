@@ -688,7 +688,7 @@ nav {
 }
 .exp-nav-item.active {
   border-left-color: var(--cyan);
-  background: var(--surface);
+  background: var(--surface) repeating-linear-gradient(transparent 0 2px, rgba(0,229,255,0.04) 2px 4px);
   border-radius: 0 12px 12px 0;
 }
 .exp-nav-item .exp-period {
@@ -697,6 +697,11 @@ nav {
   color: var(--text-muted);
   letter-spacing: 0.05em;
   transition: color 0.4s;
+}
+.exp-nav-item .exp-period::before {
+  content: 'LOG ▸ ';
+  color: var(--cyan);
+  opacity: 0.7;
 }
 .exp-nav-item.active .exp-period { color: var(--cyan); }
 .exp-nav-item .exp-title {
@@ -711,11 +716,20 @@ nav {
 
 .exp-detail-panel {
   position: relative;
-  min-height: 400px;
+  min-height: 440px;
+  border: 1px solid var(--border-accent);
+  border-radius: 12px;
 }
+/* HUD corner ticks */
+.exp-detail-panel::before, .exp-detail-panel::after {
+  content: ''; position: absolute; width: 10px; height: 10px; border: 1px solid var(--cyan); z-index: 1;
+}
+.exp-detail-panel::before { top: -4px; left: -4px; border-right: none; border-bottom: none; }
+.exp-detail-panel::after { bottom: -4px; right: -4px; border-left: none; border-top: none; }
 .exp-detail {
   position: absolute;
   inset: 0;
+  padding: 24px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s, transform 0.5s cubic-bezier(0.25,1,0.5,1);
@@ -752,7 +766,7 @@ nav {
 .exp-detail .rh-icon {
   width: 36px; height: 36px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center;
@@ -1136,6 +1150,7 @@ footer p {
   .exp-timeline-nav { flex-direction: row; overflow-x: auto; }
   .exp-nav-item { border-left: none; border-bottom: 2px solid var(--border); padding: 12px 16px; white-space: nowrap; }
   .exp-nav-item.active { border-bottom-color: var(--cyan); border-radius: 12px 12px 0 0; }
+  .exp-detail { padding: 12px; }
   .project-card { width: 320px; }
   .project-card-visual { height: 180px; }
   .hero-stats { gap: 32px; }
@@ -1648,6 +1663,8 @@ nav.scrolled {
 [data-magic="true"] .role-company { color: #946B2D; }
 [data-magic="true"] .rh-text strong { color: #D3A625; font-weight: 600; }
 [data-magic="true"] .role-highlight:hover .rh-icon { background: rgba(211,166,37,0.08); border-color: rgba(211,166,37,0.3); }
+[data-magic="true"] .exp-detail-panel::before, [data-magic="true"] .exp-detail-panel::after { border-color: #D3A625; }
+[data-magic="true"] .exp-nav-item .exp-period::before { color: #D3A625; }
 
 /* ----- HP: Projects ----- */
 [data-magic="true"] .project-card { border-radius: 12px; }
