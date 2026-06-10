@@ -169,6 +169,7 @@
     const dir = new THREE.DirectionalLight(0x96b4ff, 1.4);
     dir.position.set(0.5, 1, 0.8);
     g.add(dir);
+    g.add(dir.target);
     tickers.push(function (dt) {
       if (reduced) return;
       for (let i = 0; i < rocks.length; i++) {
