@@ -197,9 +197,8 @@
       ctx.beginPath(); ctx.ellipse(x, y, rx, ry, Math.random() * Math.PI, 0, Math.PI * 2); ctx.fill();
     }
     // Polar cap (texture top = north pole)
-    const cap = ctx.createRadialGradient(256, 8, 2, 256, 8, 60);
+    const cap = ctx.createLinearGradient(0, 0, 0, 40);
     cap.addColorStop(0, 'rgba(245,240,235,0.95)');
-    cap.addColorStop(0.6, 'rgba(235,228,220,0.55)');
     cap.addColorStop(1, 'rgba(235,228,220,0)');
     ctx.fillStyle = cap; ctx.fillRect(0, 0, 512, 40);
     const tex = new THREE.CanvasTexture(c);
