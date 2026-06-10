@@ -1200,6 +1200,9 @@ footer p {
   opacity: 0.5;
 }
 [data-theme="light"] #particleCanvas { opacity: 0.45; }
+#spaceCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+/* particleCanvas is the 2D fallback layer — hidden while WebGL is alive */
+body.scene-active #particleCanvas { display: none; }
 
 /* ========== ENHANCED ANIMATIONS ========== */
 @keyframes glitchFlicker {

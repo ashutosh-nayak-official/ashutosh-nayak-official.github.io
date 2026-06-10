@@ -1,12 +1,36 @@
 // ============================================================
+// SPACE SCENE BRIDGE — drives the 3D voyage; falls back to 2D particles
+// ============================================================
+window.__sceneFallback = false;
+document.addEventListener('scene:fallback', () => {
+  window.__sceneFallback = true;
+  document.body.classList.remove('scene-active');
+  if (window.__startParticles) window.__startParticles();
+});
+(function () {
+  function pageProgress() {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    return docH > 0 ? window.pageYOffset / docH : 0;
+  }
+  window.addEventListener('scroll', () => {
+    if (window.SpaceScene) window.SpaceScene.setScrollProgress(pageProgress());
+  }, { passive: true });
+  window.addEventListener('resize', () => {
+    if (window.SpaceScene) window.SpaceScene.layout();
+  });
+})();
+
+// ============================================================
 // UTILITIES
 // ============================================================
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
 // ============================================================
-// PARTICLE NETWORK BACKGROUND
+// PARTICLE NETWORK BACKGROUND (2D fallback — started only if WebGL scene unavailable)
 // ============================================================
-(function() {
+window.__startParticles = function () {
+  if (window.__particlesStarted) return;
+  window.__particlesStarted = true;
   const canvas = document.getElementById('particleCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -98,7 +122,11 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
     requestAnimationFrame(animate);
   }
   animate();
-})();
+};
+if (window.__sceneFallback) window.__startParticles();
+else setTimeout(() => {
+  if (!document.body.classList.contains('scene-active')) window.__startParticles();
+}, 2500);
 
 // ============================================================
 // THEME TOGGLE (LIGHT / DARK)
@@ -120,6 +148,10 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
     } else {
       root.setAttribute('data-theme', 'light');
       localStorage.setItem('theme', 'light');
+    }
+    if (window.SpaceScene) {
+      const magic = document.documentElement.hasAttribute('data-magic');
+      window.SpaceScene.setTheme(magic ? 'magic' : (document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'));
     }
     setTimeout(() => { document.body.style.transition = ''; }, 600);
   });
@@ -935,6 +967,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       setupWandCursor();
       tooltip.textContent = 'Mischief Managed';
       localStorage.setItem('magic', 'true');
+      if (window.SpaceScene) window.SpaceScene.setTheme('magic');
     }, withFlash ? 1000 : 0);
   }
 
@@ -946,6 +979,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       document.body.style.cursor = '';
       tooltip.textContent = 'Cast a spell';
       localStorage.setItem('magic', 'false');
+      if (window.SpaceScene) window.SpaceScene.setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
     }, withFlash ? 1000 : 0);
   }
 
@@ -963,5 +997,21 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
   if (magicActive) {
     activateMagic(false);
   }
+})();
+
+// ============================================================
+// SPACE SCENE — one-time theme + layout sync once the 3D scene is ready
+// ============================================================
+(function () {
+  const syncTheme = () => {
+    if (!window.SpaceScene) return;
+    const magic = document.documentElement.hasAttribute('data-magic');
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    window.SpaceScene.setTheme(magic ? 'magic' : light ? 'light' : 'dark');
+    window.SpaceScene.layout();
+    if (window.SpaceScene._internals && window.SpaceScene._internals.ready) return; // applied
+    setTimeout(syncTheme, 500); // retry until scene ready, then it sticks
+  };
+  setTimeout(syncTheme, 300);
 })();
 
