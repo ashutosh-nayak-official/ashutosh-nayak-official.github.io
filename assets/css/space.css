@@ -1687,6 +1687,7 @@ nav.scrolled {
 [data-magic="true"] .rh-text strong { color: #D3A625; font-weight: 600; }
 [data-magic="true"] .role-highlight:hover .rh-icon { background: rgba(211,166,37,0.08); border-color: rgba(211,166,37,0.3); }
 [data-magic="true"] .exp-detail-panel::before, [data-magic="true"] .exp-detail-panel::after { border-color: #D3A625; }
+[data-magic="true"] .hero-tag::before, [data-magic="true"] .hero-tag::after { border-color: #D3A625; }
 [data-magic="true"] .exp-nav-item .exp-period::before { color: #D3A625; }
 
 /* ----- HP: Projects ----- */
