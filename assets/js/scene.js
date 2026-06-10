@@ -40,6 +40,8 @@
     buildAsteroidField();
     buildMars();
     buildWormhole();
+    buildBlackHole();
+    buildConstellations();
     document.body.classList.add('scene-active');
     window.addEventListener('resize', onResize);
     if (!isMobile) document.addEventListener('mousemove', (e) => {
@@ -272,6 +274,185 @@
     landmarks.wormhole = g; scene.add(g);
   }
 
+  // Projects landmark: black hole with accretion disk
+  function buildBlackHole() {
+    const g = new THREE.Group();
+    const hole = new THREE.Mesh(new THREE.SphereGeometry(14, 48, 48),
+      new THREE.MeshBasicMaterial({ color: 0x000000 }));
+    g.add(hole);
+    // Photon-ring halo sprite
+    const c = document.createElement('canvas'); c.width = c.height = 256;
+    const ctx = c.getContext('2d');
+    const grad = ctx.createRadialGradient(128, 128, 52, 128, 128, 78);
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(0.45, 'rgba(255,200,120,0.9)');
+    grad.addColorStop(0.6, 'rgba(255,150,60,0.5)');
+    grad.addColorStop(1, 'rgba(255,120,40,0)');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 256);
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: new THREE.CanvasTexture(c), transparent: true,
+      blending: THREE.AdditiveBlending, depthWrite: false }));
+    halo.scale.setScalar(64); g.add(halo);
+    // Accretion disk particles on a warped annulus
+    const N = isMobile ? 900 : 2500;
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
+    const angles = new Float32Array(N), radii = new Float32Array(N);
+    const c1 = new THREE.Color(0xffe0b0), c2 = new THREE.Color(0xff7733);
+    for (let i = 0; i < N; i++) {
+      angles[i] = Math.random() * Math.PI * 2;
+      radii[i] = 17 + Math.pow(Math.random(), 1.6) * 38;
+      const mix = (radii[i] - 17) / 38, cc = c1.clone().lerp(c2, mix);
+      col[i * 3] = cc.r; col[i * 3 + 1] = cc.g; col[i * 3 + 2] = cc.b;
+      // Seed initial ring positions so the disk is visible even when the
+      // reduced-motion ticker never runs (same formula as the ticker).
+      pos[i * 3] = Math.cos(angles[i]) * radii[i];
+      pos[i * 3 + 1] = Math.sin(angles[i] * 2) * 1.2;
+      pos[i * 3 + 2] = Math.sin(angles[i]) * radii[i] * 0.35;
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    const disk = new THREE.Points(geo, new THREE.PointsMaterial({
+      size: 1.6, vertexColors: true, transparent: true, opacity: 0.9,
+      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true }));
+    disk.rotation.x = 1.15; g.add(disk);
+    tickers.push(function (dt) {
+      if (reduced) return;
+      const p = disk.geometry.attributes.position;
+      for (let i = 0; i < N; i++) {
+        angles[i] += dt * (30 / radii[i]);          // Keplerian: inner = faster
+        radii[i] -= dt * 0.35;                       // slow infall
+        if (radii[i] < 15) radii[i] = 55;            // respawn at rim
+        p.setXYZ(i, Math.cos(angles[i]) * radii[i],
+          Math.sin(angles[i] * 2) * 1.2,             // slight vertical warp
+          Math.sin(angles[i]) * radii[i] * 0.35);    // foreshortened ellipse
+      }
+      p.needsUpdate = true;
+    });
+    g.position.x = isMobile ? 0 : -55; g.position.y = 8;
+    landmarks.projects = g; scene.add(g);
+  }
+
+  // Skills landmark: constellations forged by a supernova
+  var novaPlayed = false;
+  var constellationGroups = [];   // {pointsMat, lineMat} material refs for reveal
+  var novaAPI = null;             // set by buildConstellations
+
+  function buildConstellations() {
+    const g = new THREE.Group();
+    // Hand-placed cluster centers on a 200×120 plane
+    const centers = [[-80, 35], [0, 42], [80, 32], [-70, -28], [5, -38], [78, -25]];
+    const accent = new THREE.Color(0x00e5ff);
+    constellationGroups = [];
+    const starTargets = [];     // world-local positions for nova debris to fly to
+    centers.forEach(function (ctr) {
+      const n = 5 + Math.floor(Math.random() * 4);
+      const pts = [];
+      for (let i = 0; i < n; i++) {
+        pts.push(new THREE.Vector3(
+          ctr[0] + (Math.random() - 0.5) * 34,
+          ctr[1] + (Math.random() - 0.5) * 26,
+          (Math.random() - 0.5) * 10));
+      }
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      const mat = new THREE.PointsMaterial({ color: accent, size: 2.5,
+        transparent: true, opacity: 0, sizeAttenuation: true });
+      const cloud = new THREE.Points(geo, mat);
+      g.add(cloud);
+      // connect successive stars with lines
+      const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
+      const lineMat = new THREE.LineBasicMaterial({ color: accent, transparent: true, opacity: 0 });
+      const line = new THREE.Line(lineGeo, lineMat);
+      g.add(line);
+      constellationGroups.push({ pointsMat: mat, lineMat: lineMat });
+      pts.forEach(function (v) { starTargets.push(v); });
+    });
+    landmarks.skills = g; scene.add(g);
+
+    themeListeners.push(function (p, name) {
+      const hex = name === 'magic' ? 0xd3a625 : (name === 'light' ? 0x0066cc : 0x00e5ff);
+      constellationGroups.forEach(function (cg) {
+        cg.pointsMat.color.setHex(hex); cg.lineMat.color.setHex(hex);
+      });
+    });
+
+    // ---- supernova ----
+    novaAPI = function () {
+      if (novaPlayed) return;
+      novaPlayed = true;
+      if (reduced) { revealConstellations(1); return; }
+      const NB = isMobile ? 500 : 1200;
+      const bGeo = new THREE.BufferGeometry();
+      const bPos = new Float32Array(NB * 3);             // all start at center
+      bGeo.setAttribute('position', new THREE.BufferAttribute(bPos, 3));
+      const bMat = new THREE.PointsMaterial({ color: 0xfff2cc, size: 2.2,
+        transparent: true, opacity: 1, blending: THREE.AdditiveBlending,
+        depthWrite: false, sizeAttenuation: true });
+      const burst = new THREE.Points(bGeo, bMat);
+      g.add(burst);
+      // assign each debris particle a shell direction + a final constellation target
+      const shells = [], finals = [];
+      for (let i = 0; i < NB; i++) {
+        const th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
+        const R = 60 + Math.random() * 30;
+        shells.push(new THREE.Vector3(
+          R * Math.sin(ph) * Math.cos(th), R * Math.sin(ph) * Math.sin(th), R * Math.cos(ph) * 0.4));
+        finals.push(starTargets[i % starTargets.length]);
+      }
+      // flash sprite
+      const fc = document.createElement('canvas'); fc.width = fc.height = 128;
+      const fctx = fc.getContext('2d');
+      const fg = fctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      fg.addColorStop(0, 'rgba(255,255,240,1)'); fg.addColorStop(1, 'rgba(255,220,150,0)');
+      fctx.fillStyle = fg; fctx.fillRect(0, 0, 128, 128);
+      const flash = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: new THREE.CanvasTexture(fc), transparent: true,
+        blending: THREE.AdditiveBlending, depthWrite: false }));
+      flash.scale.setScalar(1); g.add(flash);
+      let novaT = 0;
+      function novaTick(dt) {
+        novaT += dt * 0.4;                              // ~2.5s total
+        const t = Math.min(novaT, 1);
+        // flash: rapid expand then collapse in first 30%
+        const ft = Math.min(t / 0.3, 1);
+        flash.scale.setScalar(1 + Math.sin(ft * Math.PI) * 16);
+        flash.material.opacity = 1 - ft;
+        const p = bGeo.attributes.position;
+        for (let i = 0; i < NB; i++) {
+          let x, y, z;
+          if (t < 0.5) {                                // center → shell, ease-out
+            const k = 1 - Math.pow(1 - t / 0.5, 2);
+            x = shells[i].x * k; y = shells[i].y * k; z = shells[i].z * k;
+          } else {                                      // shell → constellation, ease-in-out
+            const k0 = (t - 0.5) / 0.5;
+            const k = k0 < 0.5 ? 2 * k0 * k0 : 1 - Math.pow(-2 * k0 + 2, 2) / 2;
+            x = shells[i].x + (finals[i].x - shells[i].x) * k;
+            y = shells[i].y + (finals[i].y - shells[i].y) * k;
+            z = shells[i].z + (finals[i].z - shells[i].z) * k;
+          }
+          p.setXYZ(i, x, y, z);
+        }
+        p.needsUpdate = true;
+        bMat.opacity = t < 0.85 ? 1 : 1 - (t - 0.85) / 0.15;
+        revealConstellations(Math.max(0, (t - 0.8) / 0.2));
+        if (t >= 1) {
+          g.remove(burst); bGeo.dispose(); bMat.dispose();
+          g.remove(flash); flash.material.map.dispose(); flash.material.dispose();
+          const idx = tickers.indexOf(novaTick);
+          if (idx !== -1) tickers.splice(idx, 1);
+          revealConstellations(1);
+        }
+      }
+      tickers.push(novaTick);
+    };
+  }
+  function revealConstellations(k) {
+    constellationGroups.forEach(function (cg) {
+      cg.pointsMat.opacity = k;
+      cg.lineMat.opacity = 0.25 * k;
+    });
+  }
+
   // Map each anchor section's page position to a Z depth. Landmark groups
   // (added by later tasks into `landmarks`) are re-positioned here.
   const ANCHORS = ['hero', 'about', 'experience', 'wormhole', 'projects', 'skills', 'contact'];
@@ -352,7 +533,7 @@
     init,
     setScrollProgress(p) { progress = Math.min(1, Math.max(0, p)); },
     setTheme,
-    triggerSupernova() {},            // implemented in Task 8
+    triggerSupernova() { if (novaAPI) novaAPI(); else revealConstellations(1); },
     layout,
     _internals: {
       get THREE() { return THREE; }, get scene() { return scene; },

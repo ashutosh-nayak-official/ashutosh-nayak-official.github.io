@@ -416,6 +416,23 @@ else setTimeout(() => {
 })();
 
 // ============================================================
+// SUPERNOVA TRIGGER — skills section forges its constellations
+// ============================================================
+(function () {
+  const target = document.getElementById('skills');
+  if (!target) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (window.SpaceScene) window.SpaceScene.triggerSupernova();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.25 });
+  observer.observe(target);
+})();
+
+// ============================================================
 // CERTS — STAGGERED REVEAL
 // ============================================================
 (function() {
