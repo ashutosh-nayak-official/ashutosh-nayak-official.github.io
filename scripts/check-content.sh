@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Verifies all portfolio content survives the revamp. Greps across index.html + assets/js.
 set -u
-FILES="index.html"
-[ -d assets/js ] && FILES="$FILES $(ls assets/js/*.js 2>/dev/null)"
+FILES=(index.html)
+[ -d assets/js ] && FILES+=(assets/js/*.js)
 fail=0
 check() {
-  if ! grep -qF -- "$1" $FILES; then echo "MISSING: $1"; fail=1; fi
+  if ! grep -qF -- "$1" "${FILES[@]}"; then echo "MISSING: $1"; fail=1; fi
 }
 # Identity & meta
 check "Ashutosh Nayak — GenAI Developer & Cloud/DevOps Engineer"
