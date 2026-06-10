@@ -337,7 +337,7 @@ nav {
 
 .nav-logo {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 18px;
   letter-spacing: -0.03em;
   display: flex; align-items: center; gap: 8px;
@@ -541,7 +541,7 @@ nav {
 .hero-name {
   font-family: var(--font-display);
   font-size: clamp(52px, 9vw, 108px);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.95;
   margin-bottom: 24px;
@@ -1052,7 +1052,7 @@ nav {
 .contact-heading {
   font-family: var(--font-display);
   font-size: clamp(40px, 7vw, 80px);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
   margin-bottom: 20px;
@@ -1183,6 +1183,7 @@ footer p {
 
 @media (max-width: 600px) {
   nav { padding: 0 20px; }
+  .nav-callsign { display: none; }
   .hero-name { font-size: 48px; }
   .project-card { width: 290px; }
   .skills-grid { grid-template-columns: 1fr; }
@@ -1646,6 +1647,7 @@ nav.scrolled {
 [data-magic="true"] .hero-tag .blink { background: #D3A625; }
 [data-magic="true"] .hero-name {
   font-family: 'Cinzel Decorative', serif;
+  font-weight: 900;
   letter-spacing: -0.02em;
 }
 [data-magic="true"] .hero-name .last {
@@ -1725,7 +1727,7 @@ nav.scrolled {
 [data-magic="true"] .cert-verify { color: #D3A625; }
 
 /* ----- HP: Contact ----- */
-[data-magic="true"] .contact-heading { font-family: 'Cinzel Decorative', serif; }
+[data-magic="true"] .contact-heading { font-family: 'Cinzel Decorative', serif; font-weight: 900; }
 [data-magic="true"] .contact-heading .gradient {
   background: linear-gradient(135deg, #D3A625, #ae0001, #D3A625);
   background-size: 200% auto;
