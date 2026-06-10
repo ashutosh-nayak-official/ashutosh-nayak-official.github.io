@@ -1278,11 +1278,6 @@ nav.scrolled {
   width: 24px;
 }
 
-/* Hero tag typing cursor blink enhancement */
-.hero-tag {
-  overflow: hidden;
-}
-
 /* Floating animation for scroll indicator */
 .hero-scroll-line {
   animation: fadeUp 0.8s 1.3s forwards, floatSubtle 3s 2.5s ease-in-out infinite;

@@ -8,6 +8,7 @@
 
   let THREE, renderer, scene, camera, starLayers = [], landmarks = {};
   let progress = 0, theme = 'dark', mouse = { x: 0, y: 0 }, ready = false;
+  var placeSolarHook = null;
 
   const PALETTES = {
     dark:  { star: 0xffffff, accent: 0x00e5ff, warm: 0xffb547 },
@@ -81,6 +82,7 @@
       new THREE.SphereGeometry(8, 32, 32),
       new THREE.MeshBasicMaterial({ color: 0xffb547 }));
     g.add(sun);
+    const glows = [];
     [22, 40].forEach((size, i) => {
       const c = document.createElement('canvas'); c.width = c.height = 128;
       const ctx = c.getContext('2d');
@@ -91,7 +93,7 @@
       const spr = new THREE.Sprite(new THREE.SpriteMaterial({
         map: new THREE.CanvasTexture(c), transparent: true,
         blending: THREE.AdditiveBlending, depthWrite: false }));
-      spr.scale.setScalar(size); g.add(spr);
+      spr.scale.setScalar(size); g.add(spr); glows.push(spr);
     });
     // Planets: [radius, orbitR, speed, color, hasRing]
     const DEFS = [
@@ -122,15 +124,25 @@
     // r160 defaults useLegacyLights=false (since r155), so PointLight intensity is
     // physical (candela) with inverse-square decay: 600 cd gives ~2.3 lux at the
     // innermost orbit (r=16) fading naturally to the outer planets.
-    g.add(new THREE.PointLight(0xffd9a0, 600, 400, 2));
+    const sunLight = new THREE.PointLight(0xffd9a0, 600, 400, 2);
+    g.add(sunLight);
     g.add(new THREE.AmbientLight(0x404060, 0.6));
     g.rotation.x = 0.42;                       // tilt the orbital plane toward viewer
-    g.position.set(isMobile ? 0 : 38, -6, 0);  // offset right of hero text on desktop
+    // Offset right of hero text on desktop, clamped to the visible frustum width
+    function placeSolar() {
+      const halfW = 50 * Math.tan((camera.fov * Math.PI) / 360) * camera.aspect;
+      g.position.x = isMobile ? 0 : Math.min(38, halfW * 0.72);
+      g.position.y = -6;
+    }
+    placeSolar();
+    placeSolarHook = placeSolar;
     tickers.push(function (dt) {
       if (!reduced) planets.forEach(function (p) { p.pivot.rotation.y += p.speed * dt * 0.25; });
     });
     themeListeners.push(function (p, name) {
       sun.material.color.setHex(name === 'magic' ? 0xd3a625 : 0xffb547);
+      sunLight.color.setHex(name === 'magic' ? 0xd3a625 : 0xffd9a0);
+      glows.forEach(function (s) { s.material.opacity = name === 'light' ? 0.35 : 1; });
     });
     landmarks.hero = g; scene.add(g);
   }
@@ -170,6 +182,7 @@
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
     layout();
+    if (placeSolarHook) placeSolarHook();
   }
 
   // Landmark per-frame updates, registered by later tasks
