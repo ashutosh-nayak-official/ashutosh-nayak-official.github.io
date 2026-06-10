@@ -83,12 +83,12 @@
 
   // Hero landmark: miniature live solar system
   function buildSolarSystem() {
-    const g = new THREE.Group();
+    const sys = new THREE.Group();
     // Sun: core sphere + 2 additive glow sprites
     const sun = new THREE.Mesh(
       new THREE.SphereGeometry(8, 32, 32),
       new THREE.MeshBasicMaterial({ color: 0xffb547 }));
-    g.add(sun);
+    sys.add(sun);
     const glows = [];
     [22, 40].forEach((size, i) => {
       const c = document.createElement('canvas'); c.width = c.height = 128;
@@ -100,7 +100,7 @@
       const spr = new THREE.Sprite(new THREE.SpriteMaterial({
         map: new THREE.CanvasTexture(c), transparent: true,
         blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
-      spr.scale.setScalar(size); g.add(spr); glows.push(spr);
+      spr.scale.setScalar(size); sys.add(spr); glows.push(spr);
     });
     // Planets: [radius, orbitR, speed, color, hasRing]
     const DEFS = [
@@ -116,7 +116,7 @@
       pivot.rotation.y = Math.random() * Math.PI * 2;
       const m = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 24),
         new THREE.MeshStandardMaterial({ color: col, roughness: 0.85 }));
-      m.position.x = oR; pivot.add(m); g.add(pivot);
+      m.position.x = oR; pivot.add(m); sys.add(pivot);
       if (ring) {
         const rg = new THREE.Mesh(new THREE.RingGeometry(r * 1.5, r * 2.4, 48),
           new THREE.MeshBasicMaterial({ color: 0xd9c79a, side: THREE.DoubleSide,
@@ -125,16 +125,22 @@
       }
       const orbit = new THREE.Mesh(new THREE.RingGeometry(oR - 0.06, oR + 0.06, 96),
         new THREE.MeshBasicMaterial({ color: 0x96b4ff, transparent: true, opacity: 0.12, side: THREE.DoubleSide }));
-      orbit.rotation.x = Math.PI / 2; g.add(orbit);
+      orbit.rotation.x = Math.PI / 2; sys.add(orbit);
       planets.push({ pivot: pivot, speed: sp });
     });
     // r160 defaults useLegacyLights=false (since r155), so PointLight intensity is
     // physical (candela) with inverse-square decay: 600 cd gives ~2.3 lux at the
     // innermost orbit (r=16) fading naturally to the outer planets.
     const sunLight = new THREE.PointLight(0xffd9a0, 600, 400, 2);
-    g.add(sunLight);
-    g.add(new THREE.AmbientLight(0x404060, 0.6));
-    g.rotation.x = 0.42;                       // tilt the orbital plane toward viewer
+    sys.add(sunLight);
+    sys.add(new THREE.AmbientLight(0x404060, 0.6));
+    sys.rotation.x = 0.42;                     // tilt the orbital plane toward viewer
+    // Wrap in an outer group: layout() drives g.position.z, so the mobile
+    // recession (keeps the r=8 sun from filling the narrow frustum behind the
+    // hero text) must live INSIDE on sys — same pattern as buildGalaxy's inner2.
+    const g = new THREE.Group();
+    g.add(sys);
+    sys.position.z = isMobile ? -130 : 0;
     // Offset right of hero text on desktop, clamped to the visible frustum width
     function placeSolar() {
       const halfW = 50 * Math.tan((camera.fov * Math.PI) / 360) * camera.aspect;
@@ -256,8 +262,12 @@
       // k scrubs with scroll (reversible); FOV stretch sells the tunnel rush.
       const d = Math.abs(camera.position.z - g.position.z);
       const k = Math.max(0, 1 - d / 300);
-      mat.opacity = k * 0.85;
-      ring.material.opacity = k * 0.9;
+      // Additive tunnel reads far louder on the light (paper) theme; read the
+      // theme each frame so toggling mid-transit retunes immediately.
+      const tubeMax = theme === 'light' ? 0.4 : 0.85;
+      const ringMax = theme === 'light' ? 0.6 : 0.9;
+      mat.opacity = k * tubeMax;
+      ring.material.opacity = k * ringMax;
       if (!reduced) {
         // Texture-space motion: offset.y = rush along the tube axis,
         // offset.x = swirl around it (rotating the mesh would wobble it
