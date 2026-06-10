@@ -42,6 +42,8 @@
     buildWormhole();
     buildBlackHole();
     buildConstellations();
+    buildGalaxy();
+    buildShootingStars();
     document.body.classList.add('scene-active');
     window.addEventListener('resize', onResize);
     if (!isMobile) document.addEventListener('mousemove', (e) => {
@@ -450,6 +452,72 @@
     constellationGroups.forEach(function (cg) {
       cg.pointsMat.opacity = k;
       cg.lineMat.opacity = 0.25 * k;
+    });
+  }
+
+  // Contact landmark: slowly rotating spiral galaxy
+  function buildGalaxy() {
+    const g = new THREE.Group();
+    const N = isMobile ? 2000 : 6000, ARMS = 3;
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
+    const inner = new THREE.Color(0xffd9a0), outer = new THREE.Color(0x7c8cff);
+    for (let i = 0; i < N; i++) {
+      const r = Math.pow(Math.random(), 0.6) * 90;
+      const arm = (i % ARMS) * (Math.PI * 2 / ARMS);
+      const spin = r * 0.045;
+      const spread = (Math.random() - 0.5) * (1 - r / 110) * 14;
+      const a = arm + spin + spread * 0.04;
+      pos[i * 3] = Math.cos(a) * r + (Math.random() - 0.5) * 4;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * (8 - r * 0.06);
+      pos[i * 3 + 2] = Math.sin(a) * r + (Math.random() - 0.5) * 4;
+      const cc = inner.clone().lerp(outer, r / 90);
+      col[i * 3] = cc.r; col[i * 3 + 1] = cc.g; col[i * 3 + 2] = cc.b;
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: 1.4,
+      vertexColors: true, transparent: true, opacity: 0.95,
+      blending: THREE.AdditiveBlending, depthWrite: false }));
+    g.add(pts);
+    g.rotation.x = 0.9; g.position.y = -10;
+    tickers.push(function (dt) { if (!reduced) pts.rotation.y += dt * 0.03; });
+    landmarks.contact = g; scene.add(g);
+  }
+
+  // Occasional shooting stars near the camera
+  function buildShootingStars() {
+    if (reduced) return;
+    let cooldown = 4 + Math.random() * 8;
+    let active = null;  // { line, vel, life }
+    tickers.push(function (dt) {
+      if (active) {
+        active.life -= dt;
+        active.line.position.x += active.vel.x * dt;
+        active.line.position.y += active.vel.y * dt;
+        active.line.material.opacity = Math.max(0, active.life / 0.8);
+        if (active.life <= 0) {
+          scene.remove(active.line);
+          active.line.geometry.dispose(); active.line.material.dispose();
+          active = null;
+          cooldown = 6 + Math.random() * 8;
+        }
+        return;
+      }
+      cooldown -= dt;
+      if (cooldown > 0) return;
+      const z = camera.position.z - 150 - Math.random() * 100;
+      const x0 = (Math.random() - 0.5) * 160;
+      const y0 = 30 + Math.random() * 50;
+      const dir = new THREE.Vector3(-(0.5 + Math.random()), -(0.3 + Math.random() * 0.4), 0).normalize();
+      const len = 14 + Math.random() * 10;
+      const geo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x0, y0, z),
+        new THREE.Vector3(x0 + dir.x * len, y0 + dir.y * len, z)]);
+      const mat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 });
+      const line = new THREE.Line(geo, mat);
+      scene.add(line);
+      active = { line: line, vel: dir.clone().multiplyScalar(140), life: 0.8 };
     });
   }
 

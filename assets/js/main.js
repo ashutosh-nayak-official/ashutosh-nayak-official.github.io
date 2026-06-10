@@ -213,6 +213,23 @@ else setTimeout(() => {
       el.style.transform = `translate(${dx}px, ${dy}px)`;
     });
   });
+
+  // Comet trail — skip on touch and in HP mode (wand cursor owns the screen)
+  let trailTick = 0;
+  document.addEventListener('mousemove', (e) => {
+    if (document.documentElement.hasAttribute('data-magic')) return;
+    if (window.matchMedia('(max-width: 900px)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    trailTick = (trailTick + 1) % 3;
+    if (trailTick !== 0) return;
+    const d = document.createElement('div');
+    d.style.cssText = 'position:fixed;width:3px;height:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);pointer-events:none;z-index:9997;left:' + (e.clientX - 1) + 'px;top:' + (e.clientY - 1) + 'px;';
+    document.body.appendChild(d);
+    d.animate(
+      [{ opacity: 0.8, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.2)' }],
+      { duration: 500, easing: 'ease-out' }
+    ).onfinish = () => d.remove();
+  });
 })();
 
 // ============================================================

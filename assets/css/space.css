@@ -196,16 +196,6 @@
   background: linear-gradient(90deg, #0066CC, #B45309) !important;
 }
 
-/* Light mode contact mesh orbs — much stronger */
-[data-theme="light"] .contact-mesh .orb:first-child {
-  background: radial-gradient(circle, rgba(0,102,204,0.3), transparent 70%) !important;
-  width: 600px !important; height: 600px !important;
-}
-[data-theme="light"] .contact-mesh .orb:last-child {
-  background: radial-gradient(circle, rgba(180,83,9,0.22), transparent 70%) !important;
-  width: 500px !important; height: 500px !important;
-}
-
 /* Light mode body has subtle ambient color washes behind sections */
 [data-theme="light"] .skills-section::before {
   content: '';
@@ -1051,7 +1041,7 @@ nav {
   margin-bottom: 20px;
 }
 .contact-heading .gradient {
-  background: linear-gradient(135deg, var(--cyan), var(--amber), var(--magenta));
+  background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--amber));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1074,12 +1064,14 @@ nav {
 .contact-link {
   display: flex; align-items: center; gap: 10px;
   padding: 14px 28px;
-  border-radius: 100px;
+  border-radius: 8px;
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
   text-decoration: none;
-  font-size: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
   font-weight: 500;
   transition: all 0.3s;
 }
@@ -1089,17 +1081,6 @@ nav {
   transform: translateY(-2px);
 }
 .contact-link .cl-icon { font-size: 18px; }
-
-.contact-mesh {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.contact-mesh .orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-}
 
 /* ========== FOOTER ========== */
 footer {
