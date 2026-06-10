@@ -521,14 +521,20 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
 })();
 
 // ============================================================
-// SCROLL PROGRESS BAR
+// SCROLL PROGRESS BAR — flight trajectory with craft dot
 // ============================================================
 (function() {
   const bar = document.createElement('div');
   bar.className = 'scroll-progress-bar';
-  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--amber));z-index:10001;transition:width 0.1s;width:0;pointer-events:none;';
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--amber));z-index:10001;transition:width 0.1s;width:0;pointer-events:none;overflow:visible;';
   document.body.appendChild(bar);
-  
+
+  // "Craft" dot riding the leading edge of the trajectory
+  const craft = document.createElement('div');
+  craft.className = 'scroll-progress-craft';
+  craft.style.cssText = 'position:absolute;right:-3px;top:-2px;width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan), 0 0 16px var(--cyan-glow);';
+  bar.appendChild(craft);
+
   window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -578,7 +584,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       contact_label: "Contact", contact_heading: 'Let\'s Build<br><span class="gradient">Something Intelligent</span>',
       contact_sub: "Building at the intersection of GenAI architecture, Cloud/DevOps, AI/ML Ops, and collaborative innovation.",
       contact_email: "Email Me",
-      footer: "© 2026 Ashutosh Nayak — Designed with soul."
+      footer: "© 2026 Ashutosh Nayak — End of transmission."
     },
     de: {
       nav_about: "Über mich", nav_experience: "Erfahrung", nav_projects: "Projekte", nav_skills: "Fähigkeiten", nav_contact: "Kontakt",
@@ -616,7 +622,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       contact_label: "Kontakt", contact_heading: 'Lassen Sie uns<br><span class="gradient">etwas Intelligentes bauen</span>',
       contact_sub: "An der Schnittstelle von GenAI-Architektur, Cloud/DevOps, AI/ML Ops und kollaborativer Innovation.",
       contact_email: "E-Mail senden",
-      footer: "© 2026 Ashutosh Nayak — Mit Leidenschaft gestaltet."
+      footer: "© 2026 Ashutosh Nayak — Ende der Übertragung."
     },
     nl: {
       nav_about: "Over mij", nav_experience: "Ervaring", nav_projects: "Projecten", nav_skills: "Vaardigheden", nav_contact: "Contact",
@@ -654,7 +660,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       contact_label: "Contact", contact_heading: 'Laten we<br><span class="gradient">iets intelligents bouwen</span>',
       contact_sub: "Op het kruispunt van GenAI-architectuur, Cloud/DevOps, AI/ML Ops en collaboratieve innovatie.",
       contact_email: "E-mail sturen",
-      footer: "© 2026 Ashutosh Nayak — Ontworpen met passie."
+      footer: "© 2026 Ashutosh Nayak — Einde van transmissie."
     },
     pl: {
       nav_about: "O mnie", nav_experience: "Doświadczenie", nav_projects: "Projekty", nav_skills: "Umiejętności", nav_contact: "Kontakt",
@@ -692,7 +698,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       contact_label: "Kontakt", contact_heading: 'Zbudujmy<br><span class="gradient">coś inteligentnego</span>',
       contact_sub: "Na przecięciu architektury GenAI, Cloud/DevOps, AI/ML Ops i współpracy innowacyjnej.",
       contact_email: "Wyślij e-mail",
-      footer: "© 2026 Ashutosh Nayak — Zaprojektowane z pasją."
+      footer: "© 2026 Ashutosh Nayak — Koniec transmisji."
     }
   };
 
