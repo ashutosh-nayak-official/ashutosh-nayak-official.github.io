@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 1 subject — 1886 Benz Patent-Motorwagen,
+       blueprint line drawing (side view, facing right).
+       Supply final art: 2400×1350 transparent png/webp or refined SVG. -->
+  <g fill="none" stroke="#2B5D8A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- ground line -->
+    <path d="M 280 776 H 1320" stroke-width="2.5" stroke-dasharray="14 10" stroke-opacity="0.55"/>
+
+    <!-- ============ REAR WHEEL (large, spoked) ============ -->
+    <circle cx="1050" cy="622" r="152"/>
+    <circle cx="1050" cy="622" r="140"/>
+    <circle cx="1050" cy="622" r="14"/>
+    <g stroke-width="3">
+      <path d="M 1064 622 L 1190 622"/>
+      <path d="M 1060 632 L 1149 721"/>
+      <path d="M 1050 636 L 1050 762"/>
+      <path d="M 1040 632 L 951 721"/>
+      <path d="M 1036 622 L 910 622"/>
+      <path d="M 1040 612 L 951 523"/>
+      <path d="M 1050 608 L 1050 482"/>
+      <path d="M 1060 612 L 1149 523"/>
+    </g>
+
+    <!-- ============ FRONT WHEEL (smaller, spoked) ============ -->
+    <circle cx="455" cy="687" r="88"/>
+    <circle cx="455" cy="687" r="78"/>
+    <circle cx="455" cy="687" r="10"/>
+    <g stroke-width="3">
+      <path d="M 465 687 L 533 687"/>
+      <path d="M 462 694 L 510 742"/>
+      <path d="M 455 697 L 455 765"/>
+      <path d="M 448 694 L 400 742"/>
+      <path d="M 445 687 L 377 687"/>
+      <path d="M 448 680 L 400 632"/>
+      <path d="M 455 677 L 455 609"/>
+      <path d="M 462 680 L 510 632"/>
+    </g>
+
+    <!-- ============ CHASSIS (bent-tube frame) ============ -->
+    <path d="M 430 560 H 1118"/>
+    <path d="M 1118 560 Q 1144 576 1132 602 L 1066 618"/>
+    <path d="M 430 560 Q 410 562 400 580"/>
+
+    <!-- front fork -->
+    <path d="M 441 656 L 441 588"/>
+    <path d="M 469 656 L 469 588"/>
+    <path d="M 441 588 Q 455 576 469 588"/>
+
+    <!-- ============ TILLER STEERING ============ -->
+    <path d="M 455 588 L 455 452"/>
+    <path d="M 455 452 Q 468 428 500 422"/>
+    <circle cx="508" cy="421" r="7" stroke-width="3"/>
+
+    <!-- curved dash / footboard between steering and seat -->
+    <path d="M 472 524 Q 560 546 646 510"/>
+    <path d="M 520 560 Q 580 586 648 584" stroke-width="3"/>
+
+    <!-- ============ BENCH SEAT (open, sprung) ============ -->
+    <path d="M 650 470 H 880"/>
+    <path d="M 650 486 H 874" stroke-width="3"/>
+    <path d="M 650 470 Q 642 490 650 508"/>
+    <path d="M 880 470 Q 904 428 898 372 Q 896 350 878 358"/>
+    <!-- leaf-spring supports -->
+    <path d="M 690 508 Q 668 532 690 548 Q 702 557 688 560" stroke-width="3"/>
+    <path d="M 850 508 Q 828 532 850 548 Q 862 557 848 560" stroke-width="3"/>
+
+    <!-- ============ ENGINE DECK (flat, behind seat) ============ -->
+    <path d="M 900 522 H 1160"/>
+    <path d="M 910 522 L 910 560" stroke-width="3"/>
+    <path d="M 1150 522 L 1150 558" stroke-width="3"/>
+
+    <!-- single vertical cylinder + head -->
+    <path d="M 1080 522 V 434 H 1128 V 522"/>
+    <path d="M 1090 434 V 412 H 1118 V 434" stroke-width="3"/>
+
+    <!-- large horizontal flywheel (edge-on) + shaft -->
+    <ellipse cx="952" cy="580" rx="96" ry="16"/>
+    <path d="M 952 564 V 522" stroke-width="3"/>
+
+    <!-- belt drive to rear axle pulley -->
+    <circle cx="1050" cy="622" r="34" stroke-width="3"/>
+    <path d="M 1096 528 L 1078 594" stroke-width="3"/>
+
+    <!-- ============ blueprint dimension marks ============ -->
+    <g stroke-width="2" stroke-dasharray="8 8" stroke-opacity="0.5">
+      <path d="M 1050 452 V 396"/>
+      <path d="M 455 588 V 396"/>
+      <path d="M 455 408 H 1050"/>
+      <path d="M 377 800 V 824 M 1202 800 V 824 M 377 812 H 1202"/>
+    </g>
+  </g>
+
+  <text x="24" y="40" font-family="monospace" font-size="20" fill="#2B5D8A" fill-opacity="0.6">PLACEHOLDER subject — 1886 Benz Patent-Motorwagen — supply final line art</text>
+</svg>

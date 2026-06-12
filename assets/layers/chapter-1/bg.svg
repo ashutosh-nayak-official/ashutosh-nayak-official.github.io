@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 1 background — paper + blueprint grid -->
+  <defs>
+    <pattern id="grid40" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2B5D8A" stroke-opacity="0.10" stroke-width="1"/>
+    </pattern>
+    <pattern id="grid200" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M 200 0 L 0 0 0 200" fill="none" stroke="#2B5D8A" stroke-opacity="0.16" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="#EFE5D0"/>
+  <rect width="1600" height="900" fill="url(#grid40)"/>
+  <rect width="1600" height="900" fill="url(#grid200)"/>
+
+  <!-- faint compass-rose circles -->
+  <g fill="none" stroke="#2B5D8A" stroke-opacity="0.12" stroke-width="1.5">
+    <circle cx="1310" cy="210" r="120"/>
+    <circle cx="1310" cy="210" r="90"/>
+    <circle cx="1310" cy="210" r="14"/>
+    <path d="M 1310 70 L 1310 350 M 1170 210 L 1450 210"/>
+    <path d="M 1211 111 L 1409 309 M 1409 111 L 1211 309" stroke-opacity="0.07"/>
+    <circle cx="240" cy="700" r="150"/>
+    <circle cx="240" cy="700" r="112"/>
+    <circle cx="240" cy="700" r="16"/>
+    <path d="M 240 530 L 240 870 M 70 700 L 410 700"/>
+  </g>
+
+  <!-- faded title block, drawing-sheet style -->
+  <g fill="none" stroke="#2B5D8A" stroke-opacity="0.18" stroke-width="2">
+    <rect x="1180" y="760" width="380" height="100"/>
+    <path d="M 1180 795 L 1560 795 M 1180 828 L 1560 828 M 1390 760 L 1390 860"/>
+  </g>
+
+  <text x="24" y="878" font-family="monospace" font-size="20" fill="#2B5D8A" fill-opacity="0.55">PLACEHOLDER bg — supply 2400×1350 png/webp</text>
+</svg>

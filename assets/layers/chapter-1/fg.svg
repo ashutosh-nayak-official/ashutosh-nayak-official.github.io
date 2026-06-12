@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 1 foreground — drafting tools, bottom-anchored.
+       Top ~70% intentionally transparent. -->
+  <g fill="#3A2D20" fill-opacity="0.6">
+    <!-- ruler, bottom-left, slightly rotated -->
+    <g transform="rotate(-7 300 840)">
+      <rect x="40" y="820" width="560" height="46"/>
+      <g fill="#EFE5D0" fill-opacity="0.8">
+        <rect x="80" y="820" width="4" height="18"/>
+        <rect x="130" y="820" width="4" height="12"/>
+        <rect x="180" y="820" width="4" height="18"/>
+        <rect x="230" y="820" width="4" height="12"/>
+        <rect x="280" y="820" width="4" height="18"/>
+        <rect x="330" y="820" width="4" height="12"/>
+        <rect x="380" y="820" width="4" height="18"/>
+        <rect x="430" y="820" width="4" height="12"/>
+        <rect x="480" y="820" width="4" height="18"/>
+        <rect x="530" y="820" width="4" height="12"/>
+      </g>
+    </g>
+
+    <!-- drafting compass, bottom-right -->
+    <g transform="rotate(14 1320 760)">
+      <circle cx="1320" cy="668" r="16"/>
+      <rect x="1314" y="640" width="12" height="34"/>
+      <polygon points="1312,676 1330,676 1268,890 1252,890"/>
+      <polygon points="1330,676 1348,676 1396,890 1380,890"/>
+    </g>
+
+    <!-- pencil, bottom-centre -->
+    <g transform="rotate(-3 800 870)">
+      <rect x="640" y="852" width="300" height="22"/>
+      <polygon points="940,852 982,863 940,874"/>
+    </g>
+  </g>
+
+  <text x="24" y="804" font-family="monospace" font-size="20" fill="#3A2D20" fill-opacity="0.7">PLACEHOLDER fg — supply 2400×1350 transparent png/webp</text>
+</svg>
