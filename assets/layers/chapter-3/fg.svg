@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 3 foreground — cliff edge + guardrail posts,
+       dark silhouette. Top ~70% intentionally transparent. -->
+
+  <!-- cliff mass, bottom-left -->
+  <path d="M 0 900 L 0 660 L 90 672 L 150 640 L 230 668 L 300 650 L 360 690 L 430 700 L 460 740 L 520 760 L 560 810 L 640 840 L 700 900 Z"
+        fill="#14101C" fill-opacity="0.92"/>
+  <!-- rock facets -->
+  <g stroke="#2A1A2E" stroke-width="3" stroke-opacity="0.8" fill="none">
+    <path d="M 90 672 L 150 760 L 230 668"/>
+    <path d="M 300 650 L 330 770 L 430 700"/>
+    <path d="M 150 760 L 200 900 M 330 770 L 390 900"/>
+  </g>
+
+  <!-- road shoulder strip, bottom-right -->
+  <path d="M 640 840 L 700 900 L 1600 900 L 1600 824 L 1240 818 L 900 826 Z" fill="#14101C" fill-opacity="0.92"/>
+
+  <!-- ============ GUARDRAIL (posts + w-beam) running right ============ -->
+  <g fill="#14101C">
+    <rect x="740" y="742" width="20" height="96"/>
+    <rect x="940" y="736" width="20" height="94"/>
+    <rect x="1140" y="732" width="20" height="92"/>
+    <rect x="1340" y="728" width="20" height="90"/>
+    <rect x="1540" y="726" width="20" height="90"/>
+  </g>
+  <!-- w-beam rails -->
+  <path d="M 720 752 L 1600 736" stroke="#14101C" stroke-width="22" stroke-linecap="round" fill="none"/>
+  <path d="M 720 752 L 1600 736" stroke="#2A1A2E" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 720 782 L 1600 766" stroke="#14101C" stroke-width="14" stroke-linecap="round" fill="none"/>
+
+  <!-- roadside grass tufts on the cliff lip -->
+  <g stroke="#14101C" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M 480 742 q -6 -22 -14 -30 M 480 742 q 2 -24 12 -34 M 480 742 q 10 -16 22 -20"/>
+    <path d="M 600 814 q -6 -22 -14 -30 M 600 814 q 2 -24 12 -34"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-3 fg — supply 2400×1350 transparent png/webp</text>
+</svg>

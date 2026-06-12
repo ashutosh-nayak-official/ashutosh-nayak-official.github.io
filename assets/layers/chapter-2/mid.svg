@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 2 midground — assembly-line silhouettes:
+       chassis frames on a conveyor, chain links, hanging hooks. Brown ~25%. -->
+  <g fill="#3E2F1E" fill-opacity="0.25">
+    <!-- conveyor rail -->
+    <rect x="0" y="640" width="1600" height="14"/>
+    <rect x="0" y="688" width="1600" height="8"/>
+    <!-- rail supports -->
+    <rect x="120" y="654" width="14" height="160"/>
+    <rect x="520" y="654" width="14" height="160"/>
+    <rect x="920" y="654" width="14" height="160"/>
+    <rect x="1320" y="654" width="14" height="160"/>
+  </g>
+
+  <!-- chassis frames riding the conveyor (ladder frame + axles + bare wheels) -->
+  <g fill="none" stroke="#3E2F1E" stroke-opacity="0.25" stroke-width="8">
+    <g transform="translate(60,0)">
+      <path d="M 40 560 H 320"/>
+      <path d="M 60 590 H 300"/>
+      <path d="M 60 560 V 590 M 150 560 V 590 M 230 560 V 590 M 300 560 V 590"/>
+      <circle cx="100" cy="614" r="24"/>
+      <circle cx="270" cy="614" r="24"/>
+    </g>
+    <g transform="translate(540,0)">
+      <path d="M 40 560 H 320"/>
+      <path d="M 60 590 H 300"/>
+      <path d="M 60 560 V 590 M 150 560 V 590 M 230 560 V 590 M 300 560 V 590"/>
+      <circle cx="100" cy="614" r="24"/>
+      <circle cx="270" cy="614" r="24"/>
+    </g>
+    <g transform="translate(1030,0)">
+      <path d="M 40 560 H 320"/>
+      <path d="M 60 590 H 300"/>
+      <path d="M 60 560 V 590 M 150 560 V 590 M 230 560 V 590 M 300 560 V 590"/>
+      <circle cx="100" cy="614" r="24"/>
+      <circle cx="270" cy="614" r="24"/>
+    </g>
+  </g>
+
+  <!-- overhead chain hoists with links and hooks -->
+  <g fill="none" stroke="#3E2F1E" stroke-opacity="0.25" stroke-width="6">
+    <g transform="translate(360,0)">
+      <ellipse cx="0" cy="20" rx="10" ry="16"/>
+      <ellipse cx="0" cy="52" rx="10" ry="16"/>
+      <ellipse cx="0" cy="84" rx="10" ry="16"/>
+      <ellipse cx="0" cy="116" rx="10" ry="16"/>
+      <ellipse cx="0" cy="148" rx="10" ry="16"/>
+      <path d="M 0 164 Q -26 200 0 222 Q 18 236 10 250"/>
+    </g>
+    <g transform="translate(850,0)">
+      <ellipse cx="0" cy="20" rx="10" ry="16"/>
+      <ellipse cx="0" cy="52" rx="10" ry="16"/>
+      <ellipse cx="0" cy="84" rx="10" ry="16"/>
+      <ellipse cx="0" cy="116" rx="10" ry="16"/>
+      <ellipse cx="0" cy="148" rx="10" ry="16"/>
+      <ellipse cx="0" cy="180" rx="10" ry="16"/>
+      <path d="M 0 196 Q -26 232 0 254 Q 18 268 10 282"/>
+    </g>
+    <g transform="translate(1340,0)">
+      <ellipse cx="0" cy="20" rx="10" ry="16"/>
+      <ellipse cx="0" cy="52" rx="10" ry="16"/>
+      <ellipse cx="0" cy="84" rx="10" ry="16"/>
+      <ellipse cx="0" cy="116" rx="10" ry="16"/>
+      <path d="M 0 132 Q -26 168 0 190 Q 18 204 10 218"/>
+    </g>
+  </g>
+
+  <!-- worker silhouettes at the line -->
+  <g fill="#3E2F1E" fill-opacity="0.22">
+    <g transform="translate(470,470)">
+      <circle cx="0" cy="0" r="20"/>
+      <path d="M -16 22 Q 0 14 16 22 L 22 110 H -22 Z"/>
+      <rect x="-14" y="110" width="11" height="60"/>
+      <rect x="3" y="110" width="11" height="60"/>
+    </g>
+    <g transform="translate(1000,478)">
+      <circle cx="0" cy="0" r="20"/>
+      <path d="M -16 22 Q 0 14 16 22 L 22 104 H -22 Z"/>
+      <rect x="-14" y="104" width="11" height="58"/>
+      <rect x="3" y="104" width="11" height="58"/>
+    </g>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#3E2F1E" fill-opacity="0.35">PLACEHOLDER chapter-2 mid — supply 2400×1350 transparent png/webp</text>
+</svg>

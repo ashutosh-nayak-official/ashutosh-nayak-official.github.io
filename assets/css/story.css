@@ -278,7 +278,9 @@ a { color: inherit; }
   will-change: transform;
 }
 
-.layer-subject {
+/* Draw-on chapters only (ch3–5 use slide/fade entrances set by JS) */
+.chapter-1 .layer-subject,
+.chapter-2 .layer-subject {
   /* JS reveals via clip-path (drawing-on effect) */
   clip-path: inset(0 100% 0 0);
 }
@@ -364,6 +366,203 @@ a { color: inherit; }
 /* Animated-in states (JS sets initial transforms; these are the
    resting/reduced-motion-visible defaults) */
 .chapter-1 ::selection { background: var(--blueprint); color: var(--paper); }
+
+/* ============================================================
+   CHAPTER 2 — 1908 / warm industrial (Model T assembly line)
+   ============================================================ */
+
+.chapter-2 {
+  background: #E8D9BC;
+  color: #3E2F1E;
+}
+
+.chapter-2 .chapter-era { color: #9A6E2B; }
+.chapter-2 .chapter-title { color: #3E2F1E; }
+.chapter-2 .chapter-year { color: var(--brass); }
+
+.chapter-2 .chapter-caption {
+  color: #3E2F1E;
+  background: rgba(232, 217, 188, 0.85);
+  border-left-color: var(--brass);
+}
+
+.chapter-2 .era-stamp { color: #6B4A23; }
+.chapter-2 .era-stamp::before { background: #6B4A23; }
+
+.chapter-2 ::selection { background: var(--brass); color: #3E2F1E; }
+
+/* Brass hackathon plaque (signature moment) */
+.hackathon-plaque {
+  position: absolute;
+  top: 14%;
+  right: 7%;
+  z-index: 2;
+  max-width: 300px;
+  padding: 18px 34px;
+  font-weight: 700;
+  font-stretch: 112%;
+  font-size: 14px;
+  letter-spacing: .18em;
+  text-align: center;
+  color: #3E2F1E;
+  border: 3px solid #8A5F22;
+  box-shadow: 0 4px 14px rgba(62, 47, 30, .35), inset 0 0 18px rgba(255, 232, 178, .55);
+  background-image:
+    radial-gradient(circle 4px at 12px 12px, #6B4A23 98%, transparent),
+    radial-gradient(circle 4px at calc(100% - 12px) 12px, #6B4A23 98%, transparent),
+    radial-gradient(circle 4px at 12px calc(100% - 12px), #6B4A23 98%, transparent),
+    radial-gradient(circle 4px at calc(100% - 12px) calc(100% - 12px), #6B4A23 98%, transparent),
+    linear-gradient(135deg, #E0B25F, #C9933F 45%, #B07F2F);
+}
+
+/* ============================================================
+   CHAPTER 3 — 1965 / sunset travel poster (grand tourer)
+   ============================================================ */
+
+.chapter-3 {
+  background: linear-gradient(180deg, #2A1A2E 0%, #D63A2F 55%, #FFD884 100%);
+  color: var(--chrome);
+}
+
+.chapter-3 .chapter-era { color: var(--headlight); }
+.chapter-3 .chapter-title { color: #FFEFD2; text-shadow: 0 2px 18px rgba(42, 26, 46, .55); }
+.chapter-3 .chapter-year { color: var(--headlight); text-shadow: 0 2px 24px rgba(42, 26, 46, .5); }
+
+.chapter-3 .chapter-caption {
+  color: var(--chrome);
+  background: rgba(26, 14, 28, 0.72);
+  border-left-color: var(--racing-red);
+}
+
+.chapter-3 .era-stamp { color: var(--headlight); }
+.chapter-3 .era-stamp::before { background: var(--headlight); }
+
+.chapter-3 ::selection { background: var(--racing-red); color: var(--headlight); }
+
+/* ============================================================
+   CHAPTER 4 — 1987 / night tunnel (turbo wedge)
+   ============================================================ */
+
+.chapter-4 {
+  background: var(--asphalt);
+  color: var(--chrome);
+}
+
+.chapter-4 .chapter-era { color: var(--volt); }
+.chapter-4 .chapter-title { color: var(--chrome); }
+.chapter-4 .chapter-year { color: var(--volt); text-shadow: 0 0 32px rgba(46, 230, 168, .35); }
+
+.chapter-4 .chapter-caption {
+  color: var(--chrome);
+  background: rgba(15, 16, 20, 0.78);
+  border-left-color: var(--volt);
+}
+
+.chapter-4 .era-stamp { color: var(--turbo-steel); }
+.chapter-4 .era-stamp::before { background: var(--turbo-steel); }
+
+/* HUD callout chips (signature moment) */
+.hud-chips {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.hud-chip {
+  max-width: 280px;
+  padding: 9px 16px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-align: right;
+  color: var(--volt);
+  background: rgba(15, 16, 20, .72);
+  border: 1px solid rgba(46, 230, 168, .55);
+  border-radius: 3px;
+  box-shadow: 0 0 18px rgba(46, 230, 168, .12);
+}
+
+/* ============================================================
+   CHAPTER 5 — NOW / dark studio (electric hypercar)
+   ============================================================ */
+
+.chapter-5 {
+  background: var(--asphalt);
+  color: var(--chrome);
+}
+
+.chapter-5 .chapter-era { color: var(--volt); }
+.chapter-5 .chapter-title { color: #F2F6FA; }
+.chapter-5 .chapter-year { color: var(--chrome); }
+
+.chapter-5 .chapter-caption {
+  color: var(--chrome);
+  background: rgba(15, 16, 20, 0.78);
+  border-left-color: var(--volt);
+}
+
+.chapter-5 .era-stamp { color: var(--volt); }
+.chapter-5 .era-stamp::before { background: var(--volt); }
+
+.year-now {
+  display: inline-block;
+  vertical-align: super;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 800;
+  font-size: clamp(11px, 1vw, 14px);
+  letter-spacing: .2em;
+  color: var(--asphalt);
+  background: var(--volt);
+  border-radius: 3px;
+  padding: 4px 9px 3px 11px;
+  margin-left: 4px;
+}
+
+/* EV dash-cluster stats (signature moment) */
+.dash-cluster {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 230px;
+}
+
+.dash-stat {
+  padding: 12px 18px;
+  background: rgba(15, 16, 20, .66);
+  border: 1px solid rgba(46, 230, 168, .35);
+  border-left-width: 3px;
+  border-radius: 6px;
+}
+
+.dash-value {
+  display: block;
+  font-weight: 800;
+  font-stretch: 118%;
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--volt);
+  font-variant-numeric: tabular-nums;
+}
+
+.dash-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(199, 208, 218, .75);
+}
 
 /* ============================================================
    INTERLUDE + FOOTER
@@ -499,6 +698,12 @@ a { color: inherit; }
    MOBILE
    ============================================================ */
 
+/* HUD chips live in open right-side space; below ~900px the chapter copy
+   column can reach them, so retire them early (spec floor: hidden ≤700px) */
+@media (max-width: 900px) {
+  .hud-chips { display: none; }
+}
+
 @media (max-width: 700px) {
   .story-nav { padding: 10px 16px; }
 
@@ -531,6 +736,28 @@ a { color: inherit; }
     height: 64px;
   }
   .speedo svg { width: 64px; height: 64px; }
+
+  /* chapter 2 plaque: small, top strip (copy is bottom-anchored) */
+  .hackathon-plaque {
+    top: 11%;
+    right: 5%;
+    left: auto;
+    max-width: 230px;
+    padding: 12px 20px;
+    font-size: 11px;
+  }
+
+  /* chapter 5 dash cluster: compact column, top-right, clear of bottom copy */
+  .dash-cluster {
+    top: 76px;
+    right: 12px;
+    transform: none;
+    width: 150px;
+    gap: 8px;
+  }
+  .dash-stat { padding: 7px 12px; }
+  .dash-value { font-size: 19px; }
+  .dash-label { font-size: 8.5px; letter-spacing: .1em; }
 }
 
 /* ============================================================

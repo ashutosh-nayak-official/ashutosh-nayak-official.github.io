@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 4 midground — horizontal speed-line streaks,
+       white + volt, varied lengths. Fully transparent backdrop. -->
+  <g stroke-linecap="round" fill="none">
+    <path d="M 120 150 H 560"  stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.30"/>
+    <path d="M 820 130 H 1500" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.35"/>
+    <path d="M -40 215 H 300"  stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.22"/>
+    <path d="M 640 250 H 1100" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.38"/>
+    <path d="M 1240 290 H 1640" stroke="#2EE6A8" stroke-width="3" stroke-opacity="0.30"/>
+    <path d="M 60 330 H 760"   stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.28"/>
+    <path d="M 900 380 H 1340" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.34"/>
+    <path d="M -60 430 H 420"  stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.32"/>
+    <path d="M 540 470 H 1240" stroke="#FFFFFF" stroke-width="5" stroke-opacity="0.42"/>
+    <path d="M 1320 520 H 1660" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.26"/>
+    <path d="M 140 560 H 660"  stroke="#2EE6A8" stroke-width="3" stroke-opacity="0.36"/>
+    <path d="M 760 600 H 1480" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.30"/>
+    <path d="M -40 650 H 540"  stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.36"/>
+    <path d="M 680 700 H 1080" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.30"/>
+    <path d="M 1180 740 H 1640" stroke="#FFFFFF" stroke-width="3" stroke-opacity="0.28"/>
+    <path d="M 220 790 H 980"  stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.24"/>
+    <path d="M 1060 830 H 1420" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.26"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-4 mid — supply 2400×1350 transparent png/webp</text>
+</svg>

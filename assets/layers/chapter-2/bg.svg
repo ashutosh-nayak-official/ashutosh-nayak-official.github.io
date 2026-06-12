@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 2 background — warm factory wall, tall windows,
+       light shafts. Palette: paper-warm #E8D9BC, brass #C9933F, brown #3E2F1E. -->
+  <defs>
+    <linearGradient id="ch2-shaft" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#FFD884" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#FFD884" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#E8D9BC"/>
+
+  <!-- faint brick courses -->
+  <g stroke="#3E2F1E" stroke-opacity="0.06" stroke-width="2">
+    <path d="M 0 80 H 1600 M 0 140 H 1600 M 0 200 H 1600 M 0 260 H 1600 M 0 320 H 1600 M 0 380 H 1600 M 0 440 H 1600 M 0 500 H 1600 M 0 560 H 1600 M 0 620 H 1600 M 0 680 H 1600 M 0 740 H 1600 M 0 800 H 1600 M 0 860 H 1600"/>
+  </g>
+
+  <!-- tall arched factory windows -->
+  <g>
+    <g transform="translate(150,0)">
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="#F6EDD6"/>
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="none" stroke="#A98952" stroke-width="8"/>
+      <g stroke="#A98952" stroke-width="4">
+        <path d="M 60 122 V 560 M 120 122 V 560"/>
+        <path d="M 0 240 H 180 M 0 320 H 180 M 0 400 H 180 M 0 480 H 180"/>
+      </g>
+    </g>
+    <g transform="translate(560,0)">
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="#F6EDD6"/>
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="none" stroke="#A98952" stroke-width="8"/>
+      <g stroke="#A98952" stroke-width="4">
+        <path d="M 60 122 V 560 M 120 122 V 560"/>
+        <path d="M 0 240 H 180 M 0 320 H 180 M 0 400 H 180 M 0 480 H 180"/>
+      </g>
+    </g>
+    <g transform="translate(970,0)">
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="#F6EDD6"/>
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="none" stroke="#A98952" stroke-width="8"/>
+      <g stroke="#A98952" stroke-width="4">
+        <path d="M 60 122 V 560 M 120 122 V 560"/>
+        <path d="M 0 240 H 180 M 0 320 H 180 M 0 400 H 180 M 0 480 H 180"/>
+      </g>
+    </g>
+    <g transform="translate(1380,0)">
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="#F6EDD6"/>
+      <path d="M 0 560 V 180 Q 90 100 180 180 V 560 Z" fill="none" stroke="#A98952" stroke-width="8"/>
+      <g stroke="#A98952" stroke-width="4">
+        <path d="M 60 122 V 560 M 120 122 V 560"/>
+        <path d="M 0 240 H 180 M 0 320 H 180 M 0 400 H 180 M 0 480 H 180"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- warm light shafts falling from the windows -->
+  <g>
+    <polygon points="150,150 330,150 220,900 -60,900" fill="url(#ch2-shaft)"/>
+    <polygon points="560,150 740,150 630,900 350,900" fill="url(#ch2-shaft)"/>
+    <polygon points="970,150 1150,150 1040,900 760,900" fill="url(#ch2-shaft)"/>
+    <polygon points="1380,150 1560,150 1450,900 1170,900" fill="url(#ch2-shaft)"/>
+  </g>
+
+  <!-- floor line -->
+  <rect x="0" y="780" width="1600" height="120" fill="#D9C49A"/>
+  <path d="M 0 780 H 1600" stroke="#3E2F1E" stroke-opacity="0.18" stroke-width="3"/>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#3E2F1E" fill-opacity="0.35">PLACEHOLDER chapter-2 bg — supply 2400×1350 png/webp</text>
+</svg>

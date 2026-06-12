@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 4 background — night tunnel, concentric arcs
+       receding to a vanishing point. Asphalt #0F1014 + turbo-steel #5D7290. -->
+
+  <rect width="1600" height="900" fill="#0F1014"/>
+
+  <!-- receding tunnel arches (largest = nearest) -->
+  <g fill="none" stroke="#5D7290" stroke-linecap="round">
+    <path d="M -80 900 V 420 Q -80 -60 800 -60 Q 1680 -60 1680 420 V 900" stroke-width="26" stroke-opacity="0.30"/>
+    <path d="M 80 900 V 450 Q 80 60 800 60 Q 1520 60 1520 450 V 900" stroke-width="20" stroke-opacity="0.36"/>
+    <path d="M 220 900 V 478 Q 220 160 800 160 Q 1380 160 1380 478 V 900" stroke-width="16" stroke-opacity="0.42"/>
+    <path d="M 340 900 V 500 Q 340 240 800 240 Q 1260 240 1260 500 V 900" stroke-width="12" stroke-opacity="0.48"/>
+    <path d="M 440 900 V 518 Q 440 305 800 305 Q 1160 305 1160 518 V 900" stroke-width="9" stroke-opacity="0.54"/>
+    <path d="M 522 900 V 532 Q 522 358 800 358 Q 1078 358 1078 532 V 900" stroke-width="7" stroke-opacity="0.6"/>
+    <path d="M 588 900 V 545 Q 588 400 800 400 Q 1012 400 1012 545 V 900" stroke-width="5" stroke-opacity="0.66"/>
+  </g>
+
+  <!-- tunnel mouth glow at the vanishing point -->
+  <ellipse cx="800" cy="560" rx="180" ry="120" fill="#5D7290" fill-opacity="0.14"/>
+  <ellipse cx="800" cy="560" rx="90" ry="62" fill="#C7D0DA" fill-opacity="0.10"/>
+
+  <!-- ceiling light strip segments converging -->
+  <g stroke="#FFFFFF" stroke-linecap="round">
+    <path d="M 700 96 H 900" stroke-width="10" stroke-opacity="0.5"/>
+    <path d="M 726 196 H 874" stroke-width="8" stroke-opacity="0.45"/>
+    <path d="M 748 278 H 852" stroke-width="6" stroke-opacity="0.4"/>
+    <path d="M 764 344 H 836" stroke-width="5" stroke-opacity="0.35"/>
+    <path d="M 776 396 H 824" stroke-width="4" stroke-opacity="0.3"/>
+    <path d="M 786 436 H 814" stroke-width="3" stroke-opacity="0.25"/>
+  </g>
+
+  <!-- road perspective: lane lines converging to the mouth -->
+  <g stroke="#C7D0DA" stroke-linecap="round">
+    <path d="M 360 900 L 740 640" stroke-width="8" stroke-opacity="0.22"/>
+    <path d="M 1240 900 L 860 640" stroke-width="8" stroke-opacity="0.22"/>
+    <path d="M 790 880 L 796 740" stroke-width="10" stroke-opacity="0.35"/>
+    <path d="M 797 700 L 799 656" stroke-width="6" stroke-opacity="0.3"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#5D7290" fill-opacity="0.35">PLACEHOLDER chapter-4 bg — supply 2400×1350 png/webp</text>
+</svg>

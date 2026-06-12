@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 3 subject — 1965 grand tourer, side view facing
+       right. Long hood, fastback roofline, wire wheels, chrome bumpers.
+       Racing-red fill + chrome strokes. Supply final art: 2400×1350 png/webp. -->
+
+  <!-- ground shadow -->
+  <ellipse cx="800" cy="782" rx="540" ry="26" fill="#2A1A2E" fill-opacity="0.35"/>
+
+  <!-- ============ BODY (long hood + fastback) ============ -->
+  <path d="M 300 712
+           L 288 640 L 292 578
+           C 360 540 470 480 590 448
+           Q 660 424 730 422
+           L 880 466
+           C 1000 478 1180 498 1290 525
+           Q 1308 530 1310 555
+           L 1312 612 L 1300 660 L 1262 668
+           L 1226 690
+           A 96 96 0 0 0 1034 690
+           L 576 690
+           A 96 96 0 0 0 384 690
+           L 320 696 Z"
+        fill="#D63A2F" stroke="#C7D0DA" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- side glass (fastback greenhouse) -->
+  <path d="M 795 448 L 868 525 L 618 528 L 602 464 Z"
+        fill="#2A1A2E" stroke="#C7D0DA" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- door seam + handle -->
+  <path d="M 866 528 Q 886 600 872 686" fill="none" stroke="#8E241C" stroke-width="3"/>
+  <path d="M 762 556 H 806" stroke="#C7D0DA" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- chrome side trim spear -->
+  <path d="M 322 592 L 1284 576" stroke="#C7D0DA" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- vent gills behind the front wheel -->
+  <g stroke="#8E241C" stroke-width="5" stroke-linecap="round">
+    <path d="M 984 556 L 972 612"/>
+    <path d="M 1010 560 L 998 614"/>
+    <path d="M 1036 564 L 1024 616"/>
+  </g>
+
+  <!-- headlamp (covered) + chrome bezel -->
+  <circle cx="1270" cy="554" r="22" fill="#FFD884" fill-opacity="0.85" stroke="#C7D0DA" stroke-width="4"/>
+
+  <!-- tail-light sliver + fuel cap -->
+  <rect x="286" y="592" width="10" height="30" rx="4" fill="#FFD884" stroke="#C7D0DA" stroke-width="2.5"/>
+  <circle cx="338" cy="552" r="13" fill="none" stroke="#C7D0DA" stroke-width="4"/>
+
+  <!-- chrome bumpers -->
+  <path d="M 1244 632 Q 1300 622 1322 618" fill="none" stroke="#C7D0DA" stroke-width="10" stroke-linecap="round"/>
+  <path d="M 278 632 Q 320 640 352 640" fill="none" stroke="#C7D0DA" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- ============ WIRE WHEELS ============ -->
+  <!-- rear -->
+  <g>
+    <circle cx="480" cy="700" r="80" fill="#1A1216"/>
+    <circle cx="480" cy="700" r="56" fill="#2A1A2E" stroke="#C7D0DA" stroke-width="3"/>
+    <g stroke="#C7D0DA" stroke-width="1.8" stroke-opacity="0.9">
+      <path d="M 480 700 L 480 646 M 480 700 L 518 662 M 480 700 L 534 700 M 480 700 L 518 738 M 480 700 L 480 754 M 480 700 L 442 738 M 480 700 L 426 700 M 480 700 L 442 662"/>
+      <path d="M 480 700 L 501 650 M 480 700 L 530 679 M 480 700 L 530 721 M 480 700 L 501 750 M 480 700 L 459 750 M 480 700 L 430 721 M 480 700 L 430 679 M 480 700 L 459 650"/>
+    </g>
+    <circle cx="480" cy="700" r="9" fill="#C7D0DA"/>
+    <path d="M 466 694 L 494 706 M 474 712 L 486 688" stroke="#C7D0DA" stroke-width="3"/>
+  </g>
+  <!-- front -->
+  <g>
+    <circle cx="1130" cy="700" r="80" fill="#1A1216"/>
+    <circle cx="1130" cy="700" r="56" fill="#2A1A2E" stroke="#C7D0DA" stroke-width="3"/>
+    <g stroke="#C7D0DA" stroke-width="1.8" stroke-opacity="0.9">
+      <path d="M 1130 700 L 1130 646 M 1130 700 L 1168 662 M 1130 700 L 1184 700 M 1130 700 L 1168 738 M 1130 700 L 1130 754 M 1130 700 L 1092 738 M 1130 700 L 1076 700 M 1130 700 L 1092 662"/>
+      <path d="M 1130 700 L 1151 650 M 1130 700 L 1180 679 M 1130 700 L 1180 721 M 1130 700 L 1151 750 M 1130 700 L 1109 750 M 1130 700 L 1080 721 M 1130 700 L 1080 679 M 1130 700 L 1109 650"/>
+    </g>
+    <circle cx="1130" cy="700" r="9" fill="#C7D0DA"/>
+    <path d="M 1116 694 L 1144 706 M 1124 712 L 1136 688" stroke="#C7D0DA" stroke-width="3"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-3 subject — 1965 grand tourer — supply 2400×1350 png/webp or refined SVG</text>
+</svg>

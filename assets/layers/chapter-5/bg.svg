@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 5 background — clean dark studio with a soft
+       elliptical floor glow. #0F1014 + volt-tinted light. -->
+  <defs>
+    <radialGradient id="ch5-floor" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2EE6A8" stop-opacity="0.20"/>
+      <stop offset="0.5" stop-color="#2EE6A8" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#2EE6A8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ch5-key" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#C7D0DA" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#C7D0DA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0F1014"/>
+
+  <!-- soft overhead key light -->
+  <ellipse cx="800" cy="120" rx="700" ry="260" fill="url(#ch5-key)"/>
+
+  <!-- studio cyclorama horizon, barely-there -->
+  <path d="M 0 690 Q 800 660 1600 690" fill="none" stroke="#C7D0DA" stroke-opacity="0.07" stroke-width="2"/>
+
+  <!-- elliptical floor glow -->
+  <ellipse cx="800" cy="740" rx="640" ry="150" fill="url(#ch5-floor)"/>
+  <ellipse cx="800" cy="745" rx="430" ry="84" fill="url(#ch5-floor)"/>
+
+  <!-- thin volt floor ring -->
+  <ellipse cx="800" cy="745" rx="500" ry="100" fill="none" stroke="#2EE6A8" stroke-opacity="0.18" stroke-width="2.5"/>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-5 bg — supply 2400×1350 png/webp</text>
+</svg>

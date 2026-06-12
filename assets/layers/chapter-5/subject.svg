@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 5 subject — electric hypercar, side view facing
+       right. Cab-forward teardrop, full-width light bars, aero wheels.
+       Near-black body with volt edge light. Supply 2400×1350 png/webp. -->
+
+  <!-- floor reflection -->
+  <ellipse cx="810" cy="800" rx="560" ry="22" fill="#2EE6A8" fill-opacity="0.10"/>
+
+  <!-- ============ BODY (cab-forward teardrop) ============ -->
+  <path d="M 300 706
+           L 268 690 L 262 582 L 296 562
+           C 380 470 520 404 660 402
+           C 850 405 1080 480 1300 585
+           Q 1348 598 1356 628 L 1360 648
+           L 1372 668 L 1340 678
+           L 1248 686
+           A 96 96 0 0 0 1052 686
+           L 568 686
+           A 96 96 0 0 0 372 686
+           L 330 696 Z"
+        fill="#121419" stroke="#2A2E38" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- volt edge light tracing the silhouette -->
+  <path d="M 296 562 C 380 470 520 404 660 402 C 850 405 1080 480 1300 585"
+        fill="none" stroke="#2EE6A8" stroke-width="12" stroke-opacity="0.12" stroke-linecap="round"/>
+  <path d="M 296 562 C 380 470 520 404 660 402 C 850 405 1080 480 1300 585"
+        fill="none" stroke="#2EE6A8" stroke-width="2.5" stroke-opacity="0.9" stroke-linecap="round"/>
+
+  <!-- glass canopy -->
+  <path d="M 486 470 C 560 418 660 406 740 416 C 810 426 862 446 888 464
+           L 846 486 C 740 454 600 460 522 488 Z"
+        fill="#1A222B" stroke="#3A4150" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- full-width light bar — front (wraps the nose edge) -->
+  <path d="M 1292 576 Q 1330 596 1350 624" fill="none" stroke="#2EE6A8" stroke-width="14" stroke-opacity="0.18" stroke-linecap="round"/>
+  <path d="M 1292 576 Q 1330 596 1350 624" fill="none" stroke="#EAFBF4" stroke-width="5" stroke-opacity="0.95" stroke-linecap="round"/>
+
+  <!-- full-width light bar — rear (tail blade) -->
+  <path d="M 266 586 L 268 652" fill="none" stroke="#2EE6A8" stroke-width="14" stroke-opacity="0.20" stroke-linecap="round"/>
+  <path d="M 266 586 L 268 652" fill="none" stroke="#2EE6A8" stroke-width="5" stroke-opacity="0.95" stroke-linecap="round"/>
+
+  <!-- door seam + side skirt accent -->
+  <path d="M 700 470 Q 688 580 700 682" fill="none" stroke="#1E232C" stroke-width="3"/>
+  <path d="M 584 680 H 1036" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
+
+  <!-- flush door handle + camera mirror pod -->
+  <path d="M 742 520 H 790" stroke="#3A4150" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 880 462 l 22 -8 l 6 10 l -22 6 Z" fill="#121419" stroke="#3A4150" stroke-width="2.5"/>
+
+  <!-- ============ AERO WHEELS (closed discs, thin slots) ============ -->
+  <g>
+    <circle cx="470" cy="700" r="82" fill="#08090C"/>
+    <circle cx="470" cy="700" r="56" fill="#15181E" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.55"/>
+    <g fill="none" stroke="#2EE6A8" stroke-width="2.5" stroke-opacity="0.6">
+      <path d="M 470 664 A 36 36 0 0 1 501 718"/>
+      <path d="M 470 664 A 36 36 0 0 1 501 718" transform="rotate(120 470 700)"/>
+      <path d="M 470 664 A 36 36 0 0 1 501 718" transform="rotate(240 470 700)"/>
+    </g>
+    <circle cx="470" cy="700" r="7" fill="#C7D0DA"/>
+  </g>
+  <g>
+    <circle cx="1150" cy="700" r="82" fill="#08090C"/>
+    <circle cx="1150" cy="700" r="56" fill="#15181E" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.55"/>
+    <g fill="none" stroke="#2EE6A8" stroke-width="2.5" stroke-opacity="0.6">
+      <path d="M 1150 664 A 36 36 0 0 1 1181 718"/>
+      <path d="M 1150 664 A 36 36 0 0 1 1181 718" transform="rotate(120 1150 700)"/>
+      <path d="M 1150 664 A 36 36 0 0 1 1181 718" transform="rotate(240 1150 700)"/>
+    </g>
+    <circle cx="1150" cy="700" r="7" fill="#C7D0DA"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-5 subject — electric hypercar — supply 2400×1350 png/webp or refined SVG</text>
+</svg>

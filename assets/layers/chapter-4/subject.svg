@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 4 subject — 1987 turbo wedge, side view facing
+       left. Low wedge nose, closed pop-up headlights, boxy flares, rear spoiler.
+       Dark body, chrome strokes, volt accent line. Supply 2400×1350 png/webp. -->
+
+  <!-- ground glow -->
+  <ellipse cx="800" cy="790" rx="560" ry="20" fill="#2EE6A8" fill-opacity="0.10"/>
+
+  <!-- ============ BODY (wedge) ============ -->
+  <path d="M 248 614
+           L 690 506 L 800 444 L 970 440 L 1090 478 L 1318 474
+           L 1324 482 L 1326 600 L 1300 640
+           L 1226 668 L 1216 680
+           L 1200 622 L 1040 622 L 1024 680
+           L 576 680
+           L 560 622 L 400 622 L 384 680
+           L 330 680 L 300 668 L 252 648 Z"
+        fill="#15171D" stroke="#C7D0DA" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- boxy flare outlines over the arches -->
+  <path d="M 372 686 L 392 614 L 568 614 L 588 686" fill="none" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.6"/>
+  <path d="M 1012 686 L 1032 614 L 1208 614 L 1228 686" fill="none" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.6"/>
+
+  <!-- closed pop-up headlight panel lines on the nose -->
+  <path d="M 310 597 L 398 576 L 404 592 L 316 613 Z" fill="none" stroke="#C7D0DA" stroke-width="3"/>
+  <path d="M 430 568 L 470 558" stroke="#C7D0DA" stroke-width="2.5" stroke-opacity="0.6"/>
+
+  <!-- side glass + B-pillar -->
+  <path d="M 706 510 L 805 452 L 962 448 L 988 500 Z" fill="#0F1014" stroke="#C7D0DA" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 900 449 L 916 502" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.7"/>
+
+  <!-- door seam + mirror -->
+  <path d="M 700 514 Q 690 600 702 676" fill="none" stroke="#3A4150" stroke-width="3"/>
+  <path d="M 992 502 Q 1004 590 992 678" fill="none" stroke="#3A4150" stroke-width="3"/>
+  <path d="M 716 472 l -26 -10 l -2 14 l 26 6 Z" fill="#15171D" stroke="#C7D0DA" stroke-width="2.5"/>
+
+  <!-- side strakes on the rear quarter -->
+  <g stroke="#3A4150" stroke-width="5" stroke-linecap="round">
+    <path d="M 1014 548 H 1190"/>
+    <path d="M 1010 570 H 1196"/>
+    <path d="M 1006 592 H 1200"/>
+  </g>
+
+  <!-- rear spoiler -->
+  <path d="M 1240 474 L 1252 432" stroke="#C7D0DA" stroke-width="4" fill="none"/>
+  <path d="M 1140 432 L 1380 418 L 1384 432 L 1144 446 Z" fill="#15171D" stroke="#C7D0DA" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- tail-light band -->
+  <rect x="1316" y="500" width="9" height="86" rx="3" fill="#D63A2F" fill-opacity="0.85"/>
+
+  <!-- volt accent line along the wedge -->
+  <path d="M 262 610 L 1320 538" fill="none" stroke="#2EE6A8" stroke-width="10" stroke-opacity="0.14" stroke-linecap="round"/>
+  <path d="M 262 610 L 1320 538" fill="none" stroke="#2EE6A8" stroke-width="3" stroke-opacity="0.85" stroke-linecap="round"/>
+
+  <!-- ============ WHEELS (flat 80s discs, 5 holes) ============ -->
+  <g>
+    <circle cx="480" cy="700" r="80" fill="#08090C"/>
+    <circle cx="480" cy="700" r="54" fill="#2A2E38" stroke="#C7D0DA" stroke-width="3"/>
+    <g fill="#0F1014">
+      <circle cx="480" cy="670" r="9"/>
+      <circle cx="451.5" cy="690.7" r="9"/>
+      <circle cx="462.4" cy="724.3" r="9"/>
+      <circle cx="497.6" cy="724.3" r="9"/>
+      <circle cx="508.5" cy="690.7" r="9"/>
+    </g>
+    <circle cx="480" cy="700" r="8" fill="#C7D0DA"/>
+  </g>
+  <g>
+    <circle cx="1120" cy="700" r="80" fill="#08090C"/>
+    <circle cx="1120" cy="700" r="54" fill="#2A2E38" stroke="#C7D0DA" stroke-width="3"/>
+    <g fill="#0F1014">
+      <circle cx="1120" cy="670" r="9"/>
+      <circle cx="1091.5" cy="690.7" r="9"/>
+      <circle cx="1102.4" cy="724.3" r="9"/>
+      <circle cx="1137.6" cy="724.3" r="9"/>
+      <circle cx="1148.5" cy="690.7" r="9"/>
+    </g>
+    <circle cx="1120" cy="700" r="8" fill="#C7D0DA"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-4 subject — 1987 turbo wedge — supply 2400×1350 png/webp or refined SVG</text>
+</svg>

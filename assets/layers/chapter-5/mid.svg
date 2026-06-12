@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 5 midground — two sweeping volt light ribbons,
+       glow built from wide low-opacity duplicates of the same beziers. -->
+  <g fill="none" stroke="#2EE6A8" stroke-linecap="round">
+    <!-- ribbon 1: high sweep, upper-left to right -->
+    <path d="M -60 320 C 360 140 760 420 1100 300 S 1560 180 1680 240" stroke-width="64" stroke-opacity="0.05"/>
+    <path d="M -60 320 C 360 140 760 420 1100 300 S 1560 180 1680 240" stroke-width="26" stroke-opacity="0.12"/>
+    <path d="M -60 320 C 360 140 760 420 1100 300 S 1560 180 1680 240" stroke-width="5"  stroke-opacity="0.85"/>
+
+    <!-- ribbon 2: low sweep, crossing behind the car -->
+    <path d="M -60 640 C 420 760 900 520 1240 620 S 1600 700 1680 660" stroke-width="64" stroke-opacity="0.05"/>
+    <path d="M -60 640 C 420 760 900 520 1240 620 S 1600 700 1680 660" stroke-width="26" stroke-opacity="0.12"/>
+    <path d="M -60 640 C 420 760 900 520 1240 620 S 1600 700 1680 660" stroke-width="5"  stroke-opacity="0.85"/>
+  </g>
+
+  <!-- bright pinch points where the ribbons fold -->
+  <g fill="#EAFBF4">
+    <circle cx="1100" cy="300" r="4" fill-opacity="0.9"/>
+    <circle cx="360" cy="225" r="3" fill-opacity="0.7"/>
+    <circle cx="1240" cy="620" r="4" fill-opacity="0.9"/>
+    <circle cx="520" cy="690" r="3" fill-opacity="0.7"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#2EE6A8" fill-opacity="0.35">PLACEHOLDER chapter-5 mid — supply 2400×1350 transparent png/webp</text>
+</svg>

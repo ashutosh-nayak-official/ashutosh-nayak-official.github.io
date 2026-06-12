@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 3 midground — sea horizon with cargo-vessel
+       silhouettes (Track & Trace nod) + distant coastline. -->
+  <defs>
+    <linearGradient id="ch3-sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3A4A60"/>
+      <stop offset="1" stop-color="#222B3A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- sea band -->
+  <rect x="0" y="640" width="1600" height="260" fill="url(#ch3-sea)"/>
+  <path d="M 0 640 H 1600" stroke="#FFD884" stroke-opacity="0.5" stroke-width="3"/>
+
+  <!-- sun glitter path on the water -->
+  <g stroke="#FFD884" stroke-linecap="round">
+    <path d="M 1010 668 H 1150" stroke-width="6" stroke-opacity="0.5"/>
+    <path d="M 1040 696 H 1130" stroke-width="5" stroke-opacity="0.4"/>
+    <path d="M 1000 726 H 1170" stroke-width="5" stroke-opacity="0.32"/>
+    <path d="M 1060 760 H 1120" stroke-width="4" stroke-opacity="0.25"/>
+    <path d="M 1020 800 H 1160" stroke-width="4" stroke-opacity="0.18"/>
+  </g>
+
+  <!-- distant coastline, left horizon -->
+  <path d="M 0 640 L 0 596 Q 90 570 170 596 Q 240 576 320 606 Q 380 596 430 624 L 470 640 Z" fill="#1E2733"/>
+
+  <!-- ============ CARGO VESSELS on the horizon ============ -->
+  <!-- container ship 1 (large, mid-left) -->
+  <g fill="#1E2733">
+    <polygon points="520,640 545,596 815,596 835,640"/>
+    <rect x="560" y="568" width="40" height="28"/>
+    <rect x="604" y="576" width="40" height="20"/>
+    <rect x="648" y="566" width="40" height="30"/>
+    <rect x="692" y="578" width="40" height="18"/>
+    <!-- bridge castle aft -->
+    <rect x="760" y="540" width="38" height="56"/>
+    <rect x="772" y="524" width="6" height="16"/>
+  </g>
+  <!-- container ship 2 (small, far right) -->
+  <g fill="#1E2733" fill-opacity="0.85">
+    <polygon points="1300,640 1315,614 1470,614 1482,640"/>
+    <rect x="1326" y="598" width="26" height="16"/>
+    <rect x="1356" y="592" width="26" height="22"/>
+    <rect x="1386" y="600" width="26" height="14"/>
+    <rect x="1432" y="582" width="22" height="32"/>
+  </g>
+  <!-- tanker 3 (tiny, centre-left) -->
+  <g fill="#1E2733" fill-opacity="0.7">
+    <polygon points="240,640 250,622 360,622 368,640"/>
+    <rect x="338" y="606" width="16" height="16"/>
+    <rect x="270" y="614" width="40" height="8"/>
+  </g>
+  <!-- vessel 4 (tiny, near sun) -->
+  <g fill="#1E2733" fill-opacity="0.9">
+    <polygon points="1060,640 1068,626 1148,626 1154,640"/>
+    <rect x="1128" y="612" width="12" height="14"/>
+  </g>
+
+  <!-- subtle wave strokes -->
+  <g stroke="#C7D0DA" stroke-opacity="0.12" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M 80 700 Q 130 692 180 700 T 280 700"/>
+    <path d="M 420 744 Q 470 736 520 744 T 620 744"/>
+    <path d="M 760 700 Q 810 692 860 700 T 960 700"/>
+    <path d="M 1240 770 Q 1290 762 1340 770 T 1440 770"/>
+    <path d="M 200 820 Q 250 812 300 820 T 400 820"/>
+    <path d="M 900 840 Q 950 832 1000 840 T 1100 840"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#C7D0DA" fill-opacity="0.35">PLACEHOLDER chapter-3 mid — supply 2400×1350 transparent png/webp</text>
+</svg>

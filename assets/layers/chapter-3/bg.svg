@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 3 background — sunset travel-poster sky,
+       big low sun, gradient bands. #2A1A2E → #D63A2F → #FFD884. -->
+  <defs>
+    <linearGradient id="ch3-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A1A2E"/>
+      <stop offset="0.55" stop-color="#D63A2F"/>
+      <stop offset="1" stop-color="#FFD884"/>
+    </linearGradient>
+    <radialGradient id="ch3-halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFD884" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFD884" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#ch3-sky)"/>
+
+  <!-- sun halo + big low sun disc -->
+  <circle cx="1080" cy="600" r="420" fill="url(#ch3-halo)"/>
+  <circle cx="1080" cy="600" r="230" fill="#FFD884"/>
+  <circle cx="1080" cy="600" r="230" fill="#FFE9B8" fill-opacity="0.45"/>
+
+  <!-- poster-style horizontal gradient bands slicing the sun -->
+  <g fill="#2A1A2E">
+    <rect x="0" y="430" width="1600" height="10" fill-opacity="0.14"/>
+    <rect x="0" y="478" width="1600" height="16" fill-opacity="0.18"/>
+    <rect x="0" y="532" width="1600" height="22" fill-opacity="0.22"/>
+    <rect x="0" y="594" width="1600" height="14" fill-opacity="0.18"/>
+    <rect x="0" y="640" width="1600" height="8" fill-opacity="0.14"/>
+  </g>
+
+  <!-- stylized poster clouds, high -->
+  <g fill="#2A1A2E" fill-opacity="0.28">
+    <path d="M 120 170 Q 200 130 300 162 Q 380 120 470 158 L 470 184 L 120 184 Z"/>
+    <path d="M 980 110 Q 1060 76 1150 104 Q 1230 70 1330 102 L 1330 126 L 980 126 Z"/>
+  </g>
+
+  <!-- warm lower glow toward the horizon -->
+  <rect x="0" y="700" width="1600" height="200" fill="#FFD884" fill-opacity="0.35"/>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#2A1A2E" fill-opacity="0.35">PLACEHOLDER chapter-3 bg — supply 2400×1350 png/webp</text>
+</svg>

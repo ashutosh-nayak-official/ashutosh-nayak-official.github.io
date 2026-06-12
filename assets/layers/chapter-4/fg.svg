@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <!-- PLACEHOLDER layer: chapter 4 foreground — circuit-board traces rising
+       from the bottom: thin volt lines, right-angle bends, node dots. Low
+       opacity. Top ~60% intentionally transparent. -->
+  <g stroke="#2EE6A8" stroke-width="2.5" stroke-opacity="0.30" fill="none" stroke-linecap="round">
+    <path d="M 90 900 V 760 H 180 V 690"/>
+    <path d="M 150 900 V 820 H 260 V 730 H 330"/>
+    <path d="M 320 900 V 780 H 420"/>
+    <path d="M 470 900 V 840 H 560 V 760 H 640 V 700"/>
+    <path d="M 620 900 V 810 H 720"/>
+    <path d="M 780 900 V 770 H 870 V 710"/>
+    <path d="M 930 900 V 830 H 1040 V 750"/>
+    <path d="M 1090 900 V 790 H 1180 V 720 H 1260"/>
+    <path d="M 1240 900 V 850 H 1340 V 770"/>
+    <path d="M 1400 900 V 800 H 1500 V 700"/>
+    <path d="M 1540 900 V 760"/>
+  </g>
+
+  <!-- node dots at trace ends/junctions -->
+  <g fill="#2EE6A8" fill-opacity="0.45">
+    <circle cx="180" cy="690" r="6"/>
+    <circle cx="330" cy="730" r="6"/>
+    <circle cx="420" cy="780" r="6"/>
+    <circle cx="640" cy="700" r="6"/>
+    <circle cx="720" cy="810" r="6"/>
+    <circle cx="870" cy="710" r="6"/>
+    <circle cx="1040" cy="750" r="6"/>
+    <circle cx="1260" cy="720" r="6"/>
+    <circle cx="1340" cy="770" r="6"/>
+    <circle cx="1500" cy="700" r="6"/>
+    <circle cx="1540" cy="760" r="6"/>
+  </g>
+
+  <!-- open pad rings (vias) -->
+  <g fill="none" stroke="#2EE6A8" stroke-width="2" stroke-opacity="0.35">
+    <circle cx="90" cy="760" r="7"/>
+    <circle cx="560" cy="760" r="7"/>
+    <circle cx="930" cy="830" r="7"/>
+    <circle cx="1180" cy="720" r="7"/>
+  </g>
+
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#2EE6A8" fill-opacity="0.35">PLACEHOLDER chapter-4 fg — supply 2400×1350 transparent png/webp</text>
+</svg>

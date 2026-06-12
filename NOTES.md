@@ -1,5 +1,45 @@
 # Scroll-story rebuild — decisions log
 
+## 2026-06-13 — Milestone 2a (branch `scroll-story`)
+
+Scope shipped: Chapters 2–5 between `#chapter-1` and the interlude — Model T
+assembly line (2018), sunset grand tourer (2021), night-tunnel turbo wedge
+(2023), electric-hypercar studio (2026/NOW). 16 new placeholder layer SVGs
+(specs in CREDITS.md), full EN/DE/NL/PL coverage for all new copy.
+
+### Decisions
+- Chapter 1's pin/parallax/copy choreography extracted into
+  `buildChapterTimeline(sel, odoLabel, opts)` in `story.js`; all five chapters
+  share it (era 0–20%, title 10–30%, year 30–60%, caption 50–75%, stamp
+  60–75%, +250% pin, parallax halved ≤700px). Per-chapter subject entrances
+  and signature moments are appended onto the returned timeline.
+- Subject entrances: ch1+ch2 clip-path draw-on; ch3 slide from left
+  (xPercent −8→0); ch4 fast slide from right with faked motion-blur (scaleX
+  1.06→1, `subjectScale:false` so the shared scale tween doesn't fight it,
+  speed-line mid layer translates the opposite way); ch5 fade+rise with
+  ribbon mid layer clip-path sweep.
+- Signature moments: ch2 brass `.hackathon-plaque` (corner screws via CSS
+  radial-gradients) settles in at 70–85%; ch4 three `.hud-chip` callouts
+  stagger 60–85%; ch5 five `.dash-stat` EV-cluster counters scrub-count
+  55–85% (HTML ships final values so reduced-motion shows them; JS zeroes
+  then counts via an object tween + Math.round).
+- Gear-shift flash + needle blip fires on every chapter `onEnter` (so between
+  every consecutive chapter pair); odometer reads CH 01–CH 05, footer END
+  (`onLeaveBack` → CH 05). Speedo needle keeps mapping full-document progress.
+- `.layer-subject` clip-path initial state in CSS narrowed to
+  `.chapter-1/.chapter-2` only — ch3–5 subjects hide via gsap.set in the
+  non-reduced path, keeping reduced-motion fully visible.
+- HUD chips hidden ≤900px (spec floor was ≤700px) — below ~900px the left
+  copy column can reach the right-anchored chips.
+- Interlude copy now reads "the finale is being assembled" (chapters 02–05
+  exist); milestone 2b replaces the interlude entirely.
+
+### Known issues
+- All 20 layer SVGs remain labeled placeholders pending final art.
+- `scripts/check-content.sh` still intentionally fails until the final
+  milestone. New: `scripts/check-i18n.js` asserts every `data-i18n` key on
+  the page exists in all four dictionaries — passes as of this milestone.
+
 ## 2026-06-12 — Milestone 1 (branch `scroll-story`)
 
 Scope shipped: 3D hero stage + Chapter 1 (1886 Benz blueprint ↔ college beginnings,
