@@ -1,7 +1,8 @@
 /* ============================================================
-   "Shift" — scroll-story engine (milestone 2a)
+   "Shift" — scroll-story engine (milestones 2a + 2b)
    Hero pin + Chapters 1-5 (Benz blueprint → Model T → grand
-   tourer → turbo wedge → electric hypercar) + speedometer.
+   tourer → turbo wedge → electric hypercar) + speedometer +
+   garage finale (projects / logbook / tool wall / certs / CTA).
    Classic script. Depends on: gsap, ScrollTrigger, Lenis (CDN).
    ============================================================ */
 
@@ -47,8 +48,34 @@
       stat_workshops: 'AI/Cloud Workshops',
       stat_bonus: 'CEO Bonus Awarded',
       stat_success: 'Project Success Rate',
-      interlude_more: 'The finale is being assembled in the workshop…',
-      footer_heading: 'Pull over and say hello'
+      garage_kicker: 'THE GARAGE',
+      garage_title: "Everything I've Built & Carry",
+      garage_projects: 'On the Lifts',
+      garage_logbook: 'Service Logbook',
+      garage_skills: 'The Tool Wall',
+      garage_cta_line: 'The next chapter needs a co-driver.',
+      garage_cta: 'START THE ENGINE',
+      proj_1_title: "RAG Chatbot with Agentic AI", proj_1_desc: "Enterprise-grade conversational AI powered by AWS Bedrock with tool calling for dynamic task execution, prompt engineering, and LLM fine-tuning.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Self-healing web scraping with natural language interaction. MCP server integrates email, Excel logging, anomaly detection, and database updates in real-time.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Real-time vessel visibility for 15,000+ ships globally. ML-powered predictive ETAs with AIS feeds, geofencing, and interactive global mapping.",
+      proj_4_title: "Enterprise Cloud Hosting Platform", proj_4_desc: "Centralized AWS hosting platform serving as backbone for multiple enterprise apps. End-to-end IaC with Terraform, automated monitoring, self-healing, and alerting for rapid incident response.",
+      proj_5_title: "n8n Terraform Automation", proj_5_desc: "Automation pipeline enabling on-demand Terraform script generation, reducing infrastructure provisioning time by 80% across the engineering org.",
+      proj_6_title: "Smart Drainage System — Winner", proj_6_desc: "Smart Odisha Hackathon winning project: IoT-based smart drainage system with flood detection and real-time management for the Govt. of Odisha.",
+      skill_genai: "GenAI Stack", skill_aws: "AWS Cloud", skill_devops: "DevOps & Infrastructure", skill_langs: "Languages & Frameworks", skill_aiml: "AI / ML & Analytics", skill_security: "Security & Networking",
+      certs_label: "Certifications",
+      role_title_1: "Technical Manager — Lead Innovation", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Designed and Developed a <strong>RAG chatbot with Agentic AI & AWS Bedrock</strong>, integrating tool calling for dynamic task execution across enterprise workflows.',
+      rh_1_2: 'Built a <strong>self-healing Agentic Scraping solution</strong> with MCP server integration — natural language interaction, email/Excel logging, and anomaly detection.',
+      rh_1_3: 'Designed <strong>AWS cloud infrastructure</strong> for enterprise apps using EC2, VPC, S3, Lambda, API Gateway, CloudWatch, and DynamoDB with <strong>99%+ uptime</strong>.',
+      rh_1_4: 'Designed an <strong>n8n + Terraform automation pipeline</strong> for on-demand IaC provisioning, cutting deployment time by <strong>80%</strong>. Standardized environments with <strong>Terraform & Ansible</strong>.',
+      rh_1_5: 'Drove <strong>cloud cost optimization</strong> with AWS Cost Explorer, resource right-sizing, and reserved instances. Established <strong>proactive CloudWatch monitoring</strong> reducing MTTR for critical incidents.',
+      rh_1_6: 'Led <strong>15+ cloud & GenAI workshops</strong> for 20+ developers, accelerating organizational adoption of cloud-native AI practices.',
+      rh_1_7: 'Awarded <strong>CEO Bonus for 4 consecutive years</strong> for delivering high-impact innovative solutions with a <strong>95% project success rate</strong>.',
+      rh_2_1: 'Delivered an <strong>AI-powered vessel tracking system</strong> for 3PL — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.',
+      rh_2_2: 'Designed and managed <strong>AWS cloud hosting infrastructure</strong> (EC2, S3, RDS, Lambda, CloudWatch) ensuring <strong>high availability and fault tolerance</strong> for mission-critical supply chain apps.',
+      rh_2_3: 'Built and maintained <strong>CI/CD pipelines for 10+ applications</strong>, automating build, test, and deployment. Configured <strong>VPC, security groups, load balancers, and DNS</strong>.',
+      rh_2_4: 'Enhanced ETA accuracy with <strong>ML algorithms & LLM-assisted reasoning</strong> analyzing schedules, port congestion, and event data.',
+      rh_2_5: 'Integrated <strong>GenAI-powered analytics</strong> (Qlik, ThoughtSpot, RAG dashboards) into 5+ apps, improving data access for <strong>300+ global users</strong>.'
     },
     de: {
       nav_contact: 'Kontakt',
@@ -85,8 +112,34 @@
       stat_workshops: 'AI/Cloud-Workshops',
       stat_bonus: 'CEO-Bonus erhalten',
       stat_success: 'Projekterfolgsquote',
-      interlude_more: 'Das Finale wird gerade in der Werkstatt montiert…',
-      footer_heading: 'Fahren Sie rechts ran und sagen Sie Hallo'
+      garage_kicker: 'DIE GARAGE',
+      garage_title: 'Alles, was ich gebaut habe und mitbringe',
+      garage_projects: 'Auf den Hebebühnen',
+      garage_logbook: 'Serviceheft',
+      garage_skills: 'Die Werkzeugwand',
+      garage_cta_line: 'Das nächste Kapitel braucht einen Beifahrer.',
+      garage_cta: 'MOTOR STARTEN',
+      proj_1_title: "RAG-Chatbot mit Agentic AI", proj_1_desc: "Konversations-KI auf Enterprise-Niveau, angetrieben von AWS Bedrock mit Tool-Aufrufen für dynamische Aufgabenausführung, Prompt Engineering und LLM-Fine-Tuning.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Selbstheilendes Web-Scraping mit natürlichsprachiger Interaktion. MCP-Server integriert E-Mail, Excel-Protokollierung, Anomalieerkennung und Datenbank-Updates in Echtzeit.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Echtzeit-Schiffssichtbarkeit für 15.000+ Schiffe weltweit. ML-gestützte prädiktive ETAs mit AIS-Feeds, Geofencing und interaktiver globaler Kartierung.",
+      proj_4_title: "Enterprise Cloud-Hosting-Plattform", proj_4_desc: "Zentralisierte AWS-Hosting-Plattform als Backbone für mehrere Unternehmensanwendungen. End-to-End-IaC mit Terraform, automatisiertes Monitoring, Self-Healing und Alerting.",
+      proj_5_title: "n8n Terraform-Automatisierung", proj_5_desc: "Automatisierungspipeline für die On-Demand-Generierung von Terraform-Skripten, Reduzierung der Infrastruktur-Bereitstellungszeit um 80%.",
+      proj_6_title: "Smart Drainage System — Gewinner", proj_6_desc: "Smart Odisha Hackathon-Gewinnerprojekt: IoT-basiertes intelligentes Entwässerungssystem mit Hochwassererkennung und Echtzeit-Management für die Regierung von Odisha.",
+      skill_genai: "GenAI-Stack", skill_aws: "AWS Cloud", skill_devops: "DevOps & Infrastruktur", skill_langs: "Sprachen & Frameworks", skill_aiml: "KI / ML & Analytik", skill_security: "Sicherheit & Netzwerk",
+      certs_label: "Zertifizierungen",
+      role_title_1: "Technischer Manager — Innovationsleitung", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Entwurf und Entwicklung eines <strong>RAG-Chatbots mit Agentic AI & AWS Bedrock</strong>, Integration von Tool-Aufrufen für dynamische Aufgabenausführung über Unternehmens-Workflows.',
+      rh_1_2: 'Aufbau einer <strong>selbstheilenden Agentic-Scraping-Lösung</strong> mit MCP-Server-Integration — natürlichsprachige Interaktion, E-Mail-/Excel-Protokollierung und Anomalieerkennung.',
+      rh_1_3: 'Entwurf der <strong>AWS-Cloud-Infrastruktur</strong> für Unternehmensanwendungen mit EC2, VPC, S3, Lambda, API Gateway, CloudWatch und DynamoDB mit <strong>99%+ Verfügbarkeit</strong>.',
+      rh_1_4: 'Entwurf einer <strong>n8n + Terraform-Automatisierungspipeline</strong> für On-Demand-IaC-Bereitstellung mit <strong>80%</strong> Reduzierung der Deployment-Zeit. Standardisierung der Umgebungen mit <strong>Terraform & Ansible</strong>.',
+      rh_1_5: 'Vorantreiben der <strong>Cloud-Kostenoptimierung</strong> mit AWS Cost Explorer, Ressourcen-Rightsizing und reservierten Instanzen. Etablierung von <strong>proaktivem CloudWatch-Monitoring</strong> zur Reduzierung der MTTR bei kritischen Vorfällen.',
+      rh_1_6: 'Leitung von <strong>15+ Cloud- & GenAI-Workshops</strong> für 20+ Entwickler, Beschleunigung der organisatorischen Einführung cloud-nativer KI-Praktiken.',
+      rh_1_7: 'Auszeichnung mit dem <strong>CEO-Bonus für 4 aufeinanderfolgende Jahre</strong> für die Bereitstellung hochwirksamer innovativer Lösungen mit einer <strong>95% Projekterfolgsquote</strong>.',
+      rh_2_1: 'Bereitstellung eines <strong>KI-gestützten Schiffsverfolgungssystems</strong> für 3PL — Echtzeit-Sichtbarkeit und prädiktive ETAs für <strong>15.000+ Schiffe weltweit</strong> mit 99% Verfügbarkeit.',
+      rh_2_2: 'Entwurf und Verwaltung der <strong>AWS-Cloud-Hosting-Infrastruktur</strong> (EC2, S3, RDS, Lambda, CloudWatch) mit <strong>hoher Verfügbarkeit und Fehlertoleranz</strong> für geschäftskritische Supply-Chain-Apps.',
+      rh_2_3: 'Aufbau und Wartung von <strong>CI/CD-Pipelines für 10+ Anwendungen</strong>, Automatisierung von Build, Test und Deployment. Konfiguration von <strong>VPC, Sicherheitsgruppen, Load Balancern und DNS</strong>.',
+      rh_2_4: 'Verbesserung der ETA-Genauigkeit mit <strong>ML-Algorithmen & LLM-gestütztem Reasoning</strong> zur Analyse von Fahrplänen, Hafenüberlastung und Ereignisdaten.',
+      rh_2_5: 'Integration von <strong>GenAI-gestützter Analytik</strong> (Qlik, ThoughtSpot, RAG-Dashboards) in 5+ Apps, Verbesserung des Datenzugangs für <strong>300+ globale Nutzer</strong>.'
     },
     nl: {
       nav_contact: 'Contact',
@@ -123,8 +176,34 @@
       stat_workshops: 'AI/Cloud Workshops',
       stat_bonus: 'CEO Bonus Ontvangen',
       stat_success: 'Projectsuccesratio',
-      interlude_more: 'De finale wordt nog in de werkplaats in elkaar gezet…',
-      footer_heading: 'Zet de auto even stil en zeg hallo'
+      garage_kicker: 'DE GARAGE',
+      garage_title: 'Alles wat ik heb gebouwd en meedraag',
+      garage_projects: 'Op de hefbruggen',
+      garage_logbook: 'Onderhoudsboekje',
+      garage_skills: 'De gereedschapswand',
+      garage_cta_line: 'Het volgende hoofdstuk heeft een bijrijder nodig.',
+      garage_cta: 'START DE MOTOR',
+      proj_1_title: "RAG-chatbot met Agentic AI", proj_1_desc: "Enterprise-niveau conversationele AI aangedreven door AWS Bedrock met tool-aanroepen voor dynamische taakuitvoering, prompt engineering en LLM fine-tuning.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Zelfherstellend web scraping met natuurlijke taalinteractie. MCP-server integreert e-mail, Excel-logging, anomaliedetectie en database-updates in realtime.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Realtime scheepszichtbaarheid voor 15.000+ schepen wereldwijd. ML-aangedreven voorspellende ETAs met AIS-feeds, geofencing en interactieve wereldwijde kaarten.",
+      proj_4_title: "Enterprise Cloud Hosting Platform", proj_4_desc: "Gecentraliseerd AWS-hostingplatform als backbone voor meerdere bedrijfsapplicaties. End-to-end IaC met Terraform, geautomatiseerde monitoring, self-healing en alerting.",
+      proj_5_title: "n8n Terraform Automatisering", proj_5_desc: "Automatiseringspipeline voor on-demand generatie van Terraform-scripts, reductie van infrastructuurprovisioningtijd met 80%.",
+      proj_6_title: "Smart Drainage Systeem — Winnaar", proj_6_desc: "Smart Odisha Hackathon winnend project: IoT-gebaseerd slim drainagesysteem met overstromingsdetectie en realtimebeheer voor de overheid van Odisha.",
+      skill_genai: "GenAI Stack", skill_aws: "AWS Cloud", skill_devops: "DevOps & Infrastructuur", skill_langs: "Talen & Frameworks", skill_aiml: "AI / ML & Analytics", skill_security: "Beveiliging & Netwerken",
+      certs_label: "Certificeringen",
+      role_title_1: "Technisch Manager — Innovatieleider", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Ontwerp en ontwikkeling van een <strong>RAG-chatbot met Agentic AI & AWS Bedrock</strong>, met tool-aanroepen voor dynamische taakuitvoering in bedrijfsworkflows.',
+      rh_1_2: 'Bouw van een <strong>zelfherstellende Agentic Scraping-oplossing</strong> met MCP-serverintegratie — natuurlijke taalinteractie, e-mail/Excel-logging en anomaliedetectie.',
+      rh_1_3: 'Ontwerp van <strong>AWS-cloudinfrastructuur</strong> voor bedrijfsapplicaties met EC2, VPC, S3, Lambda, API Gateway, CloudWatch en DynamoDB met <strong>99%+ uptime</strong>.',
+      rh_1_4: 'Ontwerp van een <strong>n8n + Terraform-automatiseringspipeline</strong> voor on-demand IaC-provisioning, met <strong>80%</strong> reductie van deployment-tijd. Standaardisering van omgevingen met <strong>Terraform & Ansible</strong>.',
+      rh_1_5: 'Aansturing van <strong>cloud-kostenoptimalisatie</strong> met AWS Cost Explorer, resource right-sizing en gereserveerde instanties. Opzet van <strong>proactieve CloudWatch-monitoring</strong> ter vermindering van MTTR bij kritieke incidenten.',
+      rh_1_6: 'Leiding van <strong>15+ cloud- & GenAI-workshops</strong> voor 20+ ontwikkelaars, versnelling van organisatiebrede adoptie van cloud-native AI-praktijken.',
+      rh_1_7: 'Ontvangst van de <strong>CEO Bonus voor 4 opeenvolgende jaren</strong> voor het leveren van impactvolle innovatieve oplossingen met een <strong>95% projectsuccesratio</strong>.',
+      rh_2_1: 'Levering van een <strong>AI-aangedreven scheepstrackingsysteem</strong> voor 3PL — realtime zichtbaarheid en voorspellende ETAs voor <strong>15.000+ schepen wereldwijd</strong> met 99% uptime.',
+      rh_2_2: 'Ontwerp en beheer van <strong>AWS cloud-hostinginfrastructuur</strong> (EC2, S3, RDS, Lambda, CloudWatch) met <strong>hoge beschikbaarheid en fouttolerantie</strong> voor bedrijfskritische supply chain-apps.',
+      rh_2_3: 'Bouw en onderhoud van <strong>CI/CD-pipelines voor 10+ applicaties</strong>, automatisering van build, test en deployment. Configuratie van <strong>VPC, beveiligingsgroepen, load balancers en DNS</strong>.',
+      rh_2_4: 'Verbetering van ETA-nauwkeurigheid met <strong>ML-algoritmen & LLM-ondersteunde redenering</strong> voor analyse van roosters, havenoverlasting en gebeurtenisdata.',
+      rh_2_5: 'Integratie van <strong>GenAI-aangedreven analytics</strong> (Qlik, ThoughtSpot, RAG-dashboards) in 5+ apps, verbetering van datatoegang voor <strong>300+ wereldwijde gebruikers</strong>.'
     },
     pl: {
       nav_contact: 'Kontakt',
@@ -161,8 +240,34 @@
       stat_workshops: 'Warsztaty AI/Cloud',
       stat_bonus: 'Bonus CEO przyznany',
       stat_success: 'Wskaźnik sukcesu',
-      interlude_more: 'Finał powstaje właśnie w warsztacie…',
-      footer_heading: 'Zjedź na pobocze i przywitaj się'
+      garage_kicker: 'GARAŻ',
+      garage_title: 'Wszystko, co zbudowałem i co mam ze sobą',
+      garage_projects: 'Na podnośnikach',
+      garage_logbook: 'Książka serwisowa',
+      garage_skills: 'Ściana narzędzi',
+      garage_cta_line: 'Następny rozdział potrzebuje pilota.',
+      garage_cta: 'URUCHOM SILNIK',
+      proj_1_title: "Chatbot RAG z Agentic AI", proj_1_desc: "Konwersacyjna AI klasy enterprise zasilana przez AWS Bedrock z wywołaniami narzędzi do dynamicznego wykonywania zadań, prompt engineering i fine-tuning LLM.",
+      proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Samonaprawiający się web scraping z interakcją w języku naturalnym. Serwer MCP integruje e-mail, logowanie Excel, wykrywanie anomalii i aktualizacje bazy danych w czasie rzeczywistym.",
+      proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Widoczność statków w czasie rzeczywistym dla 15 000+ statków na świecie. Predykcyjne ETA oparte na ML z feedami AIS, geofencingiem i interaktywnym mapowaniem.",
+      proj_4_title: "Enterprise Cloud Hosting Platform", proj_4_desc: "Scentralizowana platforma hostingowa AWS jako kręgosłup wielu aplikacji korporacyjnych. End-to-end IaC z Terraform, automatyczny monitoring, self-healing i alerting.",
+      proj_5_title: "Automatyzacja n8n Terraform", proj_5_desc: "Pipeline automatyzacji do generowania skryptów Terraform na żądanie, redukcja czasu provisioningu infrastruktury o 80%.",
+      proj_6_title: "Smart Drainage System — Zwycięzca", proj_6_desc: "Zwycięski projekt Smart Odisha Hackathon: inteligentny system drenażowy oparty na IoT z detekcją powodzi i zarządzaniem w czasie rzeczywistym dla rządu Odisha.",
+      skill_genai: "Stos GenAI", skill_aws: "Chmura AWS", skill_devops: "DevOps i Infrastruktura", skill_langs: "Języki i Frameworki", skill_aiml: "AI / ML i Analityka", skill_security: "Bezpieczeństwo i Sieci",
+      certs_label: "Certyfikaty",
+      role_title_1: "Kierownik Techniczny — Lider Innowacji", role_title_2: "Full Stack & Cloud Platform Engineer",
+      rh_1_1: 'Zaprojektowanie i rozwinięcie <strong>chatbota RAG z Agentic AI i AWS Bedrock</strong>, integracja wywołań narzędzi do dynamicznego wykonywania zadań w workflow\'ach korporacyjnych.',
+      rh_1_2: 'Budowa <strong>samonaprawiającego się rozwiązania Agentic Scraping</strong> z integracją serwera MCP — interakcja w języku naturalnym, logowanie e-mail/Excel i wykrywanie anomalii.',
+      rh_1_3: 'Projektowanie <strong>infrastruktury chmury AWS</strong> dla aplikacji korporacyjnych z EC2, VPC, S3, Lambda, API Gateway, CloudWatch i DynamoDB z <strong>99%+ dostępnością</strong>.',
+      rh_1_4: 'Zaprojektowanie <strong>pipeline\'u automatyzacji n8n + Terraform</strong> do provisioningu IaC na żądanie, skrócenie czasu wdrożenia o <strong>80%</strong>. Standaryzacja środowisk z <strong>Terraform i Ansible</strong>.',
+      rh_1_5: 'Prowadzenie <strong>optymalizacji kosztów chmury</strong> z AWS Cost Explorer, odpowiednim doborem zasobów i instancjami zarezerwowanymi. Ustanowienie <strong>proaktywnego monitoringu CloudWatch</strong> zmniejszającego MTTR dla krytycznych incydentów.',
+      rh_1_6: 'Prowadzenie <strong>15+ warsztatów cloud i GenAI</strong> dla 20+ programistów, przyspieszenie organizacyjnego wdrażania natywnych dla chmury praktyk AI.',
+      rh_1_7: 'Otrzymanie <strong>Bonusu CEO przez 4 kolejne lata</strong> za dostarczanie innowacyjnych rozwiązań o dużym wpływie z <strong>95% wskaźnikiem sukcesu projektów</strong>.',
+      rh_2_1: 'Dostarczenie <strong>systemu śledzenia statków opartego na AI</strong> dla 3PL — widoczność w czasie rzeczywistym i predykcyjne ETA dla <strong>15 000+ statków na świecie</strong> z 99% dostępnością.',
+      rh_2_2: 'Projektowanie i zarządzanie <strong>infrastrukturą hostingu chmury AWS</strong> (EC2, S3, RDS, Lambda, CloudWatch) zapewniając <strong>wysoką dostępność i tolerancję błędów</strong> dla krytycznych aplikacji łańcucha dostaw.',
+      rh_2_3: 'Budowa i utrzymanie <strong>pipeline\'ów CI/CD dla 10+ aplikacji</strong>, automatyzacja budowania, testowania i wdrażania. Konfiguracja <strong>VPC, grup bezpieczeństwa, load balancerów i DNS</strong>.',
+      rh_2_4: 'Poprawa dokładności ETA za pomocą <strong>algorytmów ML i rozumowania wspomaganego przez LLM</strong> analizujących harmonogramy, zatory portowe i dane o zdarzeniach.',
+      rh_2_5: 'Integracja <strong>analityki opartej na GenAI</strong> (Qlik, ThoughtSpot, dashboardy RAG) w 5+ aplikacjach, poprawa dostępu do danych dla <strong>300+ globalnych użytkowników</strong>.'
     }
   };
 
@@ -178,6 +283,12 @@
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Rich-text strings (logbook bullets contain <strong>) go through innerHTML
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
     });
 
     var code = document.getElementById('langCode');
@@ -515,12 +626,47 @@
       }, at);
     });
 
-    // --- Interlude + footer odometer states ---
+    // --- GARAGE finale: scroll-triggered once-reveals (not scrubbed) ---
+    // Initial hidden states are set here only, so the reduced-motion early
+    // return leaves the whole garage visible and static.
+    var revealGroups = [
+      { sel: '#garage .garage-head > *, #garage .garage-projects > h3, .podium-card, #garage .garage-logbook > h3, .logbook-entry, #garage .garage-skills > h3, .tool-board, #garage .garage-certs > h3, .trophy-card, .garage-contact > *', y: 36, dur: 0.7, stagger: 0.1 },
+      { sel: '.tool-chips li', y: 14, dur: 0.45, stagger: 0.025 }
+    ];
+    revealGroups.forEach(function (group) {
+      var els = gsap.utils.toArray(group.sel);
+      if (!els.length) return;
+      gsap.set(els, { opacity: 0, y: group.y });
+      ScrollTrigger.batch(els, {
+        start: 'top 90%',
+        once: true,
+        onEnter: function (batch) {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: group.dur,
+            ease: 'power2.out',
+            stagger: group.stagger,
+            overwrite: true
+          });
+        }
+      });
+    });
+
+    // --- Garage + footer odometer states ---
+    ScrollTrigger.create({
+      trigger: '#garage',
+      start: 'top 60%',
+      onEnter: function () { setOdometer('GRG'); gearShift(); },
+      onEnterBack: function () { setOdometer('GRG'); },
+      onLeaveBack: function () { setOdometer('CH 05'); }
+    });
+
     ScrollTrigger.create({
       trigger: '.story-footer',
       start: 'top 80%',
       onEnter: function () { setOdometer('END'); },
-      onLeaveBack: function () { setOdometer('CH 05'); }
+      onLeaveBack: function () { setOdometer('GRG'); }
     });
 
     // --- Hero 3D: dynamic import only when WebGL is viable ---

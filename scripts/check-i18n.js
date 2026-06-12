@@ -13,8 +13,8 @@ const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const js = fs.readFileSync(path.join(root, 'assets/js/story.js'), 'utf8');
 
-// --- collect data-i18n keys from the page ---
-const keys = [...new Set([...html.matchAll(/data-i18n="([^"]+)"/g)].map(m => m[1]))];
+// --- collect data-i18n + data-i18n-html keys from the page ---
+const keys = [...new Set([...html.matchAll(/data-i18n(?:-html)?="([^"]+)"/g)].map(m => m[1]))];
 
 // --- extract the STORY_I18N object literal from story.js ---
 const start = js.indexOf('var STORY_I18N = {');

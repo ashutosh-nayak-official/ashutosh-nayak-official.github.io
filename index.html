@@ -27,7 +27,7 @@
           <li><button class="lang-option" data-lang="pl" role="option">Polski</button></li>
         </ul>
       </div>
-      <a class="nav-contact" href="#contact" id="navContact" data-i18n="nav_contact">Contact</a>
+      <a class="nav-contact" href="#contact-cta" id="navContact" data-i18n="nav_contact">Contact</a>
     </div>
   </nav>
 
@@ -150,17 +150,256 @@
       </div>
     </section>
 
-    <section class="interlude">
-      <p data-i18n="interlude_more">The finale is being assembled in the workshop…</p>
+    <section id="garage" class="garage">
+      <header class="garage-head">
+        <p class="garage-kicker" data-i18n="garage_kicker">THE GARAGE</p>
+        <h2 class="garage-title" data-i18n="garage_title">Everything I've Built &amp; Carry</h2>
+      </header>
+
+      <div class="garage-projects">
+        <h3 data-i18n="garage_projects">On the Lifts</h3>
+        <div class="podium-grid">
+          <article class="podium-card">
+            <span class="podium-num" aria-hidden="true">01</span>
+            <h4 data-i18n="proj_1_title">RAG Chatbot with Agentic AI</h4>
+            <p data-i18n="proj_1_desc">Enterprise-grade conversational AI powered by AWS Bedrock with tool calling for dynamic task execution, prompt engineering, and LLM fine-tuning.</p>
+            <ul class="podium-tags">
+              <li>AWS Bedrock</li>
+              <li>RAG</li>
+              <li>Lambda</li>
+              <li>DynamoDB</li>
+              <li>Agentic AI</li>
+            </ul>
+          </article>
+          <article class="podium-card">
+            <span class="podium-num" aria-hidden="true">02</span>
+            <h4 data-i18n="proj_2_title">Agentic Scraping + MCP</h4>
+            <p data-i18n="proj_2_desc">Self-healing web scraping with natural language interaction. MCP server integrates email, Excel logging, anomaly detection, and database updates in real-time.</p>
+            <ul class="podium-tags">
+              <li>MCP</li>
+              <li>NLP</li>
+              <li>Self-Healing</li>
+              <li>Anomaly Detection</li>
+            </ul>
+          </article>
+          <article class="podium-card">
+            <span class="podium-num" aria-hidden="true">03</span>
+            <h4 data-i18n="proj_3_title">Track &amp; Trace — 3PL</h4>
+            <p data-i18n="proj_3_desc">Real-time vessel visibility for 15,000+ ships globally. ML-powered predictive ETAs with AIS feeds, geofencing, and interactive global mapping.</p>
+            <ul class="podium-tags">
+              <li>ML</li>
+              <li>AIS</li>
+              <li>Predictive Analytics</li>
+              <li>Big Data</li>
+            </ul>
+          </article>
+          <article class="podium-card">
+            <span class="podium-num" aria-hidden="true">04</span>
+            <h4 data-i18n="proj_4_title">Enterprise Cloud Hosting Platform</h4>
+            <p data-i18n="proj_4_desc">Centralized AWS hosting platform serving as backbone for multiple enterprise apps. End-to-end IaC with Terraform, automated monitoring, self-healing, and alerting for rapid incident response.</p>
+            <ul class="podium-tags">
+              <li>AWS</li>
+              <li>Terraform</li>
+              <li>IaC</li>
+              <li>CloudWatch</li>
+              <li>Self-Healing</li>
+            </ul>
+          </article>
+          <article class="podium-card">
+            <span class="podium-num" aria-hidden="true">05</span>
+            <h4 data-i18n="proj_5_title">n8n Terraform Automation</h4>
+            <p data-i18n="proj_5_desc">Automation pipeline enabling on-demand Terraform script generation, reducing infrastructure provisioning time by 80% across the engineering org.</p>
+            <ul class="podium-tags">
+              <li>n8n</li>
+              <li>Terraform</li>
+              <li>IaC</li>
+              <li>CI/CD</li>
+            </ul>
+          </article>
+          <article class="podium-card">
+            <span class="podium-num" aria-hidden="true">06</span>
+            <h4 data-i18n="proj_6_title">Smart Drainage System — Winner</h4>
+            <p data-i18n="proj_6_desc">Smart Odisha Hackathon winning project: IoT-based smart drainage system with flood detection and real-time management for the Govt. of Odisha.</p>
+            <ul class="podium-tags">
+              <li>IoT</li>
+              <li>Hackathon Winner</li>
+              <li>Govt. of Odisha</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="garage-logbook">
+        <h3 data-i18n="garage_logbook">Service Logbook</h3>
+        <div class="logbook-grid">
+          <article class="logbook-entry">
+            <header class="logbook-head">
+              <h4 data-i18n="role_title_1">Technical Manager — Lead Innovation</h4>
+              <p class="logbook-co">Cozentus Technologies, Bhubaneswar</p>
+              <p class="logbook-dates">Jun 2023 → Present</p>
+            </header>
+            <ul class="logbook-list">
+              <li data-i18n-html="rh_1_1">Designed and Developed a <strong>RAG chatbot with Agentic AI &amp; AWS Bedrock</strong>, integrating tool calling for dynamic task execution across enterprise workflows.</li>
+              <li data-i18n-html="rh_1_2">Built a <strong>self-healing Agentic Scraping solution</strong> with MCP server integration — natural language interaction, email/Excel logging, and anomaly detection.</li>
+              <li data-i18n-html="rh_1_3">Designed <strong>AWS cloud infrastructure</strong> for enterprise apps using EC2, VPC, S3, Lambda, API Gateway, CloudWatch, and DynamoDB with <strong>99%+ uptime</strong>.</li>
+              <li data-i18n-html="rh_1_4">Designed an <strong>n8n + Terraform automation pipeline</strong> for on-demand IaC provisioning, cutting deployment time by <strong>80%</strong>. Standardized environments with <strong>Terraform &amp; Ansible</strong>.</li>
+              <li data-i18n-html="rh_1_5">Drove <strong>cloud cost optimization</strong> with AWS Cost Explorer, resource right-sizing, and reserved instances. Established <strong>proactive CloudWatch monitoring</strong> reducing MTTR for critical incidents.</li>
+              <li data-i18n-html="rh_1_6">Led <strong>15+ cloud &amp; GenAI workshops</strong> for 20+ developers, accelerating organizational adoption of cloud-native AI practices.</li>
+              <li data-i18n-html="rh_1_7">Awarded <strong>CEO Bonus for 4 consecutive years</strong> for delivering high-impact innovative solutions with a <strong>95% project success rate</strong>.</li>
+            </ul>
+          </article>
+          <article class="logbook-entry">
+            <header class="logbook-head">
+              <h4 data-i18n="role_title_2">Full Stack &amp; Cloud Platform Engineer</h4>
+              <p class="logbook-co">Cozentus Technologies, Bhubaneswar</p>
+              <p class="logbook-dates">Jun 2021 → Mar 2023</p>
+            </header>
+            <ul class="logbook-list">
+              <li data-i18n-html="rh_2_1">Delivered an <strong>AI-powered vessel tracking system</strong> for 3PL — real-time visibility and predictive ETAs for <strong>15,000+ vessels globally</strong> with 99% uptime.</li>
+              <li data-i18n-html="rh_2_2">Designed and managed <strong>AWS cloud hosting infrastructure</strong> (EC2, S3, RDS, Lambda, CloudWatch) ensuring <strong>high availability and fault tolerance</strong> for mission-critical supply chain apps.</li>
+              <li data-i18n-html="rh_2_3">Built and maintained <strong>CI/CD pipelines for 10+ applications</strong>, automating build, test, and deployment. Configured <strong>VPC, security groups, load balancers, and DNS</strong>.</li>
+              <li data-i18n-html="rh_2_4">Enhanced ETA accuracy with <strong>ML algorithms &amp; LLM-assisted reasoning</strong> analyzing schedules, port congestion, and event data.</li>
+              <li data-i18n-html="rh_2_5">Integrated <strong>GenAI-powered analytics</strong> (Qlik, ThoughtSpot, RAG dashboards) into 5+ apps, improving data access for <strong>300+ global users</strong>.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="garage-skills">
+        <h3 data-i18n="garage_skills">The Tool Wall</h3>
+        <div class="tool-wall">
+          <div class="tool-board">
+            <h4 data-i18n="skill_genai">GenAI Stack</h4>
+            <ul class="tool-chips">
+              <li>RAG Pipelines</li>
+              <li>LangChain</li>
+              <li>LlamaIndex</li>
+              <li>Dify AI</li>
+              <li>LangFlow</li>
+              <li>Prompt Engineering</li>
+              <li>LLM Fine-Tuning</li>
+              <li>Agentic AI</li>
+              <li>MCP Server</li>
+              <li>Vector DBs</li>
+            </ul>
+          </div>
+          <div class="tool-board">
+            <h4 data-i18n="skill_aws">AWS Cloud</h4>
+            <ul class="tool-chips">
+              <li>EC2 / ECS / EKS</li>
+              <li>Lambda</li>
+              <li>S3</li>
+              <li>VPC / Subnets</li>
+              <li>Route 53</li>
+              <li>CloudFront</li>
+              <li>API Gateway</li>
+              <li>IAM</li>
+              <li>CloudWatch</li>
+              <li>Cost Explorer</li>
+              <li>Bedrock</li>
+              <li>Cognito</li>
+              <li>SageMaker</li>
+              <li>Azure</li>
+            </ul>
+          </div>
+          <div class="tool-board">
+            <h4 data-i18n="skill_devops">DevOps &amp; Infrastructure</h4>
+            <ul class="tool-chips">
+              <li>Terraform</li>
+              <li>Ansible</li>
+              <li>CloudFormation</li>
+              <li>Docker</li>
+              <li>Jenkins</li>
+              <li>CI/CD Pipelines</li>
+              <li>Blue/Green Deploys</li>
+              <li>n8n Automation</li>
+              <li>Linux Admin</li>
+              <li>Shell Scripting</li>
+              <li>Monitoring &amp; Alerting</li>
+              <li>Incident Response</li>
+            </ul>
+          </div>
+          <div class="tool-board">
+            <h4 data-i18n="skill_langs">Languages &amp; Frameworks</h4>
+            <ul class="tool-chips">
+              <li>Python</li>
+              <li>Java</li>
+              <li>JavaScript</li>
+              <li>SQL</li>
+              <li>Bash</li>
+              <li>Angular</li>
+              <li>MySQL / RDS</li>
+              <li>DynamoDB</li>
+              <li>Git</li>
+              <li>Auth0 / Cognito</li>
+            </ul>
+          </div>
+          <div class="tool-board">
+            <h4 data-i18n="skill_aiml">AI / ML &amp; Analytics</h4>
+            <ul class="tool-chips">
+              <li>Deep Learning</li>
+              <li>Machine Learning</li>
+              <li>Data Science</li>
+              <li>NLP</li>
+              <li>Predictive Analytics</li>
+              <li>BI / Qlik / ThoughtSpot</li>
+            </ul>
+          </div>
+          <div class="tool-board">
+            <h4 data-i18n="skill_security">Security &amp; Networking</h4>
+            <ul class="tool-chips">
+              <li>IAM Policies</li>
+              <li>SSO / MFA</li>
+              <li>Encryption</li>
+              <li>Security Groups / NACLs</li>
+              <li>VPN / Peering</li>
+              <li>Load Balancers</li>
+              <li>DNS (Route 53)</li>
+              <li>Anomaly Detection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="garage-certs">
+        <h3 data-i18n="certs_label">Certifications</h3>
+        <div class="trophy-shelf">
+          <a class="trophy-card" href="https://www.credly.com/badges/50474776-14fd-448c-9065-e9afd8b5f8c1/public_url" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified GenAI Developer Professional Early Adopter on Credly">
+            <img src="assets/badges/aws-certified-generative-ai-developer-professional-EA.png" alt="AWS Certified Generative AI Developer - Professional Early Adopter badge" loading="lazy" width="72" height="72">
+            <h4>AWS Certified GenAI Developer — Professional Early Adopter</h4>
+            <p>Amazon Web Services</p>
+          </a>
+          <a class="trophy-card" href="https://www.credly.com/badges/2690d4e9-b081-4710-8dba-c2b5a4563804/public_url" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified GenAI Developer Professional on Credly">
+            <img src="assets/badges/aws-certified-generative-ai-developer-professional.png" alt="AWS Certified Generative AI Developer - Professional badge" loading="lazy" width="72" height="72">
+            <h4>AWS Certified GenAI Developer — Professional</h4>
+            <p>Amazon Web Services</p>
+          </a>
+          <a class="trophy-card" href="https://www.credly.com/badges/b8b0dd03-129a-41d5-b0fa-bb38bbf9d6fb/public_url" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified Machine Learning Specialty on Credly">
+            <img src="assets/badges/aws-certified-machine-learning-specialty.png" alt="AWS Certified Machine Learning - Specialty badge" loading="lazy" width="72" height="72">
+            <h4>AWS Certified Machine Learning — Specialty</h4>
+            <p>Amazon Web Services</p>
+          </a>
+          <a class="trophy-card" href="https://www.credly.com/badges/aefab590-c7db-46f8-a15f-a3bcd2123d5e/public_url" target="_blank" rel="noopener noreferrer" aria-label="Verify AWS Certified Developer Associate on Credly">
+            <img src="assets/badges/aws-certified-developer-associate.png" alt="AWS Certified Developer - Associate badge" loading="lazy" width="72" height="72">
+            <h4>AWS Certified Developer — Associate</h4>
+            <p>Amazon Web Services</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="garage-contact" id="contact-cta">
+        <p class="ignition-line" data-i18n="garage_cta_line">The next chapter needs a co-driver.</p>
+        <a class="ignition-btn" href="mailto:ashutosh.nayak.formal@gmail.com" aria-label="Send email">
+          <span class="ign-ring" aria-hidden="true"></span><span data-i18n="garage_cta">START THE ENGINE</span>
+        </a>
+        <div class="contact-alt">
+          <a href="https://www.linkedin.com/in/ashutosh-nayak-81an" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="tel:+919778108181">+91 977 810 8181</a>
+        </div>
+      </div>
     </section>
 
-    <footer class="story-footer" id="contact">
-      <p class="footer-heading" data-i18n="footer_heading">Pull over and say hello</p>
-      <ul class="footer-links">
-        <li><a href="mailto:ashutosh.nayak.formal@gmail.com">ashutosh.nayak.formal@gmail.com</a></li>
-        <li><a href="https://www.linkedin.com/in/ashutosh-nayak-81an" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="tel:+919778108181">+91 977 810 8181</a></li>
-      </ul>
+    <footer class="story-footer">
       <p class="footer-small">© 2026 Ashutosh Nayak</p>
     </footer>
   </main>

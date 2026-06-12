@@ -565,61 +565,451 @@ a { color: inherit; }
 }
 
 /* ============================================================
-   INTERLUDE + FOOTER
+   GARAGE — finale showroom (projects / logbook / tools / certs / CTA)
    ============================================================ */
 
-.interlude {
-  background: var(--asphalt);
-  color: var(--turbo-steel);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 45vh;
-  padding: 80px 24px;
+.garage {
+  position: relative;
+  background:
+    /* subtle horizontal floor lines, like painted showroom concrete */
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,
+      transparent 159px,
+      rgba(199, 208, 218, .045) 159px,
+      rgba(199, 208, 218, .045) 160px
+    ),
+    radial-gradient(ellipse 90% 30% at 50% 0%, rgba(93, 114, 144, .14), transparent 70%),
+    var(--asphalt);
+  color: var(--chrome);
+  padding: clamp(90px, 12vw, 150px) clamp(20px, 6vw, 90px) 120px;
+}
+
+.garage-head {
   text-align: center;
+  margin-bottom: clamp(64px, 8vw, 110px);
 }
 
-.interlude p {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(18px, 2.4vw, 26px);
+.garage-kicker {
+  font-weight: 700;
+  font-stretch: 110%;
+  font-size: clamp(12px, 1.3vw, 15px);
+  letter-spacing: .42em;
+  color: var(--headlight);
+  margin-bottom: 16px;
 }
 
-.story-footer {
-  background: var(--asphalt);
-  border-top: 1px solid rgba(199, 208, 218, .14);
-  padding: 72px 28px 48px;
-  text-align: center;
-}
-
-.footer-heading {
+.garage-title {
   font-weight: 900;
   font-stretch: 122%;
-  font-size: clamp(22px, 3vw, 34px);
+  font-size: clamp(30px, 5vw, 62px);
+  line-height: 1.05;
   text-transform: uppercase;
-  letter-spacing: .04em;
-  color: var(--chrome);
-  margin-bottom: 28px;
+  letter-spacing: .02em;
+  color: #F2F6FA;
 }
 
-.footer-links {
+/* Sub-section headings ("On the Lifts", "Service Logbook", …) */
+.garage > div > h3 {
+  font-weight: 800;
+  font-stretch: 115%;
+  font-size: clamp(18px, 2.2vw, 26px);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--chrome);
+  margin-bottom: 32px;
+}
+
+.garage > div > h3::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--volt);
+}
+
+.garage > div { margin-bottom: clamp(72px, 9vw, 130px); }
+.garage > div:last-child { margin-bottom: 0; }
+
+/* --- On the Lifts: podium project cards --- */
+
+.podium-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.podium-card {
+  position: relative;
+  background: #15171D;
+  border: 1px solid rgba(199, 208, 218, .14);
+  border-radius: 8px;
+  padding: 38px 24px 24px;
+  /* podium: a lit floor edge under each car */
+  box-shadow: 0 14px 28px -18px rgba(0, 0, 0, .8);
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+.podium-card::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -10px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(46, 230, 168, .35), transparent 75%);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.podium-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(46, 230, 168, .55);
+  box-shadow:
+    0 0 0 1px rgba(46, 230, 168, .25),
+    0 0 26px rgba(46, 230, 168, .14),
+    0 20px 36px -18px rgba(0, 0, 0, .85);
+}
+
+.podium-card:hover::after { opacity: 1; }
+
+/* license-plate number, top-left */
+.podium-num {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: 16px;
+  letter-spacing: .1em;
+  line-height: 1;
+  color: var(--asphalt);
+  background: var(--headlight);
+  border: 2px solid rgba(15, 16, 20, .55);
+  border-radius: 5px;
+  padding: 5px 11px 4px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+}
+
+.podium-card h4 {
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: 18px;
+  line-height: 1.25;
+  color: #F2F6FA;
+  margin-bottom: 12px;
+}
+
+.podium-card p {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(199, 208, 218, .85);
+  margin-bottom: 18px;
+}
+
+.podium-tags {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px 34px;
-  margin-bottom: 36px;
+  gap: 8px;
 }
 
-.footer-links a {
+.podium-tags li {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: rgba(199, 208, 218, .8);
+  border: 1px solid rgba(93, 114, 144, .55);
+  border-radius: 3px;
+  padding: 3px 8px;
+}
+
+/* --- Service Logbook: maintenance-log entries --- */
+
+.logbook-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.logbook-entry {
+  background: rgba(239, 229, 208, .04);
+  border: 1px solid rgba(199, 208, 218, .12);
+  border-left: 3px solid var(--brass);
+  border-radius: 0 8px 8px 0;
+  padding: 28px 28px 22px;
+}
+
+.logbook-head {
+  border-bottom: 1px dashed rgba(201, 147, 63, .4);
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.logbook-head h4 {
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: clamp(17px, 1.8vw, 21px);
+  color: #F2F6FA;
+  margin-bottom: 6px;
+}
+
+.logbook-co {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(199, 208, 218, .75);
+  margin-bottom: 8px;
+}
+
+.logbook-dates {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--chrome);
+}
+
+.logbook-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logbook-list li {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.62;
+  color: rgba(199, 208, 218, .88);
+  padding-left: 22px;
+  position: relative;
+}
+
+.logbook-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--brass);
+}
+
+.logbook-list strong {
+  font-weight: 600;
+  color: var(--headlight);
+}
+
+/* --- The Tool Wall: skill chip boards --- */
+
+.tool-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.tool-board {
+  background: rgba(21, 23, 29, .7);
+  border: 1px solid rgba(93, 114, 144, .3);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.tool-board h4 {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--headlight);
+  margin-bottom: 16px;
+}
+
+.tool-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tool-chips li {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: .02em;
+  color: var(--chrome);
+  background: rgba(15, 16, 20, .6);
+  border: 1px solid rgba(93, 114, 144, .55);
+  border-radius: 3px;
+  padding: 5px 10px;
+  transition: border-color .25s ease, color .25s ease, box-shadow .25s ease;
+}
+
+.tool-chips li:hover {
+  border-color: var(--volt);
+  color: var(--volt);
+  box-shadow: 0 0 12px rgba(46, 230, 168, .18);
+}
+
+/* --- Certifications: trophy shelf --- */
+
+.trophy-shelf {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-bottom: 26px;
+}
+
+/* the shelf line the trophies sit on */
+.trophy-shelf::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201, 147, 63, .6) 12%, rgba(201, 147, 63, .6) 88%, transparent);
+}
+
+.trophy-card {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #15171D;
+  border: 1px solid rgba(199, 208, 218, .14);
+  border-radius: 8px;
+  padding: 26px 18px 22px;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+.trophy-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 216, 132, .55);
+  box-shadow: 0 16px 30px -16px rgba(0, 0, 0, .85), 0 0 22px rgba(255, 216, 132, .12);
+}
+
+.trophy-card img {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+}
+
+.trophy-card h4 {
+  font-weight: 700;
+  font-stretch: 108%;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #F2F6FA;
+  margin-bottom: 6px;
+}
+
+.trophy-card p {
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: rgba(199, 208, 218, .6);
+}
+
+/* --- Contact: ignition CTA --- */
+
+.garage-contact {
+  text-align: center;
+  padding-top: clamp(20px, 4vw, 50px);
+}
+
+.ignition-line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(19px, 2.6vw, 28px);
+  color: var(--chrome);
+  margin-bottom: 38px;
+}
+
+.ignition-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 800;
+  font-stretch: 115%;
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--volt);
+  background: radial-gradient(circle at 50% 32%, rgba(46, 230, 168, .14), rgba(15, 16, 20, .95) 72%);
+  border: 2px solid rgba(46, 230, 168, .6);
+  transition: color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.ignition-btn > span:last-child {
+  display: block;
+  padding: 0 16px;
+}
+
+.ign-ring {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 1px solid rgba(46, 230, 168, .35);
+  pointer-events: none;
+}
+
+.ignition-btn:hover,
+.ignition-btn:focus-visible {
+  color: #DFFFF2;
+  border-color: var(--volt);
+  box-shadow: 0 0 34px rgba(46, 230, 168, .3), inset 0 0 22px rgba(46, 230, 168, .12);
+}
+
+.ignition-btn:hover .ign-ring,
+.ignition-btn:focus-visible .ign-ring {
+  animation: ign-pulse 1.3s ease-out infinite;
+}
+
+@keyframes ign-pulse {
+  0%   { transform: scale(1); opacity: .85; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+.contact-alt {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 34px;
+  margin-top: 38px;
+}
+
+.contact-alt a {
   text-decoration: none;
   font-size: 15px;
   color: var(--headlight);
   border-bottom: 1px solid rgba(255, 216, 132, .35);
   padding-bottom: 2px;
+  transition: color .2s ease, border-color .2s ease;
 }
 
-.footer-links a:hover { color: var(--volt); border-color: var(--volt); }
+.contact-alt a:hover { color: var(--volt); border-color: var(--volt); }
+
+/* ============================================================
+   FOOTER (slim — the garage owns contact now)
+   ============================================================ */
+
+.story-footer {
+  background: var(--asphalt);
+  border-top: 1px solid rgba(199, 208, 218, .14);
+  padding: 40px 28px;
+  text-align: center;
+}
 
 .footer-small {
   font-size: 12px;
@@ -702,6 +1092,23 @@ a { color: inherit; }
    column can reach them, so retire them early (spec floor: hidden ≤700px) */
 @media (max-width: 900px) {
   .hud-chips { display: none; }
+}
+
+/* Garage grids: 3 → 2 → 1 */
+@media (max-width: 1100px) {
+  .podium-grid { grid-template-columns: repeat(2, 1fr); }
+  .trophy-shelf { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .logbook-grid { grid-template-columns: 1fr; }
+  .tool-wall { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .podium-grid { grid-template-columns: 1fr; gap: 34px; }
+  .tool-wall { grid-template-columns: 1fr; }
+  .trophy-shelf { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {

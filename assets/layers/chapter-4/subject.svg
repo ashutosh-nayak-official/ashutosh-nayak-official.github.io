@@ -6,74 +6,77 @@
   <!-- ground glow -->
   <ellipse cx="800" cy="790" rx="560" ry="20" fill="#2EE6A8" fill-opacity="0.10"/>
 
-  <!-- ============ BODY (wedge) ============ -->
-  <path d="M 248 614
-           L 690 506 L 800 444 L 970 440 L 1090 478 L 1318 474
-           L 1324 482 L 1326 600 L 1300 640
-           L 1226 668 L 1216 680
-           L 1200 622 L 1040 622 L 1024 680
-           L 576 680
-           L 560 622 L 400 622 L 384 680
-           L 330 680 L 300 668 L 252 648 Z"
+  <!-- ============ BODY (wedge, nose left, Kamm tail right) ============ -->
+  <path d="M 238 630
+           L 252 612
+           L 640 556 L 700 544
+           L 838 472
+           L 1080 464
+           L 1320 492 L 1330 500
+           L 1334 636
+           L 1300 668 L 1230 686
+           L 1215 686 A 96 96 0 0 0 1025 686
+           L 575 686 A 96 96 0 0 0 385 686
+           L 300 686 L 256 670 Z"
         fill="#15171D" stroke="#C7D0DA" stroke-width="4" stroke-linejoin="round"/>
 
-  <!-- boxy flare outlines over the arches -->
-  <path d="M 372 686 L 392 614 L 568 614 L 588 686" fill="none" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.6"/>
-  <path d="M 1012 686 L 1032 614 L 1208 614 L 1228 686" fill="none" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.6"/>
+  <!-- boxy fender flare outlines over the arches -->
+  <path d="M 370 690 L 396 600 L 564 600 L 590 690" fill="none" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.6"/>
+  <path d="M 1010 690 L 1036 600 L 1204 600 L 1230 690" fill="none" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.6"/>
 
-  <!-- closed pop-up headlight panel lines on the nose -->
-  <path d="M 310 597 L 398 576 L 404 592 L 316 613 Z" fill="none" stroke="#C7D0DA" stroke-width="3"/>
-  <path d="M 430 568 L 470 558" stroke="#C7D0DA" stroke-width="2.5" stroke-opacity="0.6"/>
+  <!-- closed pop-up headlight seam lines on the low nose -->
+  <path d="M 292 614 L 382 600 L 388 618 L 298 632 Z" fill="none" stroke="#C7D0DA" stroke-width="3"/>
+  <path d="M 412 596 L 452 590" stroke="#C7D0DA" stroke-width="2.5" stroke-opacity="0.6"/>
 
-  <!-- side glass + B-pillar -->
-  <path d="M 706 510 L 805 452 L 962 448 L 988 500 Z" fill="#0F1014" stroke="#C7D0DA" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M 900 449 L 916 502" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.7"/>
+  <!-- steeply raked windshield + side glass + B-pillar -->
+  <path d="M 716 548 L 846 480 L 1058 474 L 1076 530 Z" fill="#0F1014" stroke="#C7D0DA" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 982 476 L 996 531" stroke="#C7D0DA" stroke-width="3" stroke-opacity="0.7"/>
 
-  <!-- door seam + mirror -->
-  <path d="M 700 514 Q 690 600 702 676" fill="none" stroke="#3A4150" stroke-width="3"/>
-  <path d="M 992 502 Q 1004 590 992 678" fill="none" stroke="#3A4150" stroke-width="3"/>
-  <path d="M 716 472 l -26 -10 l -2 14 l 26 6 Z" fill="#15171D" stroke="#C7D0DA" stroke-width="2.5"/>
+  <!-- door seams + mirror at the A-pillar base -->
+  <path d="M 712 552 Q 702 620 712 684" fill="none" stroke="#3A4150" stroke-width="3"/>
+  <path d="M 1080 534 Q 1090 560 1086 596" fill="none" stroke="#3A4150" stroke-width="3"/>
+  <path d="M 726 508 l -28 -10 l -2 15 l 28 6 Z" fill="#15171D" stroke="#C7D0DA" stroke-width="2.5"/>
 
   <!-- side strakes on the rear quarter -->
   <g stroke="#3A4150" stroke-width="5" stroke-linecap="round">
-    <path d="M 1014 548 H 1190"/>
-    <path d="M 1010 570 H 1196"/>
-    <path d="M 1006 592 H 1200"/>
+    <path d="M 1040 552 H 1230"/>
+    <path d="M 1036 574 H 1240"/>
+    <path d="M 1032 596 H 1248"/>
   </g>
 
-  <!-- rear spoiler -->
-  <path d="M 1240 474 L 1252 432" stroke="#C7D0DA" stroke-width="4" fill="none"/>
-  <path d="M 1140 432 L 1380 418 L 1384 432 L 1144 446 Z" fill="#15171D" stroke="#C7D0DA" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- rear spoiler wing on the Kamm tail -->
+  <path d="M 1296 492 L 1308 450" stroke="#C7D0DA" stroke-width="4" fill="none"/>
+  <path d="M 1238 448 L 1402 434 L 1406 450 L 1242 464 Z" fill="#15171D" stroke="#C7D0DA" stroke-width="3.5" stroke-linejoin="round"/>
 
-  <!-- tail-light band -->
-  <rect x="1316" y="500" width="9" height="86" rx="3" fill="#D63A2F" fill-opacity="0.85"/>
+  <!-- tail-light band on the abrupt tail face -->
+  <rect x="1322" y="510" width="9" height="106" rx="3" fill="#D63A2F" fill-opacity="0.85"/>
 
-  <!-- volt accent line along the wedge -->
-  <path d="M 262 610 L 1320 538" fill="none" stroke="#2EE6A8" stroke-width="10" stroke-opacity="0.14" stroke-linecap="round"/>
-  <path d="M 262 610 L 1320 538" fill="none" stroke="#2EE6A8" stroke-width="3" stroke-opacity="0.85" stroke-linecap="round"/>
+  <!-- volt accent beltline along the wedge -->
+  <path d="M 252 622 L 1328 548" fill="none" stroke="#2EE6A8" stroke-width="10" stroke-opacity="0.14" stroke-linecap="round"/>
+  <path d="M 252 622 L 1328 548" fill="none" stroke="#2EE6A8" stroke-width="3" stroke-opacity="0.85" stroke-linecap="round"/>
 
-  <!-- ============ WHEELS (flat 80s discs, 5 holes) ============ -->
+  <!-- ============ WHEELS (flat 80s discs, 5 holes, r=85) ============ -->
   <g>
-    <circle cx="480" cy="700" r="80" fill="#08090C"/>
-    <circle cx="480" cy="700" r="54" fill="#2A2E38" stroke="#C7D0DA" stroke-width="3"/>
+    <circle cx="480" cy="700" r="85" fill="#08090C"/>
+    <circle cx="480" cy="700" r="56" fill="#2A2E38" stroke="#C7D0DA" stroke-width="3"/>
     <g fill="#0F1014">
-      <circle cx="480" cy="670" r="9"/>
-      <circle cx="451.5" cy="690.7" r="9"/>
-      <circle cx="462.4" cy="724.3" r="9"/>
-      <circle cx="497.6" cy="724.3" r="9"/>
-      <circle cx="508.5" cy="690.7" r="9"/>
+      <circle cx="480" cy="669" r="9"/>
+      <circle cx="450.5" cy="690.4" r="9"/>
+      <circle cx="461.8" cy="725.1" r="9"/>
+      <circle cx="498.2" cy="725.1" r="9"/>
+      <circle cx="509.5" cy="690.4" r="9"/>
     </g>
     <circle cx="480" cy="700" r="8" fill="#C7D0DA"/>
   </g>
   <g>
-    <circle cx="1120" cy="700" r="80" fill="#08090C"/>
-    <circle cx="1120" cy="700" r="54" fill="#2A2E38" stroke="#C7D0DA" stroke-width="3"/>
+    <circle cx="1120" cy="700" r="85" fill="#08090C"/>
+    <circle cx="1120" cy="700" r="56" fill="#2A2E38" stroke="#C7D0DA" stroke-width="3"/>
     <g fill="#0F1014">
-      <circle cx="1120" cy="670" r="9"/>
-      <circle cx="1091.5" cy="690.7" r="9"/>
-      <circle cx="1102.4" cy="724.3" r="9"/>
-      <circle cx="1137.6" cy="724.3" r="9"/>
-      <circle cx="1148.5" cy="690.7" r="9"/>
+      <circle cx="1120" cy="669" r="9"/>
+      <circle cx="1090.5" cy="690.4" r="9"/>
+      <circle cx="1101.8" cy="725.1" r="9"/>
+      <circle cx="1138.2" cy="725.1" r="9"/>
+      <circle cx="1149.5" cy="690.4" r="9"/>
     </g>
     <circle cx="1120" cy="700" r="8" fill="#C7D0DA"/>
   </g>
