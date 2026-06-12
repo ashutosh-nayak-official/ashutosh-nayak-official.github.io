@@ -468,6 +468,10 @@
       });
     });
 
+    // Role line hidden at scroll 0; revealed after the name letters land.
+    // (Set here, non-reduced path only, so reduced motion keeps it visible.)
+    gsap.set('.hero-role', { opacity: 0, y: 16 });
+
     // --- HERO pin: 200% scrub ---
     window.__heroProgress = 0;
     var heroProgress = { p: 0 };
@@ -493,6 +497,15 @@
       duration: 0.12,
       ease: 'power2.out'
     }, 0);
+
+    // (a2) role line fades in once the name has landed (28-40% of the pin);
+    // it lives inside .hero-overlay so it shares the fade-out at 0.85.
+    heroTl.to('.hero-role', {
+      opacity: 1,
+      y: 0,
+      duration: 0.12,
+      ease: 'power2.out'
+    }, 0.28);
 
     // (b) camera orbit progress 0..1 across the whole pin
     heroTl.to(heroProgress, {
