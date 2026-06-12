@@ -281,12 +281,8 @@ a { color: inherit; }
   will-change: transform;
 }
 
-/* Draw-on chapters only (ch3–5 use slide/fade entrances set by JS) */
-.chapter-1 .layer-subject,
-.chapter-2 .layer-subject {
-  /* JS reveals via clip-path (drawing-on effect) */
-  clip-path: inset(0 100% 0 0);
-}
+/* Ch1/ch2 draw-on clip (and ch3–5 entrances) are set entirely by JS so the
+   artwork stays visible in any no-JS/static fallback */
 
 /* Blueprint annotation stamped onto the sketch (car era lives here,
    not in the chapter's hero year) */
@@ -1240,7 +1236,6 @@ a { color: inherit; }
   }
 
   .hero-letter { opacity: 1; transform: none; }
-  .layer-subject { clip-path: none; }
   .layer { will-change: auto; }
   .speed-lines { display: none; }
   .speedo { display: none; }

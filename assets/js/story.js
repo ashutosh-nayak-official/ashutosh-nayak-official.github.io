@@ -122,7 +122,7 @@
       garage_cta_line: 'Das nächste Kapitel braucht einen Beifahrer.',
       garage_cta: 'MOTOR STARTEN',
       garage_driver: 'Der Fahrer',
-      driver_bio: "Ich entwerfe und entwickle intelligente Systeme, die die Lücke zwischen großen Sprach- modellen und realen Unternehmensproblemen schließen und die Cloud-Infrastruktur aufbauen, die sie antreibt. Vom Design von RAG-Pipelines und Agentic AI-Workflows bis zum Deployment skalierbarer Infrastruktur mit Terraform, CI/CD-Pipelines und AWS-Cloud-Architektur verwandle ich komplexe KI-Fähigkeiten in Produkte, die Teams tatsächlich ausliefern. Auf der DevOps-Seite habe ich 80% schnellere Bereitstellung durch IaC-Automatisierung erreicht, eine 99%+ Plattform-Verfügbarkeit aufrechterhalten und Cloud-Kostenoptimierungsinitiativen geleitet. Meine Arbeit erstreckt sich über Logistik, Lieferkette und Finanzen, wo ich Systeme zur Verfolgung von 15.000+ Schiffen weltweit gebaut und Innovationsteams geleitet habe, die konsequent mit einer 95% Erfolgsquote liefern.",
+      driver_bio: "Ich entwerfe und entwickle intelligente Systeme, die die Lücke zwischen großen Sprachmodellen und realen Unternehmensproblemen schließen und die Cloud-Infrastruktur aufbauen, die sie antreibt. Vom Design von RAG-Pipelines und Agentic AI-Workflows bis zum Deployment skalierbarer Infrastruktur mit Terraform, CI/CD-Pipelines und AWS-Cloud-Architektur verwandle ich komplexe KI-Fähigkeiten in Produkte, die Teams tatsächlich ausliefern. Auf der DevOps-Seite habe ich 80% schnellere Bereitstellung durch IaC-Automatisierung erreicht, eine 99%+ Plattform-Verfügbarkeit aufrechterhalten und Cloud-Kostenoptimierungsinitiativen geleitet. Meine Arbeit erstreckt sich über Logistik, Lieferkette und Finanzen, wo ich Systeme zur Verfolgung von 15.000+ Schiffen weltweit gebaut und Innovationsteams geleitet habe, die konsequent mit einer 95% Erfolgsquote liefern.",
       proj_1_title: "RAG-Chatbot mit Agentic AI", proj_1_desc: "Konversations-KI auf Enterprise-Niveau, angetrieben von AWS Bedrock mit Tool-Aufrufen für dynamische Aufgabenausführung, Prompt Engineering und LLM-Fine-Tuning.",
       proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Selbstheilendes Web-Scraping mit natürlichsprachiger Interaktion. MCP-Server integriert E-Mail, Excel-Protokollierung, Anomalieerkennung und Datenbank-Updates in Echtzeit.",
       proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Echtzeit-Schiffssichtbarkeit für 15.000+ Schiffe weltweit. ML-gestützte prädiktive ETAs mit AIS-Feeds, Geofencing und interaktiver globaler Kartierung.",
@@ -188,7 +188,7 @@
       garage_cta_line: 'Het volgende hoofdstuk heeft een bijrijder nodig.',
       garage_cta: 'START DE MOTOR',
       garage_driver: 'De Bestuurder',
-      driver_bio: "Ik ontwerp en ontwikkel intelligente systemen die de kloof overbruggen tussen grote taal- modellen en echte bedrijfsproblemen en bouw de cloudinfrastructuur die ze aandrijft. Van het ontwerpen van RAG-pipelines en Agentic AI-workflows tot het implementeren van schaalbare infrastructuur met Terraform, CI/CD-pipelines en AWS-cloudarchitectuur, transformeer ik complexe AI-mogelijkheden in producten die teams daadwerkelijk leveren. Aan de DevOps-kant heb ik 80% snellere provisioning bereikt met IaC-automatisering, een 99%+ platform uptime onderhouden en cloud-kostenoptimalisatie-initiatieven geleid. Mijn werk bestrijkt logistiek, supply chain en financiën, waar ik systemen heb gebouwd die 15.000+ schepen wereldwijd volgen en innovatieteams heb geleid die consequent leveren met een 95% succesratio.",
+      driver_bio: "Ik ontwerp en ontwikkel intelligente systemen die de kloof overbruggen tussen grote taalmodellen en echte bedrijfsproblemen en bouw de cloudinfrastructuur die ze aandrijft. Van het ontwerpen van RAG-pipelines en Agentic AI-workflows tot het implementeren van schaalbare infrastructuur met Terraform, CI/CD-pipelines en AWS-cloudarchitectuur, transformeer ik complexe AI-mogelijkheden in producten die teams daadwerkelijk leveren. Aan de DevOps-kant heb ik 80% snellere provisioning bereikt met IaC-automatisering, een 99%+ platform uptime onderhouden en cloud-kostenoptimalisatie-initiatieven geleid. Mijn werk bestrijkt logistiek, supply chain en financiën, waar ik systemen heb gebouwd die 15.000+ schepen wereldwijd volgen en innovatieteams heb geleid die consequent leveren met een 95% succesratio.",
       proj_1_title: "RAG-chatbot met Agentic AI", proj_1_desc: "Enterprise-niveau conversationele AI aangedreven door AWS Bedrock met tool-aanroepen voor dynamische taakuitvoering, prompt engineering en LLM fine-tuning.",
       proj_2_title: "Agentic Scraping + MCP", proj_2_desc: "Zelfherstellend web scraping met natuurlijke taalinteractie. MCP-server integreert e-mail, Excel-logging, anomaliedetectie en database-updates in realtime.",
       proj_3_title: "Track & Trace — 3PL", proj_3_desc: "Realtime scheepszichtbaarheid voor 15.000+ schepen wereldwijd. ML-aangedreven voorspellende ETAs met AIS-feeds, geofencing en interactieve wereldwijde kaarten.",
@@ -404,6 +404,16 @@
       return;
     }
 
+    // CDN-failure guard: if any animation library failed to load, skip ALL
+    // animation setup so the page stays a static, natively-scrollable
+    // document (every hidden state is gsap.set inside this path, so nothing
+    // is left hidden). Nav falls back to plain anchor scrolling, same as the
+    // reduced-motion path.
+    if (!(window.gsap && window.ScrollTrigger && window.Lenis)) {
+      wireNav(null);
+      return;
+    }
+
     buildSpeedoTicks();
 
     // --- Lenis + GSAP integration ---
@@ -575,6 +585,10 @@
     }
 
     // --- CHAPTER 1 — 1886 blueprint: subject draws on via clip-path ---
+    // Initial clip is set here (not in CSS) so no-JS/static fallbacks keep
+    // the Benz and Model T artwork visible.
+    gsap.set('.chapter-1 .layer-subject, .chapter-2 .layer-subject',
+      { clipPath: 'inset(0% 100% 0% 0%)' });
     var ch1Tl = buildChapterTimeline('.chapter-1', 'CH 01');
     ch1Tl.fromTo('.chapter-1 .layer-subject',
       { clipPath: 'inset(0% 100% 0% 0%)' },
