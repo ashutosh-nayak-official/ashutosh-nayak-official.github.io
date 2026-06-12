@@ -283,6 +283,30 @@ a { color: inherit; }
   clip-path: inset(0 100% 0 0);
 }
 
+/* Blueprint annotation stamped onto the sketch (car era lives here,
+   not in the chapter's hero year) */
+.era-stamp {
+  position: absolute;
+  right: 8%;
+  bottom: 18%;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--blueprint);
+}
+
+.era-stamp::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--blueprint);
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
 .chapter-copy {
   position: relative;
   z-index: 3;
@@ -493,6 +517,12 @@ a { color: inherit; }
   }
 
   .chapter-year { font-size: clamp(56px, 16vw, 84px); }
+
+  .era-stamp {
+    bottom: 28%;
+    right: 6%;
+    font-size: 10px;
+  }
 
   .speedo {
     bottom: 12px;

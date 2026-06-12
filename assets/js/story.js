@@ -16,7 +16,8 @@
       hero_kicker: 'THE DRIVE SO FAR',
       hero_role: 'GenAI Developer & Cloud/DevOps Engineer',
       hero_hint: 'Scroll to start the engine',
-      ch1_era: '1886 — THE FIRST IGNITION',
+      ch1_era: 'THE FIRST IGNITION',
+      ch1_stamp: 'BENZ PATENT-MOTORWAGEN · 1886',
       ch1_title: 'Chapter 01 · College Beginnings',
       ch1_caption: 'Every machine has a first spark. Mine lit at Silicon Institute of Technology, Bhubaneswar — a B.Tech in Computer Science and the first lines of code, drafted like Benz drafting the Patent-Motorwagen.',
       interlude_more: 'Chapters 02–05 are being assembled in the workshop…',
@@ -27,7 +28,8 @@
       hero_kicker: 'DIE FAHRT BIS HIERHER',
       hero_role: 'GenAI-Entwickler & Cloud/DevOps-Ingenieur',
       hero_hint: 'Scrollen, um den Motor zu starten',
-      ch1_era: '1886 — DIE ERSTE ZÜNDUNG',
+      ch1_era: 'DIE ERSTE ZÜNDUNG',
+      ch1_stamp: 'BENZ PATENT-MOTORWAGEN · 1886',
       ch1_title: 'Kapitel 01 · Anfänge im Studium',
       ch1_caption: 'Jede Maschine hat ihren ersten Funken. Meiner zündete am Silicon Institute of Technology in Bhubaneswar — ein B.Tech in Informatik und die ersten Zeilen Code, entworfen wie Benz einst den Patent-Motorwagen.',
       interlude_more: 'Die Kapitel 02–05 werden gerade in der Werkstatt montiert…',
@@ -38,7 +40,8 @@
       hero_kicker: 'DE RIT TOT NU TOE',
       hero_role: 'GenAI-ontwikkelaar & Cloud/DevOps-engineer',
       hero_hint: 'Scroll om de motor te starten',
-      ch1_era: '1886 — DE EERSTE ONTSTEKING',
+      ch1_era: 'DE EERSTE ONTSTEKING',
+      ch1_stamp: 'BENZ PATENT-MOTORWAGEN · 1886',
       ch1_title: 'Hoofdstuk 01 · Studententijd',
       ch1_caption: 'Elke machine heeft een eerste vonk. De mijne ontstak aan het Silicon Institute of Technology in Bhubaneswar — een B.Tech in informatica en de eerste regels code, geschetst zoals Benz de Patent-Motorwagen schetste.',
       interlude_more: 'Hoofdstukken 02–05 worden nog in de werkplaats in elkaar gezet…',
@@ -49,7 +52,8 @@
       hero_kicker: 'DOTYCHCZASOWA JAZDA',
       hero_role: 'Programista GenAI i inżynier Cloud/DevOps',
       hero_hint: 'Przewiń, aby uruchomić silnik',
-      ch1_era: '1886 — PIERWSZY ZAPŁON',
+      ch1_era: 'PIERWSZY ZAPŁON',
+      ch1_stamp: 'BENZ PATENT-MOTORWAGEN · 1886',
       ch1_title: 'Rozdział 01 · Początki na studiach',
       ch1_caption: 'Każda maszyna ma swoją pierwszą iskrę. Moja zapłonęła w Silicon Institute of Technology w Bhubaneswarze — studia B.Tech z informatyki i pierwsze linijki kodu, kreślone tak, jak Benz kreślił Patent-Motorwagen.',
       interlude_more: 'Rozdziały 02–05 powstają właśnie w warsztacie…',
@@ -281,13 +285,13 @@
     var isMobile = function () { return window.innerWidth <= 700; };
     var pf = function () { return isMobile() ? 0.5 : 1; }; // parallax intensity factor
 
-    var yearObj = { y: 1886 };
-    var yearEl = document.getElementById('ch1Year');
-    if (yearEl) yearEl.textContent = '1886';
-
     gsap.set('.chapter-1 .chapter-era', { x: -48, opacity: 0 });
     gsap.set('.chapter-1 .chapter-title', { x: -48, opacity: 0 });
     gsap.set('.chapter-1 .chapter-caption', { opacity: 0, y: 24 });
+    // Initial hidden states set here (non-reduced path only) so the
+    // reduced-motion early return leaves everything visible.
+    gsap.set('.chapter-1 .chapter-year', { opacity: 0, y: 40, skewY: 4 });
+    gsap.set('.chapter-1 .era-stamp', { opacity: 0 });
 
     var ch1Tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -317,15 +321,11 @@
     ch1Tl.to('.chapter-1 .chapter-era', { x: 0, opacity: 1, duration: 0.2, ease: 'power2.out' }, 0);
     ch1Tl.to('.chapter-1 .chapter-title', { x: 0, opacity: 1, duration: 0.2, ease: 'power2.out' }, 0.1);
 
-    // Year odometer roll: 1886 -> 2017 between 30% and 60%
-    ch1Tl.to(yearObj, {
-      y: 2017,
-      duration: 0.3,
-      snap: { y: 1 },
-      onUpdate: function () {
-        if (yearEl) yearEl.textContent = String(Math.round(yearObj.y));
-      }
-    }, 0.3);
+    // Hero year (the user's 2017) reveals between 30% and 60%
+    ch1Tl.fromTo('.chapter-1 .chapter-year',
+      { opacity: 0, y: 40, skewY: 4 },
+      { opacity: 1, y: 0, skewY: 0, duration: 0.3, ease: 'power2.out' },
+      0.3);
 
     // Caption fades 50-75%
     ch1Tl.to('.chapter-1 .chapter-caption', { opacity: 1, y: 0, duration: 0.25, ease: 'power1.out' }, 0.5);
@@ -335,6 +335,9 @@
       { clipPath: 'inset(0% 100% 0% 0%)' },
       { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.5, ease: 'none' },
       0.2);
+
+    // Era stamp annotation fades in as the sketch finishes drawing (60-75%)
+    ch1Tl.to('.chapter-1 .era-stamp', { opacity: 1, duration: 0.15, ease: 'power1.out' }, 0.6);
 
     // --- Interlude + footer odometer states ---
     ScrollTrigger.create({
