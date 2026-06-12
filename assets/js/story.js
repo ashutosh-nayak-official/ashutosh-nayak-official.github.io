@@ -356,7 +356,7 @@
     }
 
     if (webglOK) {
-      import('./assets/js/hero3d.js').catch(function () {
+      import('./hero3d.js').catch(function () {
         if (heroStage) heroStage.classList.add('hero-fallback');
       });
     } else if (heroStage) {
