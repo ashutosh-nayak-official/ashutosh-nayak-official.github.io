@@ -632,6 +632,55 @@ a { color: inherit; }
 .garage > div { margin-bottom: clamp(72px, 9vw, 130px); }
 .garage > div:last-child { margin-bottom: 0; }
 
+/* --- The Driver: license-card profile panel --- */
+
+.driver-card {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 44px);
+  max-width: 920px;
+  background: #15171D;
+  border: 1px solid rgba(199, 208, 218, .14);
+  border-radius: 8px;
+  padding: clamp(24px, 3.5vw, 36px);
+  box-shadow: 0 14px 28px -18px rgba(0, 0, 0, .8);
+}
+
+.driver-card img {
+  flex: 0 0 180px;
+  width: 180px;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid var(--brass);
+}
+
+.driver-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 115%;
+  font-size: clamp(18px, 2vw, 22px);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--chrome);
+  margin-bottom: 6px;
+}
+
+.driver-meta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--turbo-steel);
+  margin-bottom: 18px;
+}
+
+.driver-bio {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(199, 208, 218, .8);
+}
+
 /* --- On the Lifts: podium project cards --- */
 
 .podium-grid {
@@ -1109,6 +1158,16 @@ a { color: inherit; }
   .podium-grid { grid-template-columns: 1fr; gap: 34px; }
   .tool-wall { grid-template-columns: 1fr; }
   .trophy-shelf { grid-template-columns: 1fr; }
+
+  .driver-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .driver-card img {
+    flex: 0 0 auto;
+    width: 120px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 700px) {
