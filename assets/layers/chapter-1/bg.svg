@@ -32,5 +32,5 @@
     <path d="M 1180 795 L 1560 795 M 1180 828 L 1560 828 M 1390 760 L 1390 860"/>
   </g>
 
-  <text x="24" y="878" font-family="monospace" font-size="20" fill="#2B5D8A" fill-opacity="0.55">PLACEHOLDER bg — supply 2400×1350 png/webp</text>
+  <text x="20" y="884" font-family="monospace" font-size="16" fill="#2B5D8A" fill-opacity="0.35">PLACEHOLDER bg — supply 2400×1350 png/webp</text>
 </svg>

@@ -329,6 +329,12 @@ a { color: inherit; }
   line-height: 1.65;
   max-width: 34ch;
   color: var(--sepia);
+  /* soft paper backdrop so the caption stays legible over sketch strokes */
+  background: rgba(239, 229, 208, 0.82);
+  padding: 16px 20px;
+  border-left: 3px solid var(--blueprint);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 
 /* Animated-in states (JS sets initial transforms; these are the

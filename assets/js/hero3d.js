@@ -61,17 +61,21 @@ function init() {
   const ambient = new THREE.AmbientLight(0x2a2d36, 0.55);
   scene.add(ambient);
 
-  const spot = new THREE.SpotLight(0xfff2dc, 260, 30, Math.PI / 5, 0.55, 1.6);
+  const spot = new THREE.SpotLight(0xfff2dc, 750, 30, Math.PI / 5, 0.55, 1.6);
   spot.position.set(0, 9, 0.5);
-  spot.target.position.set(0, 0, 0);
+  spot.target.position.set(0, 0.8, 0); // aim at car center
   spot.castShadow = true;
   spot.shadow.mapSize.set(1024, 1024);
   spot.shadow.bias = -0.0004;
   scene.add(spot, spot.target);
 
-  // Volt rim light from behind, low intensity
-  const rim = new THREE.PointLight(0x2ee6a8, 14, 16, 2);
-  rim.position.set(-3.2, 1.6, -3.6);
+  // Soft sky/ground fill so body panels never go full black
+  const hemi = new THREE.HemisphereLight(0x8a96ad, 0x0c0d11, 0.35);
+  scene.add(hemi);
+
+  // Volt rim light: low and behind — kisses edges, doesn't paint the roof
+  const rim = new THREE.PointLight(0x2ee6a8, 5.5, 16, 2);
+  rim.position.set(-3.6, 0.7, -4.2);
   scene.add(rim);
 
   // ---- Placeholder car (primitives; real glTF per CREDITS.md) ----
@@ -90,25 +94,25 @@ function init() {
     color: 0x1c2733, metalness: 0.9, roughness: 0.08
   });
 
-  // Low wide body
-  const body = new THREE.Mesh(new THREE.BoxGeometry(4.4, 1.1, 1.9), bodyMat);
-  body.position.y = 0.85;
+  // Low wide body (sits with its underside at y=0.3, top at y=1.2)
+  const body = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.9, 1.9), bodyMat);
+  body.position.y = 0.75;
   body.castShadow = true;
   car.add(body);
 
-  // Cabin (slimmer box) + angled windshield slab
-  const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.72, 1.62), bodyMat);
-  cabin.position.set(-0.25, 1.72, 0);
+  // Cabin: lower and longer, set back + angled windshield slab
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.55, 1.62), bodyMat);
+  cabin.position.set(-0.45, 1.47, 0);
   cabin.castShadow = true;
   car.add(cabin);
 
-  const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.78, 1.5), glassMat);
-  windshield.position.set(0.95, 1.66, 0);
+  const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.66, 1.5), glassMat);
+  windshield.position.set(0.78, 1.42, 0);
   windshield.rotation.z = -0.5; // raked back
   car.add(windshield);
 
-  const rearGlass = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.7, 1.5), glassMat);
-  rearGlass.position.set(-1.42, 1.62, 0);
+  const rearGlass = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.6, 1.5), glassMat);
+  rearGlass.position.set(-1.62, 1.4, 0);
   rearGlass.rotation.z = 0.42;
   car.add(rearGlass);
 
@@ -138,7 +142,7 @@ function init() {
   });
   [0.62, -0.62].forEach(function (z) {
     const lamp = new THREE.Mesh(headGeo, headMat);
-    lamp.position.set(2.21, 0.95, z);
+    lamp.position.set(2.21, 0.85, z);
     car.add(lamp);
   });
 
@@ -149,7 +153,7 @@ function init() {
       color: 0xd63a2f, emissive: 0xd63a2f, emissiveIntensity: 1.8
     })
   );
-  tail.position.set(-2.21, 1.05, 0);
+  tail.position.set(-2.21, 0.95, 0);
   car.add(tail);
 
   scene.add(car);
@@ -162,7 +166,7 @@ function init() {
     const p = Math.min(1, Math.max(0, Number(window.__heroProgress) || 0));
     const azimuth = (-40 + 270 * p) * DEG;        // -40deg -> 230deg
     const height = 1.4 + 1.0 * p;                 // 1.4 -> 2.4
-    const radius = 7 - 1.5 * p;                   // 7 -> 5.5
+    const radius = 8.6 - 1.8 * p;                 // 8.6 -> 6.8
     const bob = Math.sin(time * 0.0011) * 0.05;   // subtle idle bob
     camera.position.set(
       Math.cos(azimuth) * radius,
