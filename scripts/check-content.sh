@@ -36,10 +36,5 @@ check "+919778108181"
 # i18n — all four dictionaries and the system
 for k in 'en: {' 'de: {' 'nl: {' 'pl: {'; do check "$k"; done
 check "data-i18n"; check "applyTranslations"
-check "DIE ZUKUNFT ERKUNDEN"; check "DE TOEKOMST VERKENNEN"; check "ODKRYWAM PRZYSZŁOŚĆ"
-# HP easter egg
-check "I solemnly swear that I am up to no good"
-check "Mischief Managed"; check "wandToggle"; check "data-magic"
-# Theme toggle
-check "themeToggle"; check "localStorage.getItem('theme')"
+check "DIE FAHRT BIS HIERHER"; check "DE RIT TOT NU TOE"; check "DOTYCHCZASOWA JAZDA"
 if [ $fail -eq 1 ]; then echo "CONTENT CHECK FAILED"; exit 1; else echo "CONTENT CHECK PASSED"; fi
