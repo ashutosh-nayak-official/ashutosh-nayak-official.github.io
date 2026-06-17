@@ -21,7 +21,21 @@ a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
 /* background particle canvas */
-#bg-field{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55}
+#bg-field{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.5}
+
+/* fixed cinematic stage (cross-dissolving, zooming backgrounds) */
+#stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:#05070d}
+.stage-layer{position:absolute;inset:-4%;background-size:cover;background-position:center;
+  opacity:0;will-change:opacity,transform;transform:scale(1.06)}
+.stage-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#stage-scrim{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 78% 35%,transparent 0%,rgba(5,7,13,.35) 55%,rgba(5,7,13,.85) 100%),
+    linear-gradient(90deg,rgba(5,7,13,.94) 0%,rgba(5,7,13,.7) 34%,rgba(5,7,13,.12) 66%,rgba(5,7,13,.5) 100%),
+    linear-gradient(0deg,rgba(5,7,13,.96) 2%,rgba(5,7,13,0) 32%)}
+
+/* old per-section bg layers no longer used (stage handles it) */
+.scene-bg,.scene-scrim{display:none}
 
 /* nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
@@ -43,13 +57,9 @@ img{max-width:100%;display:block}
 .progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:31;background:transparent}
 .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--amber));box-shadow:0 0 14px var(--cyan)}
 
-/* generic scene */
-.scene{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;z-index:1}
-.scene-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.08);will-change:transform;z-index:0}
-.scene-scrim{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(90deg,rgba(5,7,13,.92) 0%,rgba(5,7,13,.72) 38%,rgba(5,7,13,.25) 70%,rgba(5,7,13,.55) 100%),
-             linear-gradient(0deg,rgba(5,7,13,.9),rgba(5,7,13,0) 30%)}
-.hero-inner,.chapter-inner,.contact-inner,.scroll-cue,.panel-head,.cards,.skill-grid,.cert-row{position:relative;z-index:2}
+/* generic scene (transparent — backgrounds live on the fixed stage) */
+.scene{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;z-index:3}
+.scene > *{position:relative;z-index:3}
 
 /* hero */
 .hero-inner{padding:0 clamp(20px,6vw,90px);max-width:var(--maxw);margin:0 auto;width:100%}
@@ -73,9 +83,12 @@ img{max-width:100%;display:block}
 .lead{color:#d3dae9;font-size:clamp(15px,1.9vw,20px);line-height:1.6;max-width:60ch;margin:20px 0 0}
 .lead strong{color:#fff}
 
-/* panels (work/skills/certs) */
-.panel{position:relative;z-index:1;padding:clamp(70px,10vh,130px) clamp(20px,6vw,90px);max-width:var(--maxw);margin:0 auto;background:
-  radial-gradient(120% 80% at 80% 0%,rgba(34,211,238,.05),transparent)}
+/* panels (work/skills/certs) — solid sections over the fixed stage */
+.panel{position:relative;z-index:3;padding:clamp(70px,10vh,130px) clamp(20px,6vw,90px);margin:0 auto;
+  background:
+    radial-gradient(120% 80% at 80% 0%,rgba(34,211,238,.06),transparent 60%),
+    linear-gradient(180deg,#070b16 0%,#05070d 100%)}
+.panel > *{max-width:var(--maxw);margin-left:auto;margin-right:auto}
 .panel-head{margin-bottom:46px}
 .panel-head h2{font-size:clamp(30px,5vw,56px)}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
