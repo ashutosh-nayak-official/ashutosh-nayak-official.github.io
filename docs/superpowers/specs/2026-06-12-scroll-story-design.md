@@ -9,6 +9,6 @@ Dual-timeline scroll narrative: Ashutosh's journey (college 2017 → AI/ML + Dev
 - **Chapters:** hero 3D car stage → Ch1 1886 Benz blueprint/college → Ch2 Model T/learning+hackathon 2018 → Ch3 classic sports/first role 2021–23 → Ch4 turbo/GenAI 2023→ → Ch5 hypercar-EV/today → finale garage (projects podiums, skills tool-wall, certs trophy shelf, ignition contact CTA).
 - **Connecting tissue:** persistent speedometer/odometer progress dial; gear-shift transitions between chapters; all animation scroll-scrubbed and reversible.
 - **Kept from old site:** language switcher EN/DE/NL/PL (new narrative copy translated ×4). Dropped: HP easter egg, light/dark toggle.
-- **Education (confirmed):** B.Tech CSE, Silicon Institute of Technology, Bhubaneswar, 2017–2021. Smart Odisha Hackathon win: 2018.
+- **Education (confirmed):** B.Tech CSE, Silicon Institute of Technology, 2017–2021. Smart Odisha Hackathon win: 2018.
 - **A11y/perf:** prefers-reduced-motion = static layouts/no pinning/static hero; mobile reduced parallax; Lighthouse 90+ target; lazy chapter assets; placeholders + CREDITS.md for art/models the user will supply.
 - **Process:** build hero + Chapter 1 first on branch `scroll-story`, local preview + scrubbed screenshots for pacing approval, then iterate chapter-by-chapter (NOTES.md for decisions). Live space site untouched until ship approval.

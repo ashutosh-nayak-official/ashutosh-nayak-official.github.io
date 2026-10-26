@@ -1,0 +1,71 @@
+<style>
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1180px;margin:0 auto}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .opt{border-radius:14px;overflow:hidden;border:1px solid #1d2430;background:#05070b;color:#efe6d4;cursor:pointer}
+  .opt.selected{border-color:#f3b24a;box-shadow:0 0 0 2px #f3b24a55}
+  .stage{position:relative;height:440px}
+  canvas{position:absolute;inset:0;width:100%;height:100%}
+  .k{position:absolute;left:16px;top:14px;font:500 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#c9963f;text-transform:uppercase;z-index:2}
+  .body{padding:14px 18px 16px;border-top:1px solid #1d2430;font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif}
+  .body h3{margin:0 0 4px;font-size:15.5px;color:#efe6d4}
+  .body p{margin:0;color:#a89d88;font-size:13px;line-height:1.5}
+</style>
+
+<h2>C3 Armillary engine: new heart</h2>
+<p class="subtitle">Same rings, four new centres. Pick the one that should sit at the heart.</p>
+
+<div class="grid">
+  <div class="opt" data-choice="crystal" onclick="toggleSelect(this)"><div class="stage"><span class="k">K1 · Crystal</span><canvas id="k1"></canvas></div>
+    <div class="body"><h3>K1 · Crystal</h3><p>A faceted gold icosahedron turning slowly, with glowing edges and bright vertices. Feels like "the model": precise, gem-like, timeless.</p></div></div>
+  <div class="opt" data-choice="tesseract" onclick="toggleSelect(this)"><div class="stage"><span class="k">K2 · Tesseract</span><canvas id="k2"></canvas></div>
+    <div class="body"><h3>K2 · Tesseract</h3><p>A 4D hypercube folding through itself endlessly. Feels like something beyond normal intelligence: the strongest AGI feel.</p></div></div>
+  <div class="opt" data-choice="plasma" onclick="toggleSelect(this)"><div class="stage"><span class="k">K3 · Plasma heart</span><canvas id="k3"></canvas></div>
+    <div class="body"><h3>K3 · Plasma heart</h3><p>A soft, glowing sphere of light with slow currents moving across its surface and a breathing pulse. Organic and alive, like an energy source.</p></div></div>
+  <div class="opt" data-choice="chip" onclick="toggleSelect(this)"><div class="stage"><span class="k">K4 · Silicon die</span><canvas id="k4"></canvas></div>
+    <div class="body"><h3>K4 · Silicon die</h3><p>A small gold processor die with circuit traces running out to the rings, and pulses travelling along them. The most literal "engineered intelligence".</p></div></div>
+</div>
+
+<script>
+(function(){
+  function setup(id){const c=document.getElementById(id);const d=devicePixelRatio||1;const r=c.getBoundingClientRect();c.width=r.width*d;c.height=r.height*d;const x=c.getContext('2d');x.scale(d,d);return{x,w:r.width,h:r.height};}
+  function glow(x,px,py,r,col){const g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.beginPath();x.arc(px,py,r,0,6.28);x.fill();}
+  const arm=[{r:1,w:2.2,rot:.2,spin:.02,tumble:.25,ph:0,ticks:36,dash:[70,12,6,22]},{r:.88,w:1.4,rot:1.3,spin:-.03,tumble:.33,ph:1,ticks:24,dash:[48,10,6,16]},{r:.76,w:1.8,rot:2.4,spin:.04,tumble:.2,ph:2,ticks:18,dash:[60,14,6,26]},{r:.64,w:1.1,rot:.7,spin:-.05,tumble:.4,ph:3,ticks:12,dash:[40,9,6,14]}];
+  function rings(x,cx,cy,R,t){
+    for(const A of arm){x.save();x.translate(cx,cy);x.rotate(A.rot+t*A.spin);const sq=Math.max(.08,Math.abs(Math.cos(t*A.tumble+A.ph)));x.setLineDash(A.dash);x.lineDashOffset=-t*300*A.spin;
+      x.beginPath();x.ellipse(0,0,R*A.r,R*A.r*sq,0,0,6.28);x.strokeStyle='rgba(255,200,110,.18)';x.lineWidth=A.w*5;x.stroke();x.strokeStyle='rgba(255,225,160,.85)';x.lineWidth=A.w;x.stroke();x.setLineDash([]);
+      for(let k=0;k<A.ticks;k++){const a=k/A.ticks*6.28;x.fillStyle='rgba(255,230,170,.7)';x.fillRect(Math.cos(a)*R*A.r-1.5,Math.sin(a)*R*A.r*sq-1.5,3,3);}x.restore();}}
+  function scene(id,centre){const {x,w,h}=setup(id);const cx=w/2,cy=h/2,R=Math.min(w,h)*.42;let t=0;
+    (function f(){t+=.016;const bg=x.createRadialGradient(cx,cy,R*.2,cx,cy,Math.max(w,h)*.75);bg.addColorStop(0,'#0d1018');bg.addColorStop(1,'#04050a');x.fillStyle=bg;x.fillRect(0,0,w,h);
+      x.globalCompositeOperation='lighter';x.lineCap='round';rings(x,cx,cy,R,t);centre(x,cx,cy,R,t);x.globalCompositeOperation='source-over';requestAnimationFrame(f);})();}
+  function rot3(p,a,b){let [X,Y,Z]=p;let c=Math.cos(a),s=Math.sin(a);[X,Z]=[X*c+Z*s,-X*s+Z*c];c=Math.cos(b);s=Math.sin(b);[Y,Z]=[Y*c-Z*s,Y*s+Z*c];return[X,Y,Z];}
+  function edgesDraw(x,cx,cy,S,P,E){const pr=P.map(p=>{const k=1/(2.6-p[2]*.6);return[cx+p[0]*S*k*2.6,cy+p[1]*S*k*2.6,p[2]];});
+    for(const [i,j] of E){const z=((pr[i][2]+pr[j][2])/2+1.6)/3.2;x.strokeStyle=`rgba(255,${190+z*50|0},110,${.12+z*.25})`;x.lineWidth=5;x.beginPath();x.moveTo(pr[i][0],pr[i][1]);x.lineTo(pr[j][0],pr[j][1]);x.stroke();x.strokeStyle=`rgba(255,235,180,${.35+z*.6})`;x.lineWidth=1.3;x.stroke();}
+    for(const p of pr){const z=(p[2]+1.6)/3.2;glow(x,p[0],p[1],4+z*6,`rgba(255,245,215,${.4+z*.6})`);}}
+
+  // K1 icosahedron
+  const g=(1+Math.sqrt(5))/2;const IV=[[-1,g,0],[1,g,0],[-1,-g,0],[1,-g,0],[0,-1,g],[0,1,g],[0,-1,-g],[0,1,-g],[g,0,-1],[g,0,1],[-g,0,-1],[-g,0,1]].map(v=>v.map(c=>c/Math.hypot(...v)));
+  const IE=[];IV.forEach((a,i)=>IV.forEach((b,j)=>{if(i<j&&Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2])<1.1)IE.push([i,j]);}));
+  scene('k1',(x,cx,cy,R,t)=>{glow(x,cx,cy,R*.42,'rgba(255,170,50,.22)');glow(x,cx,cy,R*.1,'rgba(255,240,200,.6)');const P=IV.map(v=>rot3(v,t*.35,.4+Math.sin(t*.2)*.2));edgesDraw(x,cx,cy,R*.27,P,IE);});
+
+  // K2 tesseract
+  const TV=[];for(let i=0;i<16;i++)TV.push([i&1?1:-1,i&2?1:-1,i&4?1:-1,i&8?1:-1]);const TE=[];for(let i=0;i<16;i++)for(let b=0;b<4;b++){const j=i^(1<<b);if(i<j)TE.push([i,j]);}
+  scene('k2',(x,cx,cy,R,t)=>{glow(x,cx,cy,R*.45,'rgba(255,170,50,.18)');const a=t*.5,c=Math.cos(a),s=Math.sin(a);
+    const P=TV.map(([X,Y,Z,W])=>{[X,W]=[X*c-W*s,X*s+W*c];const k=1/(2.2-W*.5);return rot3([X*k*1.5,Y*k*1.5,Z*k*1.5],t*.2,.5);});edgesDraw(x,cx,cy,R*.2,P,TE);});
+
+  // K3 plasma heart
+  scene('k3',(x,cx,cy,R,t)=>{const r=R*.24*(1+Math.sin(t*1.8)*.04);glow(x,cx,cy,r*2.6,'rgba(255,150,40,.25)');
+    const g2=x.createRadialGradient(cx-r*.3,cy-r*.3,0,cx,cy,r);g2.addColorStop(0,'rgba(255,250,230,.95)');g2.addColorStop(.45,'rgba(255,195,90,.65)');g2.addColorStop(.9,'rgba(200,100,20,.35)');g2.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g2;x.beginPath();x.arc(cx,cy,r,0,6.28);x.fill();
+    x.save();x.beginPath();x.arc(cx,cy,r*.97,0,6.28);x.clip();for(let i=0;i<7;i++){const yy=cy+(-.8+i*.27)*r+Math.sin(t*.9+i)*r*.08;x.beginPath();for(let k=0;k<=40;k++){const xx=cx-r+k/40*2*r;x.lineTo(xx,yy+Math.sin(k*.35+t*2+i)*r*.07);}x.strokeStyle='rgba(255,240,200,.35)';x.lineWidth=1.2;x.stroke();}x.restore();
+    x.beginPath();x.arc(cx,cy,r,0,6.28);x.strokeStyle='rgba(255,230,170,.7)';x.lineWidth=1.2;x.stroke();});
+
+  // K4 silicon die
+  scene('k4',(x,cx,cy,R,t)=>{const s=R*.2;glow(x,cx,cy,R*.4,'rgba(255,170,50,.18)');x.save();x.translate(cx,cy);x.rotate(Math.PI/4+Math.sin(t*.3)*.05);
+    const traces=[];for(let side=0;side<4;side++)for(let k=0;k<5;k++){const o=(-.6+k*.3)*s;traces.push({side,o});}
+    for(const tr of traces){x.save();x.rotate(tr.side*Math.PI/2);const pts=[[s,tr.o],[s*1.5,tr.o],[s*1.8,tr.o*1.6],[R*.6,tr.o*1.6]];x.beginPath();pts.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.strokeStyle='rgba(255,210,130,.45)';x.lineWidth=1;x.stroke();
+      const u=(((t*.5+tr.o*.03+tr.side*.25)%1)+1)%1;const L=pts.length-1;const seg=Math.min(L-1,Math.floor(u*L));const fr=u*L-seg;const X=pts[seg][0]+(pts[seg+1][0]-pts[seg][0])*fr,Y=pts[seg][1]+(pts[seg+1][1]-pts[seg][1])*fr;glow(x,X,Y,5,'rgba(255,240,190,1)');
+      x.fillStyle='rgba(255,215,140,.8)';x.fillRect(s-1,tr.o-2,4,4);x.restore();}
+    x.fillStyle='rgba(255,180,70,.14)';x.fillRect(-s,-s,2*s,2*s);x.strokeStyle='rgba(255,230,170,.9)';x.lineWidth=1.6;x.strokeRect(-s,-s,2*s,2*s);x.strokeStyle='rgba(255,220,150,.5)';x.lineWidth=1;x.strokeRect(-s*.65,-s*.65,s*1.3,s*1.3);
+    for(let i=0;i<4;i++)for(let j=0;j<4;j++){const on=Math.sin(t*3+i*1.7+j*2.3)>.4;x.fillStyle=on?'rgba(255,240,200,.9)':'rgba(255,200,110,.25)';x.fillRect(-s*.5+i*s*.27,-s*.5+j*s*.27,s*.17,s*.17);}
+    x.restore();glow(x,cx,cy,s*.6,'rgba(255,245,215,.35)');});
+})();
+</script>

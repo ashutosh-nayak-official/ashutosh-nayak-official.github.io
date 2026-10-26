@@ -1,0 +1,114 @@
+/* Design tokens. Palette split: text, labels, buttons, pills and links are gold;
+   3D and visual elements use Spectrum. Dark is the default; light follows html[data-mode="light"]. */
+:root {
+  --sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  --nav-h: 64px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --maxw: 1200px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* dark */
+  --bg: #04050a;
+  --bg2: #0b0e15;
+  --ink: #f1ead9;
+  --muted: #9c9384;
+  --faint: #857e72; /* small secondary text, >= 4.5:1 on bg */
+  --gold: #f3b24a;
+  --gold-hi: #ffe1a0;
+  --gold-deep: #c9963f;
+  --label: var(--gold);
+  --label-text: var(--gold); /* small label text (< 24px regular / < 18.66px bold) */
+  --label-hi-text: var(--gold-hi);
+  --focus: var(--gold);
+  --line: #1a1f2a;
+  --ok: #9fc8b2;
+
+  /* Spectrum: gold -> coral -> magenta -> violet -> cyan */
+  --sp-1: #ffcf6b;
+  --sp-2: #ff8a5c;
+  --sp-3: #e86bff;
+  --sp-4: #7d8cff;
+  --sp-5: #55dcff;
+  --spectrum: linear-gradient(90deg, var(--sp-1), var(--sp-2) 30%, var(--sp-3) 60%, var(--sp-4) 80%, var(--sp-5));
+
+  /* chip regions (chapter 04) */
+  --chip-compute: #ff8a5c;
+  --chip-schedulers: #ffcf6b;
+  --chip-cache: #ffcf6b;
+  --chip-inference: #e86bff;
+  --chip-agents: #7d8cff;
+  --chip-cicd: #55dcff;
+  --chip-observability: #55dcff;
+  --chip-network: #7d8cff;
+  --chip-memory: #55dcff;
+
+  /* roles */
+  --headline-accent: var(--gold-hi);
+  --stat-ink: var(--gold-hi);
+  --btn-bg: var(--gold);
+  --btn-ink: #120c03;
+  --btn-shadow: none;
+  --pill-border: #f3b24a66;
+  --pill-ink: var(--gold-hi);
+  --link-hover: var(--gold-hi);
+  --nav-bg: linear-gradient(#04050ae0, #04050a80);
+  --term-bg: #070a10cc;
+  --feat-bg: linear-gradient(160deg, #2a1230, #0b1430 50%, #04050a 75%);
+  --tl-line: #f3b24a44;
+  --tl-dot: var(--gold-hi);
+  --tl-glow: 0 0 0 3px #f3b24a33, 0 0 14px 2px var(--gold), 0 0 28px var(--gold);
+
+  color-scheme: dark;
+}
+
+:root[data-mode='light'] {
+  --bg: #fcfbf8;
+  --bg2: #f3f0ea;
+  --ink: #14110c;
+  --muted: #5a5348;
+  --faint: #6f685c;
+  --gold: #f2a516;
+  --gold-hi: #c97f00;
+  --gold-deep: #c97f00;
+  --label: #b87200; /* large / decorative uses only */
+  --label-text: #9e6100; /* small text: 4.87:1 on --bg */
+  --label-hi-text: #9e6100;
+  --focus: #c97f00; /* focus ring: 3.11:1 on --bg */
+  --line: #ebe6dc;
+  --ok: #1f7a52;
+
+  --sp-1: #c98a12;
+  --sp-2: #e0532f;
+  --sp-3: #b532d6;
+  --sp-4: #4a5ee8;
+  --sp-5: #0e9fc9;
+
+  --chip-compute: #e0532f;
+  --chip-schedulers: #c98a12;
+  --chip-cache: #c98a12;
+  --chip-inference: #b532d6;
+  --chip-agents: #4a5ee8;
+  --chip-cicd: #0e9fc9;
+  --chip-observability: #0e9fc9;
+  --chip-network: #4a5ee8;
+  --chip-memory: #0e9fc9;
+
+  --headline-accent: linear-gradient(95deg, #e08a00, #f5b11c 55%, #e89400);
+  --stat-ink: #b56d00; /* large text: 3.94:1 on --bg */
+  --btn-bg: linear-gradient(180deg, #ffc23a, #f2a516);
+  --btn-ink: #1a1100;
+  --btn-shadow: 0 6px 20px #f2a51640;
+  --pill-border: #f2a516;
+  --pill-ink: #9e6100; /* small pill text (was #a86800, 4.37:1) */
+  --link-hover: #9e6100;
+  --nav-bg: linear-gradient(#fcfbf8e8, #fcfbf899);
+  --term-bg: #ffffffcc;
+  --feat-bg: linear-gradient(160deg, #fde3d6, #e8e6ff 50%, #f7f4ee 80%);
+  --tl-line: #f2a51666;
+  --tl-dot: #f5b11c;
+  --tl-glow: 0 0 0 3px #f2a51633, 0 0 12px 2px #f2a516aa, 0 0 22px #f5b11c88;
+
+  color-scheme: light;
+}

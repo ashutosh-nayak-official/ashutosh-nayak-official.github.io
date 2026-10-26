@@ -1,0 +1,133 @@
+/* 04 infra: the AN·1 chip. The 3D scene fills the pinned screen (.scene-slot) and
+   places the chip over .chip-frame, so the frame's box in this file is the chip's layout. */
+
+.infra {
+  --pin-screens: 2.8;
+}
+
+.infra-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-areas:
+    'copy chip'
+    'term chip';
+  align-items: center;
+  column-gap: clamp(24px, 4vw, 64px);
+}
+.infra-copy {
+  grid-area: copy;
+  align-self: end;
+}
+.chip-frame {
+  grid-area: chip;
+  height: min(66svh, 600px);
+  min-height: 300px;
+}
+.infra .term {
+  grid-area: term;
+  align-self: start;
+  margin-top: 30px;
+  max-width: 440px;
+}
+
+/* terminal lines: "› command ✓ status" */
+.infra .term li {
+  min-height: 1.8em;
+}
+.infra .term b {
+  font-weight: 400;
+  color: var(--label-text);
+}
+
+/* Typing, only while the chapter's script runs (it sets data-t per line and --chars to
+   the characters shown). Without it every line is fully visible. */
+.term[data-typing] li[data-t='wait'] {
+  visibility: hidden;
+}
+.term[data-typing] li[data-t='typing'] .term-text {
+  display: inline-block;
+  max-width: calc(var(--chars, 0) * 1ch);
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+.term[data-typing] li[data-t='typing']::after {
+  content: '';
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.18em;
+  background: var(--ok);
+  animation: infra-caret 1s steps(1) infinite;
+}
+@keyframes infra-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .infra-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'copy'
+      'chip'
+      'term';
+  }
+  .infra-copy {
+    align-self: auto;
+  }
+  .infra .lead {
+    font-size: 15px;
+  }
+  .chip-frame {
+    height: clamp(200px, 30svh, 340px);
+    min-height: 0;
+    margin-top: 8px;
+  }
+  .infra .term {
+    margin-top: 8px;
+    padding: 10px 14px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term[data-typing] li[data-t='typing']::after {
+    animation: none;
+  }
+}
+
+/* Static fallback: the chip still sits in the frame. It was shot 6 % wider than the
+   frame on each side (pins and glow reach past it; scripts/capture-stills.mjs). */
+.chip-frame[data-still] {
+  position: relative;
+}
+.chip-frame[data-still] > .scene-still {
+  position: absolute;
+  left: 50%;
+  top: -6%;
+  /* the image's own aspect where it fits, so the feathering follows the picture */
+  width: auto;
+  max-width: 112%;
+  height: 112%;
+  transform: translateX(-50%);
+  /* feather the edges so the chip's glow fades into the page instead of ending in a box */
+  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent);
+  mask-image: radial-gradient(closest-side, #000 72%, transparent);
+}
+
+/* Before the device's capability is known (and without JS) there is no chip to show:
+   no empty box. A frame whose still failed to load is [hidden]. */
+html:not([data-capability]) .chip-frame,
+.chip-frame[hidden] {
+  display: none;
+}
+html:not([data-capability]) .infra-grid,
+.infra-grid:has(> .chip-frame[hidden]) {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'copy'
+    'term';
+}

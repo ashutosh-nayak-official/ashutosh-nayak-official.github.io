@@ -64,7 +64,7 @@ check "assets/photos/Ghibli.png"
 check "5+"; check "99%+"; check "15+"; check "95%"
 check "stat_experience"; check "stat_uptime"; check "stat_workshops"; check "stat_bonus"; check "stat_success"
 # Experience
-check "Cozentus Technologies, Bhubaneswar"
+check "Cozentus Technologies"
 check "Jun 2023 → Present"; check "Jun 2021 → Mar 2023"
 for k in rh_1_1 rh_1_2 rh_1_3 rh_1_4 rh_1_5 rh_1_6 rh_1_7 rh_2_1 rh_2_2 rh_2_3 rh_2_4 rh_2_5; do check "$k"; done
 # Projects
@@ -82,7 +82,6 @@ check "aws-certified-machine-learning-specialty.png"
 # Contact
 check "ashutosh.nayak.formal@gmail.com"
 check "linkedin.com/in/ashutosh-nayak-81an"
-check "+919778108181"
 # i18n — all four dictionaries and the system
 for k in 'en: {' 'de: {' 'nl: {' 'pl: {'; do check "$k"; done
 check "data-i18n"; check "applyTranslations"

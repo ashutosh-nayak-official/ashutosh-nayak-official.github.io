@@ -1,0 +1,36 @@
+/* ?still= capture mode only (src/app/stillMode.ts, scripts/capture-stills.mjs): every
+   rule is scoped to html[data-still], which is never set in normal use. The shot is the
+   canvas over the page background, so all DOM chrome and copy is hidden (layout kept). */
+
+html[data-still] {
+  scroll-behavior: auto;
+}
+html[data-still] .site-nav,
+html[data-still] .skip,
+html[data-still] .site-footer,
+html[data-still] .loader,
+html[data-still]:not([data-still='og']) main .wrap,
+html[data-still='og'] .hero .actions {
+  visibility: hidden !important;
+}
+
+/* Hero: the slot bleeds off the right edge in the page; centre it so the whole square
+   is on screen for the shot. */
+html[data-still='top'] .chapter.hero .scene-slot {
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  transition: none;
+}
+
+/* Open Graph (1200×630): copy on the left, the engine clear of it on the right. The slot
+   is the full image height, so the engine (70 % of the slot) fills ~70 % of the image. */
+html[data-still='og'] .chapter.hero .scene-slot {
+  inset: 50% -20px auto auto;
+  width: 630px;
+  height: 630px;
+  transform: translateY(-50%);
+  transition: none;
+}
+html[data-still='og'] .hero .copy {
+  max-width: 600px;
+}

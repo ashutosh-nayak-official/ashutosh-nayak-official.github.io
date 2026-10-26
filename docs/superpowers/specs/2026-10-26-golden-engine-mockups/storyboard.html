@@ -1,0 +1,92 @@
+<style>
+  .sb{display:grid;gap:18px;max-width:980px;margin:0 auto}
+  .frame{position:relative;border-radius:14px;overflow:hidden;background:#07060a;color:#efe6d4;padding:34px 36px;font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif;border:1px solid #2a2216}
+  .tag{font:500 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#c9963f;text-transform:uppercase;margin-bottom:14px}
+  .core{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:420px;height:420px;border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%,#fff3c4 0 3%,#ffb341 6%,#8a4b0c22 22%,transparent 40%),
+      repeating-conic-gradient(from 10deg,#ffae3a33 0 1deg,transparent 1deg 14deg),
+      radial-gradient(circle,transparent 30%,#ffb34155 31%,transparent 32.5%,transparent 46%,#ffb34144 47%,transparent 48.5%,transparent 62%,#ffb34133 63%,transparent 64.5%);
+    filter:blur(.4px) drop-shadow(0 0 30px #ff9d1a66)}
+  .core:after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#ffc96b 0 1px,transparent 2px) 0 0/23px 19px;opacity:.35;mask:radial-gradient(circle,#000 30%,transparent 70%)}
+  .hero{min-height:300px}
+  .hero h1{font-size:46px;line-height:1.02;font-weight:650;letter-spacing:-.03em;margin:40px 0 14px;max-width:520px;position:relative}
+  .hero p{max-width:440px;color:#b9ad98;font-size:15px;position:relative}
+  .hero .cta{display:inline-block;margin-top:20px;font-size:13px;border:1px solid #c9963f;padding:9px 16px;border-radius:999px;color:#f3c776;position:relative}
+  .note{font-size:12px;color:#8f8473;margin-top:14px;font-style:italic;position:relative}
+  .row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px}
+  .stat b{display:block;font-size:30px;font-weight:600;color:#f6d18c;letter-spacing:-.02em}
+  .stat span{font-size:12px;color:#a89d88}
+  .stat i{display:block;font-size:10.5px;color:#6f6656;font-style:normal;margin-top:4px}
+  .flow{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .node{border:1px solid #c9963f88;border-radius:10px;padding:10px 14px;font-size:13px;background:#1a1309}
+  .node small{display:block;color:#8f8473;font-size:10.5px}
+  .arrow{color:#c9963f}
+  h3.s{font-size:26px;font-weight:600;letter-spacing:-.02em;margin:0 0 6px;color:#efe6d4}
+  .muted{color:#a89d88;font-size:14px}
+</style>
+
+<h2>The story, top to bottom</h2>
+<p class="subtitle">A storyboard of the scroll. Each block is one chapter. Further down, pick the project that gets the step-by-step walkthrough.</p>
+
+<div class="sb">
+  <div class="frame hero">
+    <div class="core"></div>
+    <div class="tag">00 · Ashutosh Nayak</div>
+    <h1>I build AI that runs in production.<br>And the cloud it runs on.</h1>
+    <p>GenAI &amp; Cloud/DevOps engineer, India. Five years shipping enterprise systems across logistics, supply chain and finance.</p>
+    <span class="cta">See one system, end to end ↓</span>
+    <div class="note">Right side: the live gold core (Three.js) turning slowly, reacting faintly to the cursor.</div>
+  </div>
+
+  <div class="frame">
+    <div class="tag">01 · In production</div>
+    <h3 class="s">Numbers, with their scope.</h3>
+    <div class="row">
+      <div class="stat"><b>15,000+</b><span>vessels tracked</span><i>Track &amp; Trace, global 3PL</i></div>
+      <div class="stat"><b>−80%</b><span>provisioning time</span><i>n8n + Terraform pipeline</i></div>
+      <div class="stat"><b>99%+</b><span>platform uptime</span><i>Enterprise AWS hosting</i></div>
+      <div class="stat"><b>4</b><span>AWS certifications</span><i>incl. GenAI Dev Pro, early adopter</i></div>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="tag">02 · One request, step by step</div>
+    <h3 class="s">Follow one question through the system.</h3>
+    <p class="muted">As you scroll, the gold core breaks apart and its filaments re-form into this pipeline. Each stop lights up with what happens there, and why.</p>
+    <div class="flow">
+      <div class="node">Question<small>user, natural language</small></div><span class="arrow">→</span>
+      <div class="node">Retrieve<small>vector search, context</small></div><span class="arrow">→</span>
+      <div class="node">Reason<small>Bedrock LLM</small></div><span class="arrow">→</span>
+      <div class="node">Act<small>tool call</small></div><span class="arrow">→</span>
+      <div class="node">Answer<small>grounded, cited</small></div>
+    </div>
+    <div class="note">Also stated here: what the system deliberately does not automate.</div>
+  </div>
+
+  <div class="frame">
+    <div class="tag">03 · Selected work</div>
+    <h3 class="s">Six systems.</h3>
+    <p class="muted">Quiet cards, each opening to problem → approach → stack → outcome. No fake screenshots.</p>
+  </div>
+
+  <div class="frame">
+    <div class="tag">04 · Path · 05 · Credentials</div>
+    <h3 class="s">2017 → now.</h3>
+    <p class="muted">B.Tech → Full Stack &amp; Cloud → GenAI / DevOps lead at Cozentus; 15+ workshops, 20+ developers mentored. Four verifiable AWS badges.</p>
+  </div>
+
+  <div class="frame">
+    <div class="tag">06 · Contact</div>
+    <h3 class="s">Let's build the next one.</h3>
+    <p class="muted">The gold core re-assembles, dimmer and calm. Email, LinkedIn, GitHub. Nothing else.</p>
+  </div>
+</div>
+
+<h3 style="margin-top:34px">Which project gets the step-by-step walkthrough (chapter 02)?</h3>
+<div class="options">
+  <div class="option" data-choice="rag" onclick="toggleSelect(this)"><div class="letter">A</div><div class="content"><h3>RAG chatbot with agentic AI</h3><p>Question → retrieval → Bedrock → tool call → answer. Most "GenAI engineer" signal.</p></div></div>
+  <div class="option" data-choice="tracking" onclick="toggleSelect(this)"><div class="letter">B</div><div class="content"><h3>Track &amp; Trace (15,000+ vessels)</h3><p>Ship signal → ingest → ML ETA → alert. Biggest scale, most visual.</p></div></div>
+  <div class="option" data-choice="terraform" onclick="toggleSelect(this)"><div class="letter">C</div><div class="content"><h3>n8n + Terraform automation</h3><p>Request → generate IaC → plan → provision. Strongest DevOps signal.</p></div></div>
+  <div class="option" data-choice="mcp" onclick="toggleSelect(this)"><div class="letter">D</div><div class="content"><h3>Agentic scraping + MCP</h3><p>Ask in plain words → agent navigates → self-heals → logs to Excel and email.</p></div></div>
+</div>

@@ -1,0 +1,44 @@
+/* 05 work: the featured cards' Spectrum glow. Static card styling lives in chapters.css
+   (the --feat-bg wash and the 2px Spectrum rule); this adds a soft Spectrum light that
+   spills down from that rule, a little brighter on hover/focus. Decorative only. */
+
+.card.feat {
+  overflow: hidden;
+  isolation: isolate; /* the glow sits above the card background, below its text */
+}
+.card.feat .feat-glow {
+  position: absolute;
+  z-index: -1;
+  inset: -70px 6% auto;
+  height: 120px;
+  background: var(--spectrum);
+  border-radius: 50%;
+  filter: blur(36px);
+  opacity: 0.32;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.card.feat:hover .feat-glow,
+.card.feat:focus-within .feat-glow {
+  opacity: 0.5;
+}
+
+/* Light mode: a paler wash; the deeper Spectrum stops would read muddy at full strength. */
+:root[data-mode='light'] .card.feat .feat-glow {
+  opacity: 0.2;
+}
+:root[data-mode='light'] .card.feat:hover .feat-glow,
+:root[data-mode='light'] .card.feat:focus-within .feat-glow {
+  opacity: 0.3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card.feat .feat-glow {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .card.feat .feat-glow {
+    display: none;
+  }
+}

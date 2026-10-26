@@ -1,0 +1,1 @@
+export const NO_FLASH_SCRIPT = `(function(){try{var m=null;try{m=localStorage.getItem('ge-mode')}catch(e){}if(m!=='dark'&&m!=='light'){m=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}document.documentElement.dataset.mode=m}catch(e){}})();`

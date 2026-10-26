@@ -1,0 +1,51 @@
+<style>
+  .fr{position:relative;border-radius:14px;overflow:hidden;background:#07060a;color:#efe6d4;padding:34px 36px 30px;font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif;border:1px solid #2a2216;max-width:1000px;margin:0 auto}
+  .tag{font:500 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#c9963f;text-transform:uppercase;margin-bottom:12px}
+  .h{font-size:34px;font-weight:650;letter-spacing:-.03em;line-height:1.05;margin:0 0 8px}
+  .sub{color:#a89d88;font-size:14px;max-width:620px;margin:0 0 26px}
+  .wave{height:46px;margin:0 0 22px;background:repeating-linear-gradient(90deg,#f3b24a 0 2px,transparent 2px 7px);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),radial-gradient(ellipse 50% 100% at 50% 50%,#000 30%,transparent 72%);mask-composite:intersect;opacity:.85;filter:drop-shadow(0 0 8px #ff9d1a)}
+  .path{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative}
+  .path:before{content:"";position:absolute;left:4%;right:4%;top:22px;height:1px;background:linear-gradient(90deg,#c9963f00,#c9963f,#c9963f00)}
+  .st{position:relative;padding-top:42px}
+  .st:before{content:"";position:absolute;top:15px;left:0;width:15px;height:15px;border-radius:50%;background:#1a1309;border:1px solid #c9963f;box-shadow:0 0 12px #ff9d1a88}
+  .st.on:before{background:#ffc35c}
+  .n{font:500 10px ui-monospace,Menlo,monospace;color:#8f8473;letter-spacing:.1em}
+  .st b{display:block;font-size:15px;margin:4px 0 4px}
+  .st p{font-size:12px;color:#a89d88;margin:0;line-height:1.45}
+  .ms{display:inline-block;margin-top:8px;font:500 11px ui-monospace,Menlo,monospace;color:#f6d18c;border:1px dashed #c9963f66;padding:3px 7px;border-radius:5px}
+  .lang{font:500 11px ui-monospace,Menlo,monospace;color:#9fc8b2}
+  .bottom{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:28px}
+  .quote{border-left:2px solid #c9963f;padding:6px 14px;font-size:14px}
+  .quote span{display:block;color:#8f8473;font-size:12px;margin-top:3px}
+  .mon{border:1px solid #2a2216;border-radius:10px;padding:12px 14px;background:#0d0b08}
+  .mon .row{display:flex;justify-content:space-between;font:12px ui-monospace,Menlo,monospace;color:#a89d88;padding:3px 0}
+  .mon .row i{font-style:normal;color:#f6d18c}
+  .note{font-size:12px;color:#8f8473;margin-top:18px;font-style:italic}
+</style>
+
+<h2>Chapter 02: one call, step by step</h2>
+<p class="subtitle">How your voice bot would be told. The gold core unwinds into this path as you scroll; each stop lights up in turn. Dashed boxes are where real numbers go, shown only if you give them to me.</p>
+
+<div class="fr">
+  <div class="tag">02 · One call</div>
+  <div class="h">A caller speaks Hindi.<br>The bot answers in Hindi. Live.</div>
+  <p class="sub">Telephony, speech, translation and a deployed LLM, stitched into one real-time loop, and monitored end to end.</p>
+  <div class="wave"></div>
+  <div class="path">
+    <div class="st on"><span class="n">01 · RING</span><b>The call arrives</b><p>Phone network → SIP trunk → Asterisk answers and bridges the audio into a LiveKit room.</p><span class="ms">— ms</span></div>
+    <div class="st on"><span class="n">02 · HEAR</span><b>Speech to text</b><p>Streaming STT transcribes the caller as they talk. <span class="lang">हिन्दी</span></p><span class="ms">— ms</span></div>
+    <div class="st on"><span class="n">03 · TRANSLATE</span><b>Real-time translation</b><p>Hindi in, model language out, and back again for the reply. <span class="lang">hi ⇄ en</span></p><span class="ms">— ms</span></div>
+    <div class="st on"><span class="n">04 · THINK</span><b>Deployed LLM</b><p>Your self-hosted model decides what to say, with context and tools.</p><span class="ms">— ms</span></div>
+    <div class="st on"><span class="n">05 · SPEAK</span><b>Text to speech</b><p>A Hindi voice streams back through LiveKit and Asterisk to the caller.</p><span class="ms">— ms</span></div>
+  </div>
+  <div class="bottom">
+    <div class="quote">“Mera order kahan hai?”<span>The caller hears a reply in Hindi, about <b style="color:#f6d18c">— ms</b> after they stop speaking.</span></div>
+    <div class="mon">
+      <div class="tag" style="margin-bottom:8px">Monitoring</div>
+      <div class="row">calls in progress<i>—</i></div>
+      <div class="row">reply delay p95<i>— ms</i></div>
+      <div class="row">STT / TTS / LLM errors<i>—</i></div>
+    </div>
+  </div>
+  <div class="note">The example caller line and labels are placeholders. Exact stages, tools and order follow your real setup.</div>
+</div>

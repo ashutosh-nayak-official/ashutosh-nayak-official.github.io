@@ -1,0 +1,230 @@
+/* 00 hero: assembly loader, intro reveal and the scroll-driven breakout.
+   html[data-intro] is 'pending' (set inline before first paint when the intro will
+   play), 'loading' (Loader running) or 'ready'. Without JS it is never set, so all of
+   this falls back to the plain, fully visible hero.
+   Rules are prefixed with .chapter.hero because this file loads before chapters.css. */
+
+/* Pinned breakout: 210vh section, 1.1 screens of sticky scroll drive --p (burst). */
+.chapter.hero {
+  --pin-screens: 2.1;
+}
+
+/* The copy lifts -90px and fades as the engine breaks apart. */
+.chapter.hero .copy {
+  transform: translateY(calc(var(--p) * -90px));
+  opacity: calc(1 - var(--p) * 1.6);
+}
+/* Keyboard focus inside the copy keeps it readable mid-breakout. */
+.chapter.hero .copy:focus-within {
+  opacity: 1;
+}
+
+/* ── Intro reveal ──────────────────────────────────────────────────────────── */
+.chapter.hero .hero-name,
+.chapter.hero .hero-promise,
+.chapter.hero .who,
+.chapter.hero .actions {
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+}
+html[data-intro='pending'] .chapter.hero .hero-name,
+html[data-intro='pending'] .chapter.hero .hero-promise,
+html[data-intro='pending'] .chapter.hero .who,
+html[data-intro='pending'] .chapter.hero .actions,
+html[data-intro='loading'] .chapter.hero .hero-name,
+html[data-intro='loading'] .chapter.hero .hero-promise,
+html[data-intro='loading'] .chapter.hero .who,
+html[data-intro='loading'] .chapter.hero .actions {
+  opacity: 0;
+  transform: translateY(24px);
+  /* failsafe: if the script bundle never runs, reveal at the 3.5 s hard cap anyway
+     (starts when 'pending' is set at parse time; the same declaration under 'loading'
+     keeps the running animation instead of restarting it) */
+  animation: ge-intro-failsafe 0.01s 3.5s forwards;
+}
+html[data-intro='ready'] .chapter.hero .hero-promise {
+  transition-delay: 0.12s;
+}
+html[data-intro='ready'] .chapter.hero .who {
+  transition-delay: 0.3s;
+}
+html[data-intro='ready'] .chapter.hero .actions {
+  transition-delay: 0.45s;
+}
+
+/* Navigation fades in after the copy. */
+html[data-intro='pending'] .site-nav,
+html[data-intro='loading'] .site-nav {
+  opacity: 0;
+  animation: ge-intro-failsafe 0.01s 3.5s forwards;
+}
+html[data-intro='ready'] .site-nav {
+  transition: opacity 0.8s 0.5s var(--ease);
+}
+
+@keyframes ge-intro-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Engine placement ──────────────────────────────────────────────────────── */
+/* Desktop: centred while it assembles, then slides to the right on ready. */
+@media (min-width: 861px) {
+  .chapter.hero .scene-slot {
+    transition: right 1.1s var(--ease);
+  }
+  html[data-intro='pending'] .chapter.hero .scene-slot,
+  html[data-intro='loading'] .chapter.hero .scene-slot {
+    right: calc(50% - min(32vw, 460px));
+  }
+}
+/* Narrow: always centred behind the copy. The opacity only reaches the static still;
+   the live scene dims itself (HeroScene), as the canvas is not inside this box. */
+@media (max-width: 860px) {
+  .chapter.hero .scene-slot {
+    inset: 50% auto auto 50%;
+    width: 110vw;
+    height: 110vw;
+    transform: translate(-50%, -50%);
+    opacity: 0.45;
+  }
+}
+
+/* ── Loader overlay ────────────────────────────────────────────────────────── */
+.loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  color: var(--gold-hi);
+  transition: opacity 0.8s var(--ease);
+}
+html[data-intro='pending'] .loader,
+.loader--loading,
+.loader--done {
+  display: block;
+}
+.loader--done {
+  opacity: 0;
+}
+/* failsafe: the overlay goes with the copy failsafe at 3.5 s, even if JS never finishes */
+html[data-intro='pending'] .loader,
+html[data-intro='loading'] .loader {
+  animation: ge-loader-failsafe 0.01s 3.5s forwards;
+}
+@keyframes ge-loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.loader-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-hi));
+  box-shadow: 0 0 12px var(--gold);
+}
+.loader-pct,
+.loader-msg,
+.loader-skip {
+  position: absolute;
+  margin: 0;
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+.loader-pct {
+  left: var(--gutter);
+  bottom: clamp(24px, 6vh, 56px);
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.loader-msg {
+  left: var(--gutter);
+  bottom: calc(clamp(24px, 6vh, 56px) + clamp(64px, 10vw, 132px));
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+.loader-skip {
+  right: var(--gutter);
+  bottom: clamp(24px, 6vh, 56px);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+:root[data-mode='light'] .loader {
+  color: var(--gold-deep);
+}
+:root[data-mode='light'] .loader-bar {
+  background: linear-gradient(90deg, transparent, var(--gold));
+  box-shadow: 0 0 10px rgba(242, 165, 22, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    display: none !important;
+  }
+}
+
+/* Phones (< 768 px, same width test as detectCapability): shorter intro, 2 s failsafe.
+   The media query is the pre-JS fallback; once the Loader mounts it sets
+   html[data-intro-profile] from the width it measured, which wins from then on so a
+   mid-intro resize cannot make the CSS failsafe and the JS cap disagree. */
+@media (max-width: 767px) {
+  html[data-intro='pending'] .chapter.hero .hero-name,
+  html[data-intro='pending'] .chapter.hero .hero-promise,
+  html[data-intro='pending'] .chapter.hero .who,
+  html[data-intro='pending'] .chapter.hero .actions,
+  html[data-intro='loading'] .chapter.hero .hero-name,
+  html[data-intro='loading'] .chapter.hero .hero-promise,
+  html[data-intro='loading'] .chapter.hero .who,
+  html[data-intro='loading'] .chapter.hero .actions,
+  html[data-intro='pending'] .site-nav,
+  html[data-intro='loading'] .site-nav,
+  html[data-intro='pending'] .loader,
+  html[data-intro='loading'] .loader {
+    animation-delay: 2s;
+  }
+}
+html[data-intro-profile='phone'][data-intro='pending'] .chapter.hero .hero-name,
+html[data-intro-profile='phone'][data-intro='pending'] .chapter.hero .hero-promise,
+html[data-intro-profile='phone'][data-intro='pending'] .chapter.hero .who,
+html[data-intro-profile='phone'][data-intro='pending'] .chapter.hero .actions,
+html[data-intro-profile='phone'][data-intro='loading'] .chapter.hero .hero-name,
+html[data-intro-profile='phone'][data-intro='loading'] .chapter.hero .hero-promise,
+html[data-intro-profile='phone'][data-intro='loading'] .chapter.hero .who,
+html[data-intro-profile='phone'][data-intro='loading'] .chapter.hero .actions,
+html[data-intro-profile='phone'][data-intro='pending'] .site-nav,
+html[data-intro-profile='phone'][data-intro='loading'] .site-nav,
+html[data-intro-profile='phone'][data-intro='pending'] .loader,
+html[data-intro-profile='phone'][data-intro='loading'] .loader {
+  animation-delay: 2s;
+}
+@media (max-width: 767px) {
+  html[data-intro-profile='desktop'][data-intro='pending'] .chapter.hero .hero-name,
+  html[data-intro-profile='desktop'][data-intro='pending'] .chapter.hero .hero-promise,
+  html[data-intro-profile='desktop'][data-intro='pending'] .chapter.hero .who,
+  html[data-intro-profile='desktop'][data-intro='pending'] .chapter.hero .actions,
+  html[data-intro-profile='desktop'][data-intro='loading'] .chapter.hero .hero-name,
+  html[data-intro-profile='desktop'][data-intro='loading'] .chapter.hero .hero-promise,
+  html[data-intro-profile='desktop'][data-intro='loading'] .chapter.hero .who,
+  html[data-intro-profile='desktop'][data-intro='loading'] .chapter.hero .actions,
+  html[data-intro-profile='desktop'][data-intro='pending'] .site-nav,
+  html[data-intro-profile='desktop'][data-intro='loading'] .site-nav,
+  html[data-intro-profile='desktop'][data-intro='pending'] .loader,
+  html[data-intro-profile='desktop'][data-intro='loading'] .loader {
+    animation-delay: 3.5s;
+  }
+}

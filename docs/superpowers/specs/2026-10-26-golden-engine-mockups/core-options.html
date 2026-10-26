@@ -1,0 +1,82 @@
+<style>
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1180px;margin:0 auto}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .opt{border-radius:14px;overflow:hidden;border:1px solid #1d2430;background:#05070b;color:#efe6d4;cursor:pointer}
+  .opt.selected{border-color:#f3b24a;box-shadow:0 0 0 2px #f3b24a55}
+  .stage{position:relative;height:440px}
+  canvas{position:absolute;inset:0;width:100%;height:100%}
+  .k{position:absolute;left:16px;top:14px;font:500 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#c9963f;text-transform:uppercase;z-index:2}
+  .body{padding:14px 18px 16px;border-top:1px solid #1d2430;font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif}
+  .body h3{margin:0 0 4px;font-size:15.5px;color:#efe6d4}
+  .body p{margin:0;color:#a89d88;font-size:13px;line-height:1.5}
+</style>
+
+<h2>Four more cores</h2>
+<p class="subtitle">Same idea, four different characters. Click the one (or two) you like; I can mix traits between them.</p>
+
+<div class="grid">
+  <div class="opt" data-choice="hologram" onclick="toggleSelect(this)"><div class="stage"><span class="k">C1 · Dense hologram</span><canvas id="v1"></canvas></div>
+    <div class="body"><h3>C1 · Dense hologram</h3><p>Closest to the film still: packed circuit fragments, glowing rectangular "screen" panels on the shell, several sweeping arcs and a hot centre. Maximum wow.</p></div></div>
+  <div class="opt" data-choice="minimal" onclick="toggleSelect(this)"><div class="stage"><span class="k">C2 · Quiet precision</span><canvas id="v2"></canvas></div>
+    <div class="body"><h3>C2 · Quiet precision</h3><p>The Apple version. Only long, clean latitude lines with a few bright beads travelling along them, one thin ring at the heart, lots of black space. Calm and confident.</p></div></div>
+  <div class="opt" data-choice="armillary" onclick="toggleSelect(this)"><div class="stage"><span class="k">C3 · Armillary engine</span><canvas id="v3"></canvas></div>
+    <div class="body"><h3>C3 · Armillary engine</h3><p>Engineered: broken gold rings at different tilts turn around each other like a gyroscope, with a small circuit core inside. Reads as "a precise system", the most DevOps of the four.</p></div></div>
+  <div class="opt" data-choice="data" onclick="toggleSelect(this)"><div class="stage"><span class="k">C4 · Data sphere</span><canvas id="v4"></canvas></div>
+    <div class="body"><h3>C4 · Data sphere</h3><p>The shell is made of tiny glowing data panels and text-like glyph lines (logs, tokens, traces) wrapping around a sphere. Reads as "an intelligence made of information".</p></div></div>
+</div>
+
+<script>
+(function(){
+  function make(id,o){
+    const c=document.getElementById(id);const d=devicePixelRatio||1;const r=c.getBoundingClientRect();c.width=r.width*d;c.height=r.height*d;const x=c.getContext('2d');x.scale(d,d);const w=r.width,h=r.height;
+    const cx=w/2,cy=h/2,R=Math.min(w,h)*o.size;let seed=o.seed||11;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+    const tilt=.32;
+    function proj(th,ph,rad,rot){const ct=Math.cos(ph);const X=Math.cos(th+rot)*ct,Y=Math.sin(ph),Z=Math.sin(th+rot)*ct;const y2=Y*Math.cos(tilt)-Z*Math.sin(tilt),z2=Y*Math.sin(tilt)+Z*Math.cos(tilt);const p=1/(1.6-z2*.45);return[cx+X*rad*R*p*1.6,cy+y2*rad*R*p*1.6,z2];}
+    const segs=[];
+    (o.shells||[]).forEach(([shell,count],si)=>{for(let cI=0;cI<count/7;cI++){let th=rnd()*6.28,ph=(rnd()*2-1)*1.25;const k=4+rnd()*6|0;
+      for(let i=0;i<k;i++){const horiz=rnd()<o.horiz;const len=(.03+rnd()*rnd()*o.len)*(horiz?1:.5);const pts=[];for(let s=0;s<=6;s++)pts.push(horiz?[th+len*s/6,ph]:[th,ph+len*s/6]);
+        if(rnd()<.35){const e=pts[6];for(let s=1;s<=3;s++)pts.push(horiz?[e[0],e[1]+.03*s]:[e[0]+.03*s,e[1]]);}
+        segs.push({pts,shell:shell*(si===0&&rnd()<.1?1.04+rnd()*.1:1),si,ph:rnd()*6.28,f:.5+rnd()*2,plate:rnd()<o.plates,w:rnd()<.15?1.6:.9,glyph:o.glyph&&rnd()<.7});
+        th+=(rnd()-.4)*.12;ph+=(rnd()-.5)*.1;}}});
+    const rims=[...Array(o.rims||0)].map(()=>({a:rnd()*6.28,len:.03+rnd()*.22,r:.97+rnd()*.09,v:(rnd()-.5)*.05,f:.5+rnd()*2,w:rnd()<.2?1.6:.9,streak:rnd()<.15}));
+    const lats=(o.lats||[]).map(l=>({l,beads:[...Array(3)].map(()=>({a:rnd()*6.28,v:.2+rnd()*.4}))}));
+    const arm=(o.arm||[]).map((a,i)=>({...a,dash:[30+rnd()*60,8+rnd()*14,6,10+rnd()*20]}));
+    let t=0;
+    function line(P,col,a,wd){x.strokeStyle=col+(a*.2)+')';x.lineWidth=wd*4;x.beginPath();P.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();x.strokeStyle=col+a+')';x.lineWidth=wd;x.stroke();}
+    (function f(){t+=.016;
+      const bg=x.createRadialGradient(cx,cy,R*.2,cx,cy,Math.max(w,h)*.75);bg.addColorStop(0,'#0d1018');bg.addColorStop(1,'#04050a');x.fillStyle=bg;x.fillRect(0,0,w,h);
+      x.globalCompositeOperation='lighter';x.lineCap='round';x.lineJoin='round';
+      const halo=x.createRadialGradient(cx,cy,0,cx,cy,R*1.15);halo.addColorStop(0,`rgba(255,170,50,${o.halo})`);halo.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=halo;x.beginPath();x.arc(cx,cy,R*1.15,0,6.28);x.fill();
+      // latitude lines (C2)
+      for(const L of lats){const rot=t*.1;const P=[];for(let k=0;k<=90;k++)P.push(proj(k/90*6.28,L.l,1,rot));
+        for(let k=0;k<90;k++){const z=(P[k][2]+1)/2;x.strokeStyle=`rgba(255,205,120,${.05+z*.45})`;x.lineWidth=1;x.beginPath();x.moveTo(P[k][0],P[k][1]);x.lineTo(P[k+1][0],P[k+1][1]);x.stroke();}
+        for(const b of L.beads){b.a+=b.v*.016;const p=proj(b.a,L.l,1,rot);const z=(p[2]+1)/2;const g=x.createRadialGradient(p[0],p[1],0,p[0],p[1],8);g.addColorStop(0,`rgba(255,240,200,${.2+z*.8})`);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.beginPath();x.arc(p[0],p[1],8,0,6.28);x.fill();}}
+      // armillary rings (C3)
+      for(const A of arm){x.save();x.translate(cx,cy);x.rotate(A.rot+t*A.spin);const sq=Math.abs(Math.cos(t*A.tumble+A.ph));x.setLineDash(A.dash);x.lineDashOffset=-t*30*A.spin*10;
+        x.beginPath();x.ellipse(0,0,R*A.r,R*A.r*Math.max(.08,sq),0,0,6.28);x.strokeStyle='rgba(255,200,110,.18)';x.lineWidth=A.w*5;x.stroke();x.strokeStyle='rgba(255,225,160,.85)';x.lineWidth=A.w;x.stroke();
+        x.setLineDash([]);for(let k=0;k<A.ticks;k++){const a=k/A.ticks*6.28;const X=Math.cos(a)*R*A.r,Y=Math.sin(a)*R*A.r*Math.max(.08,sq);x.fillStyle='rgba(255,230,170,.7)';x.fillRect(X-1.5,Y-1.5,3,3);}x.restore();}
+      x.setLineDash([]);
+      // circuit / glyph fragments
+      for(const s of segs){const rot=t*(s.si===1?-.09:.12);const P=s.pts.map(p=>proj(p[0],p[1],s.shell,rot));const z=(P[0][2]+1)/2;
+        let a=(.1+z*.9)*(.65+.35*Math.sin(t*s.f+s.ph));if(Math.sin(t*s.f*.7+s.ph*3)>.985)a=1;const col=`rgba(255,${175+z*55|0},${70+z*60|0},`;
+        if(s.glyph){for(let k=0;k<P.length-1;k++){if((k+((s.ph*10)|0))%3===0)continue;x.strokeStyle=col+a*.85+')';x.lineWidth=1.3;x.beginPath();x.moveTo(P[k][0],P[k][1]);x.lineTo(P[k+1][0]*.6+P[k][0]*.4,P[k+1][1]*.6+P[k][1]*.4);x.stroke();}}
+        else line(P,col,a,s.w);
+        if(s.plate){const p=P[3];const pw=(5+z*9)*(o.plateSize||1),pd=(3+z*5)*(o.plateSize||1);x.strokeStyle=col+(a*.8)+')';x.lineWidth=.8;x.strokeRect(p[0]-pw/2,p[1]-pd/2,pw,pd);x.fillStyle=col+(a*.18)+')';x.fillRect(p[0]-pw/2,p[1]-pd/2,pw,pd);
+          if(o.plateSize>1){for(let q=0;q<3;q++){x.fillStyle=col+(a*.6)+')';x.fillRect(p[0]-pw/2+2,p[1]-pd/2+2+q*2.2,pw*(.3+((q*7+s.ph*5)%5)/8),1);}}}}
+      // rim
+      for(const rm of rims){const a0=rm.a+t*rm.v;x.beginPath();x.arc(cx,cy,R*rm.r,a0,a0+rm.len);const al=.35+.4*Math.sin(t*rm.f+rm.a);x.strokeStyle=`rgba(255,205,120,${al*.25})`;x.lineWidth=rm.w*4;x.stroke();x.strokeStyle=`rgba(255,220,150,${al})`;x.lineWidth=rm.w;x.stroke();
+        if(rm.streak){x.beginPath();x.moveTo(cx+Math.cos(a0)*R*rm.r,cy+Math.sin(a0)*R*rm.r);x.lineTo(cx+Math.cos(a0)*R*(rm.r+.14),cy+Math.sin(a0)*R*(rm.r+.14));x.strokeStyle='rgba(255,200,110,.35)';x.lineWidth=1;x.stroke();}}
+      // sweeping arcs
+      for(let i=0;i<(o.arcs||0);i++){x.save();x.translate(cx,cy);x.rotate(t*(.18+i*.07)*(i%2?-1:1)+i*1.7);x.beginPath();x.ellipse(0,0,R*(.62+i*.11),R*(.7+i*.09),.3,2.2,5.1-i*.4);x.strokeStyle='rgba(255,205,120,.16)';x.lineWidth=10;x.stroke();x.strokeStyle='rgba(255,230,170,.75)';x.lineWidth=1.6;x.stroke();x.restore();}
+      // centre
+      const rr=R*o.ring;x.save();x.translate(cx,cy);x.rotate(-.35+Math.sin(t*.4)*.08);
+      for(const [sc,al,lw] of o.rings){x.beginPath();x.ellipse(0,0,rr*sc,rr*sc*.82,0,0,6.28);x.strokeStyle=`rgba(255,215,140,${al*.25})`;x.lineWidth=lw*5;x.stroke();x.strokeStyle=`rgba(255,235,180,${al})`;x.lineWidth=lw;x.stroke();}x.restore();
+      const g=x.createRadialGradient(cx,cy,0,cx,cy,rr*1.7);g.addColorStop(0,`rgba(255,245,210,${o.hot})`);g.addColorStop(.35,`rgba(255,180,70,${o.hot*.4})`);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.beginPath();x.arc(cx,cy,rr*1.7,0,6.28);x.fill();
+      x.globalCompositeOperation='source-over';requestAnimationFrame(f);})();
+  }
+  make('v1',{size:.42,shells:[[1,900],[.8,520],[.58,300]],horiz:.82,len:.45,plates:.16,plateSize:1.6,rims:240,arcs:3,ring:.17,rings:[[1,1,2.4],[.72,.7,1.5],[1.25,.45,1.1]],hot:.8,halo:.16,seed:3});
+  make('v2',{size:.42,shells:[],lats:[-1.05,-.75,-.45,-.15,.15,.45,.75,1.05],rims:0,arcs:0,ring:.12,rings:[[1,.9,1.3]],hot:.45,halo:.06,seed:5});
+  make('v3',{size:.42,shells:[[.42,220]],horiz:.8,len:.3,plates:.08,arm:[{r:1,w:2.2,rot:.2,spin:.02,tumble:.25,ph:0,ticks:36},{r:.88,w:1.4,rot:1.3,spin:-.03,tumble:.33,ph:1,ticks:24},{r:.76,w:1.8,rot:2.4,spin:.04,tumble:.2,ph:2,ticks:18},{r:.64,w:1.1,rot:.7,spin:-.05,tumble:.4,ph:3,ticks:12}],rims:60,arcs:0,ring:.14,rings:[[1,1,2],[.65,.6,1.2]],hot:.7,halo:.1,seed:9});
+  make('v4',{size:.42,shells:[[1,800],[.78,420]],horiz:.95,len:.5,plates:.22,plateSize:2,glyph:true,rims:120,arcs:1,ring:.15,rings:[[1,.9,1.8],[.7,.55,1.2]],hot:.6,halo:.12,seed:13});
+})();
+</script>

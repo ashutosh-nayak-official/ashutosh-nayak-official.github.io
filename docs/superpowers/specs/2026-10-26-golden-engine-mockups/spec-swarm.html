@@ -1,0 +1,82 @@
+<style>
+  .wrap{max-width:1120px;margin:0 auto}
+  .opt{border-radius:14px;overflow:hidden;border:1px solid #2a2216;background:#060508;color:#efe6d4}
+  .stage{position:relative;height:460px;overflow:hidden}
+  .stage canvas{position:absolute;inset:0;width:100%;height:100%}
+  .ov{position:absolute;left:28px;top:24px;pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif}
+  .k{font:500 10.5px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:#c9963f;text-transform:uppercase}
+  .t{font-size:32px;font-weight:650;letter-spacing:-.03em;line-height:1.05;margin-top:8px}
+  .phase{position:absolute;left:28px;bottom:22px;font:500 11px ui-monospace,Menlo,monospace;color:#f6d18c;letter-spacing:.06em}
+  .steps{display:flex;gap:6px;position:absolute;right:24px;bottom:20px}
+  .steps span{font:500 10px ui-monospace,Menlo,monospace;color:#6f6656;border:1px solid #2a2216;padding:4px 8px;border-radius:999px}
+  .steps span.on{color:#0b0806;background:#f3b24a;border-color:#f3b24a}
+  .body{padding:16px 22px 18px;border-top:1px solid #2a2216;font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif}
+  .body p{margin:0 0 6px;color:#a89d88;font-size:13.5px;line-height:1.55}
+</style>
+
+<h2>B7 · Spec → Orchestrator → Swarm → Release</h2>
+<p class="subtitle">B3 and B6 combined. One loop, about 12 seconds; on the real site, scrolling drives it step by step.</p>
+
+<div class="wrap"><div class="opt">
+  <div class="stage"><canvas id="ss"></canvas>
+    <div class="ov"><div class="k">03 · How I build with agents</div><div class="t">One spec.<br>A swarm of agents.<br>One verified release.</div></div>
+    <div class="phase" id="ph">—</div>
+    <div class="steps" id="st"><span>SPEC</span><span>PLAN</span><span>SWARM</span><span>VERIFY</span><span>SHIP</span></div>
+  </div>
+  <div class="body">
+    <p><b style="color:#efe6d4">1 · Spec:</b> a spec writes itself line by line. <b style="color:#efe6d4">2 · Plan:</b> the orchestrator core reads it and the spec breaks into task tiles (fan-out). <b style="color:#efe6d4">3 · Swarm:</b> the orchestrator fires parallel agents; many tiles work at once, a few fail red and get retried. <b style="color:#efe6d4">4 · Verify:</b> finished tiles stream into the review gate (tests, checks). <b style="color:#efe6d4">5 · Ship:</b> the gate pulses and a release goes out.</p>
+    <p>Labels like task names would come from a real example of your work.</p>
+  </div>
+</div></div>
+
+<script>
+(function(){
+  const c=document.getElementById('ss');const d=devicePixelRatio||1;const r=c.getBoundingClientRect();c.width=r.width*d;c.height=r.height*d;const x=c.getContext('2d');x.scale(d,d);const w=r.width,h=r.height;
+  const ph=document.getElementById('ph'),st=[...document.querySelectorAll('#st span')];
+  function glow(px,py,rr,col){const g=x.createRadialGradient(px,py,0,px,py,rr);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.beginPath();x.arc(px,py,rr,0,6.28);x.fill();}
+  const mono='500 9.5px ui-monospace,Menlo,monospace';
+  const spec={x:w*.08,y:h*.42,w:84,h:120};const orc={x:w*.3,y:h*.62};const gate={x:w*.86,y:h*.55};
+  const cols=8,rows=5,gx0=w*.42,gy0=h*.3,tw=(w*.36)/cols,th=(h*.48)/rows;
+  const names=['auth','api','schema','ui','tests','infra','docs','obs','perf','sec'];
+  let tiles,sparks,flows,T;
+  function reset(){T=0;tiles=[];for(let i=0;i<cols;i++)for(let j=0;j<rows;j++)tiles.push({tx:gx0+i*tw,ty:gy0+j*th,x:spec.x+spec.w/2,y:spec.y+spec.h/2,s:0,p:0,fail:Math.random()<.12,lbl:names[(i*rows+j)%names.length],delay:Math.random()});sparks=[];flows=[];}
+  reset();
+  const PH=[[0,2.2,'SPEC','writing SPEC.md: goals, constraints, acceptance criteria'],[2.2,4,'PLAN','orchestrator plans → 40 tasks, dependencies resolved'],[4,8.4,'SWARM','parallel agents: 12 running · retries handled'],[8.4,10.6,'VERIFY','review gate: tests · lint · security · spec conformance'],[10.6,12.5,'SHIP','release shipped ✓ and observed']];
+  function frame(){T+=1/60;if(T>12.5)reset();
+    const cur=PH.find(p=>T>=p[0]&&T<p[1])||PH[4];ph.textContent=cur[3];st.forEach(s=>s.classList.toggle('on',s.textContent===cur[2]));
+    x.fillStyle='rgba(6,5,8,.35)';x.fillRect(0,0,w,h);
+    // spec doc
+    const lines=Math.min(10,Math.floor(T/0.2));x.strokeStyle='rgba(243,178,74,.7)';x.lineWidth=1;x.strokeRect(spec.x,spec.y,spec.w,spec.h);
+    for(let i=0;i<lines;i++){x.fillStyle='rgba(243,200,120,.65)';x.fillRect(spec.x+10,spec.y+12+i*10,30+((i*37)%40),2.5);}
+    x.font=mono;x.fillStyle='#c9a46a';x.fillText('SPEC.md',spec.x,spec.y+spec.h+16);
+    // orchestrator
+    x.globalCompositeOperation='lighter';const on=T>2;glow(orc.x,orc.y,(on?34:16)+Math.sin(T*4)*4,on?'rgba(255,180,60,.8)':'rgba(255,180,60,.3)');glow(orc.x,orc.y,9,'rgba(255,248,220,1)');x.globalCompositeOperation='source-over';
+    x.fillStyle='#c9a46a';x.fillText('ORCHESTRATOR',orc.x-36,orc.y+46);
+    if(T>2&&T<4){x.strokeStyle='rgba(255,200,110,.5)';x.beginPath();x.moveTo(spec.x+spec.w,spec.y+spec.h/2);x.lineTo(orc.x,orc.y);x.stroke();}
+    // tiles fan-out
+    for(const q of tiles){
+      if(T>2.4){const k=Math.min(1,(T-2.4-q.delay*.8)/1);if(k>0){q.x+=(q.tx-q.x)*.12;q.y+=(q.ty-q.y)*.12;}}
+      if(T>4&&q.s===0&&Math.random()<.02){q.s=1;sparks.push({q,p:0});}
+      if(q.s===1){q.p+=.012;if(q.fail&&q.p>.5&&!q.retried){q.s=3;q.hold=40;}if(q.p>=1)q.s=2;}
+      if(q.s===3){q.hold--;if(q.hold<=0){q.s=1;q.retried=1;q.p=.2;sparks.push({q,p:0});}}
+      if(T>8.4&&q.s===2&&!q.sent&&Math.random()<.06){q.sent=1;flows.push({sx:q.tx+tw/2,sy:q.ty+th/2,p:0});}
+      if(T<2.4)continue;
+      const W=tw-6,H=th-8;
+      x.fillStyle=q.sent?'rgba(255,200,110,.18)':q.s===2?'rgba(255,200,110,.85)':q.s===3?'rgba(255,80,60,.6)':q.s===1?'rgba(255,170,60,.18)':'rgba(140,150,150,.1)';
+      x.fillRect(q.x,q.y,W,H);
+      if(q.s===1){x.fillStyle='rgba(255,220,140,.95)';x.fillRect(q.x,q.y+H-3,W*Math.min(1,q.p),3);}
+      if(W>40){x.fillStyle=q.s===2&&!q.sent?'#1a1206':'#7d6e55';x.font='500 8.5px ui-monospace,Menlo,monospace';x.fillText(q.lbl,q.x+5,q.y+12);}
+    }
+    // sparks orchestrator->tile
+    x.globalCompositeOperation='lighter';
+    for(let i=sparks.length-1;i>=0;i--){const s=sparks[i];s.p+=.05;const X=orc.x+(s.q.tx+tw/2-orc.x)*s.p,Y=orc.y+(s.q.ty+th/2-orc.y)*s.p;glow(X,Y,6,'rgba(255,230,160,1)');if(s.p>=1)sparks.splice(i,1);}
+    for(let i=flows.length-1;i>=0;i--){const f=flows[i];f.p+=.035;const X=f.sx+(gate.x-f.sx)*f.p,Y=f.sy+(gate.y-f.sy)*f.p;glow(X,Y,5,'rgba(255,215,130,.95)');if(f.p>=1)flows.splice(i,1);}
+    const gOn=T>8.4,ship=T>10.6;glow(gate.x,gate.y,(gOn?28:12)+(ship?Math.sin(T*6)*10+14:0),ship?'rgba(255,240,190,.95)':'rgba(255,180,60,.6)');
+    if(ship){const k=(T-10.6)/1.9;glow(gate.x+k*w*.12,gate.y,10,'rgba(255,250,230,1)');}
+    x.globalCompositeOperation='source-over';
+    x.strokeStyle='rgba(243,178,74,.6)';x.beginPath();x.moveTo(gate.x-14,gate.y-34);x.lineTo(gate.x-14,gate.y+34);x.moveTo(gate.x+14,gate.y-34);x.lineTo(gate.x+14,gate.y+34);x.stroke();
+    x.fillStyle='#c9a46a';x.font=mono;x.fillText('REVIEW GATE',gate.x-30,gate.y+52);
+    requestAnimationFrame(frame);}
+  frame();
+})();
+</script>

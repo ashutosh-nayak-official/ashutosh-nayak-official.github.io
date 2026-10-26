@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Golden Engine — full mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#04050a;--bg2:#0b0e15;--ink:#f1ead9;--muted:#9c9384;--dim:#5d574d;--gold:#f3b24a;--gold2:#ffe1a0;--line:#1a1f2a;--sage:#9fc8b2;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--sans:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+  .lbl{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .lbl i{font-style:normal;color:var(--dim)}
+  h1,h2,h3,p{margin:0}
+  h2{font-size:clamp(34px,5vw,64px);line-height:1.02;letter-spacing:-.035em;font-weight:600;margin:18px 0 18px}
+  .lead{color:var(--muted);font-size:clamp(16px,1.5vw,19px);line-height:1.6;max-width:620px}
+  section{position:relative;padding:clamp(90px,14vh,160px) 0}
+  canvas{display:block}
+
+  /* nav */
+  nav{position:fixed;inset:0 0 auto 0;z-index:20;backdrop-filter:blur(14px);background:linear-gradient(#04050ae0,#04050a80);border-bottom:1px solid #ffffff08}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .mark{font-weight:700;letter-spacing:-.04em;font-size:18px}.mark b{color:var(--gold)}
+  .links{display:flex;gap:28px;font:500 12px var(--mono);color:var(--muted);letter-spacing:.06em}
+  .links a:hover{color:var(--gold2)}
+  .right{display:flex;gap:16px;align-items:center;font:500 12px var(--mono)}
+  .lang{color:var(--muted)}.lang b{color:var(--ink);font-weight:500}
+  .pill{border:1px solid #f3b24a66;color:var(--gold2);padding:9px 16px;border-radius:999px}
+  @media(max-width:860px){.links{display:none}}
+
+  /* hero */
+  .hero{height:210vh;padding:0}
+  .hero-pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;padding-top:64px;overflow:hidden}
+  .hero .copy>*{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .ready .hero .copy>*{opacity:1;transform:none}
+  .ready .hero .copy>*:nth-child(2){transition-delay:.12s}.ready .hero .copy>*:nth-child(3){transition-delay:.3s}.ready .hero .copy>*:nth-child(4),.ready .hero .copy>*:nth-child(5){transition-delay:.45s}
+  nav{transition:opacity .8s .5s}body:not(.ready) nav{opacity:0}
+  body.loading{overflow:hidden}
+  .loader{position:fixed;inset:0;z-index:50;pointer-events:none;transition:opacity .8s}
+  .loader.gone{opacity:0}
+  .loader .bar{position:absolute;left:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold2));width:0;box-shadow:0 0 12px var(--gold)}
+  .loader .pct{position:absolute;left:clamp(16px,4vw,48px);bottom:clamp(24px,6vh,56px);font:400 clamp(56px,9vw,120px)/1 var(--mono);color:var(--gold2);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+  .loader .msg{position:absolute;left:clamp(16px,4vw,48px);bottom:calc(clamp(24px,6vh,56px) + clamp(64px,10vw,132px));font:500 11px var(--mono);letter-spacing:.18em;color:var(--muted)}
+  .loader .skip{position:absolute;right:clamp(16px,4vw,48px);bottom:clamp(24px,6vh,56px);font:500 11px var(--mono);letter-spacing:.14em;color:var(--dim)}
+  .hero canvas{position:absolute;right:-6vw;top:50%;transform:translateY(-50%);width:min(64vw,920px);height:min(64vw,920px);transition:right 1.1s cubic-bezier(.2,.7,.2,1)}
+  body:not(.ready) .hero canvas{right:calc(50% - min(32vw,460px))}
+  .hero .wrap{width:100%}.hero .copy{position:relative;z-index:2;max-width:600px}
+  .hero h1{font-size:clamp(40px,5vw,72px);line-height:.98;letter-spacing:-.045em;font-weight:600;margin:22px 0 24px}
+  .hero h1 span{color:var(--gold2)}
+  .hero .who{font:500 13px var(--mono);color:var(--muted);letter-spacing:.04em;margin-bottom:34px;line-height:1.8}
+  .cta{display:inline-flex;gap:12px;align-items:center;background:var(--gold);color:#120c03;font-weight:600;padding:15px 24px;border-radius:999px;font-size:15px}
+  .cta2{margin-left:18px;color:var(--muted);font-size:15px}
+  @media(max-width:860px){.hero canvas{right:-30vw;opacity:.55;width:110vw;height:110vw}}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);margin-top:48px}
+  .stat{padding:28px 22px 6px 0;border-right:1px solid var(--line)}
+  .stat:last-child{border:0}
+  .stat b{display:block;font-size:clamp(34px,3.6vw,52px);font-weight:600;letter-spacing:-.04em;color:var(--gold2)}
+  .stat span{display:block;font-size:15px;margin-top:6px}
+  .stat i{display:block;font:400 11.5px/1.5 var(--mono);color:var(--dim);font-style:normal;margin-top:10px}
+  @media(max-width:860px){.stats{grid-template-columns:1fr 1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* sticky story chapters */
+  .story{height:300vh;padding:0}
+  .sticky{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
+  .sticky canvas{position:absolute;inset:0;width:100%;height:100%}
+  .sticky .wrap{position:relative;z-index:2;width:100%}
+
+  /* ch02 */
+  .stops{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:40vh}
+  .stop{opacity:.25;transition:opacity .5s,transform .5s;transform:translateY(10px)}
+  .stop.on{opacity:1;transform:none}
+  .stop .n{font:500 10.5px var(--mono);color:var(--gold);letter-spacing:.14em}
+  .stop b{display:block;font-size:18px;font-weight:600;margin:8px 0 6px;letter-spacing:-.01em}
+  .stop p{font-size:13.5px;color:var(--muted);line-height:1.55}
+  .hi{font:500 12px var(--mono);color:var(--sage)}
+  @media(max-width:860px){.stops{grid-template-columns:1fr 1fr;margin-top:30vh}}
+
+  /* ch03 */
+  .sticky .lead{max-width:500px}.steps{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+  .steps span{font:500 11px var(--mono);letter-spacing:.1em;color:var(--dim);border:1px solid var(--line);padding:7px 12px;border-radius:999px;transition:all .3s}
+  .steps span.on{background:var(--gold);color:#120c03;border-color:var(--gold)}
+  .phase{font:500 12.5px var(--mono);color:var(--gold2);margin-top:14px;min-height:20px}
+
+  /* ch04 terminal */
+  .term{position:absolute;left:clamp(16px,4vw,48px);bottom:7vh;font:12px/1.8 var(--mono);color:var(--sage);background:#070a10cc;border:1px solid var(--line);border-radius:10px;padding:14px 18px;z-index:2;min-width:300px}
+  .term i{font-style:normal;color:var(--gold2)}
+  .term .d{color:var(--dim)}
+
+  /* work */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:48px}
+  .card{background:var(--bg);padding:26px 22px 24px;min-height:230px;display:flex;flex-direction:column;transition:background .3s}
+  .card:hover{background:var(--bg2)}
+  .card .lbl{font-size:10px}
+  .card h3{font-size:19px;font-weight:600;letter-spacing:-.015em;margin:14px 0 10px;line-height:1.2}
+  .card p{font-size:13.5px;color:var(--muted);line-height:1.55;flex:1}
+  .tags{font:400 10.5px var(--mono);color:var(--dim);margin-top:14px;line-height:1.6}
+  .card.feat{background:linear-gradient(160deg,#1a1308,#04050a 60%)}
+  @media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+  /* path + creds */
+  .two{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;margin-top:40px}
+  .tl{border-left:1px solid #f3b24a44;padding-left:26px}
+  .tl div{position:relative;padding-bottom:28px}
+  .tl div:before{content:"";position:absolute;left:-31px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+  .tl small{font:500 11px var(--mono);color:var(--gold);letter-spacing:.08em}
+  .tl b{display:block;font-size:18px;font-weight:600;margin:6px 0 4px}
+  .tl p{font-size:14px;color:var(--muted);line-height:1.55}
+  .creds{display:grid;gap:10px}
+  .cred{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .cred b{font-weight:500;font-size:15px}.cred small{display:block;font:400 11px var(--mono);color:var(--dim);margin-top:4px}
+  .cred span{font:500 11px var(--mono);color:var(--gold)}
+  .skills{margin-top:30px;font-size:13.5px;color:var(--muted);line-height:1.9}
+  .skills b{color:var(--ink);font-weight:500}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+
+  /* contact */
+  .contact{min-height:90vh;display:flex;align-items:center;text-align:center;overflow:hidden}
+  .contact canvas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:760px;height:760px;opacity:.45}
+  .contact .wrap{position:relative;z-index:2}
+  .contact h2{font-size:clamp(44px,7vw,104px)}
+  .contact .row{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .contact .row a{border:1px solid var(--line);padding:14px 22px;border-radius:999px;font-size:15px;background:#04050acc}
+  .contact .row a:first-child{background:var(--gold);color:#120c03;border-color:var(--gold);font-weight:600}
+  footer{border-top:1px solid var(--line);padding:26px 0;font:400 12px var(--mono);color:var(--dim)}
+  footer .wrap{display:flex;justify-content:space-between}
+  .mocknote{position:fixed;left:12px;bottom:12px;z-index:30;font:500 10.5px var(--mono);color:#120c03;background:var(--gold);padding:6px 10px;border-radius:6px}
+</style>
+</head>
+<body class="loading">
+<span class="mocknote">MOCKUP · 2D canvas stand-in for Three.js · copy is draft</span>
+<nav><div class="wrap">
+  <a class="mark" href="#top">Ashutosh<b>.</b></a>
+  <div class="links"><a href="#call">02 One call</a><a href="#agents">03 Agents</a><a href="#infra">04 Infrastructure</a><a href="#work">05 Work</a><a href="#path">06 Path</a></div>
+  <div class="right"><span class="lang"><b>EN</b> · DE · NL · PL</span><a class="pill" href="#contact">Let's talk</a></div>
+</div></nav>
+
+<!-- 00 HERO -->
+<div class="loader" id="loader"><div class="bar" id="bar"></div><div class="msg" id="msg">INITIALISING</div><div class="pct" id="pct">000</div><div class="skip">CLICK TO SKIP</div></div>
+<section class="hero" id="top"><div class="hero-pin">
+  <canvas id="hero"></canvas>
+  <div class="wrap"><div class="copy" id="hcopy">
+    <div class="lbl">00 <i>·</i> Ashutosh Nayak</div>
+    <h1>I build agents that build software.<br><span>And the systems they run on.</span></h1>
+    <div class="who">Agentic AI · Agentic SDLC · Spec-driven development<br>GenAI &amp; Cloud/DevOps · India · 5+ years</div>
+    <a class="cta" href="#call">See one system, end to end <span>↓</span></a><a class="cta2" href="#work">Selected work →</a>
+  </div></div>
+</div></section>
+
+<!-- 01 STATS -->
+<section style="padding-top:40px">
+  <div class="wrap">
+    <div class="lbl">01 <i>·</i> In production</div>
+    <h2>Numbers, with their scope.</h2>
+    <div class="stats">
+      <div class="stat"><b>15,000+</b><span>vessels tracked</span><i>Track &amp; Trace, global 3PL</i></div>
+      <div class="stat"><b>−80%</b><span>provisioning time</span><i>n8n + Terraform IaC pipeline</i></div>
+      <div class="stat"><b>99%+</b><span>platform uptime</span><i>Enterprise AWS hosting</i></div>
+      <div class="stat"><b>4×</b><span>AWS certified</span><i>incl. GenAI Developer Pro, early adopter</i></div>
+      <div class="stat"><b>20+</b><span>developers mentored</span><i>across 15+ AI &amp; cloud workshops</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ONE CALL -->
+<section class="story" id="call">
+  <div class="sticky">
+    <canvas id="call-c"></canvas>
+    <div class="wrap">
+      <div class="lbl">02 <i>·</i> One call, step by step</div>
+      <h2>A caller speaks their language.<br>The bot answers in it. Live.</h2>
+      <p class="lead">A multilingual voice bot: telephony, speech, real-time translation and a self-hosted LLM, stitched into one loop, and monitored in production. Below, one call in Hindi.</p>
+      <p class="hi" style="margin-top:16px;letter-spacing:.08em">हिन्दी · ENGLISH · INTERNATIONAL LANGUAGES</p>
+      <div class="stops" id="stops">
+        <div class="stop"><span class="n">01 · RING</span><b>The call arrives</b><p>Phone network → SIP → Asterisk, bridged into a LiveKit room.</p></div>
+        <div class="stop"><span class="n">02 · HEAR</span><b>Speech to text</b><p>Streaming STT as the caller talks. <span class="hi">हिन्दी</span></p></div>
+        <div class="stop"><span class="n">03 · TRANSLATE</span><b>Real-time translation</b><p>The caller's language in, and back again for the reply. <span class="hi">hi ⇄ en</span></p></div>
+        <div class="stop"><span class="n">04 · THINK</span><b>Deployed LLM</b><p>A self-hosted model decides what to say.</p></div>
+        <div class="stop"><span class="n">05 · SPEAK</span><b>Text to speech</b><p>A voice in the caller's own language streams back.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 AGENTS -->
+<section class="story" id="agents">
+  <div class="sticky">
+    <canvas id="swarm-c"></canvas>
+    <div class="wrap">
+      <div class="lbl">03 <i>·</i> How I build with agents</div>
+      <h2>One spec.<br>A swarm of agents.<br>One verified release.</h2>
+      <p class="lead">I built an Agentic SDLC framework for my team, and every piece of my work starts as a spec. Agents plan, build and test in parallel; nothing ships without passing the gate.</p>
+      <div class="steps" id="steps"><span>SPEC</span><span>PLAN</span><span>SWARM</span><span>VERIFY</span><span>SHIP</span></div>
+      <div class="phase" id="phase"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 INFRA -->
+<section class="story" id="infra" style="height:220vh">
+  <div class="sticky">
+    <canvas id="infra-c"></canvas>
+    <div class="wrap">
+      <div class="lbl">04 <i>·</i> Infrastructure, awakened</div>
+      <h2>Intelligence needs<br>a place to run.</h2>
+      <p class="lead">Think of it as one chip: compute, inference, agents, memory and pipelines, each lighting up as the platform comes online. Infrastructure as code with Terraform and n8n. An enterprise AWS platform with self-healing and alerting. CI/CD for 10+ applications. Monitoring that shortens every incident.</p>
+    </div>
+    <div class="term" id="term"></div>
+  </div>
+</section>
+
+<!-- 05 WORK -->
+<section id="work">
+  <div class="wrap">
+    <div class="lbl">05 <i>·</i> Selected work</div>
+    <h2>Eight systems.</h2>
+    <div class="grid">
+      <div class="card feat"><span class="lbl">Voice AI</span><h3>Multilingual voice bot</h3><p>Real-time phone agent in Hindi, English and international languages: SIP, Asterisk and LiveKit, streaming STT, real-time translation, a deployed LLM and TTS, monitored end to end.</p><div class="tags">LiveKit · SIP · Asterisk · LLM · STT/TTS</div></div>
+      <div class="card feat"><span class="lbl">Agentic SDLC</span><h3>Agentic SDLC framework</h3><p>A spec-driven framework my team uses to plan, build and verify software with parallel agents.</p><div class="tags">Spec-driven · Multi-agent · Review gates</div></div>
+      <div class="card"><span class="lbl">Intelligent systems</span><h3>RAG chatbot with agentic AI</h3><p>Enterprise conversational AI on AWS Bedrock with tool calling for dynamic task execution.</p><div class="tags">Bedrock · RAG · Lambda · DynamoDB</div></div>
+      <div class="card"><span class="lbl">Agents</span><h3>Agentic scraping + MCP</h3><p>Self-healing scraping driven in plain language; MCP server for email, Excel logging and anomaly detection.</p><div class="tags">MCP · NLP · Self-healing</div></div>
+      <div class="card"><span class="lbl">Logistics</span><h3>Track &amp; Trace, 3PL</h3><p>Real-time visibility and ML-predicted ETAs for 15,000+ vessels worldwide.</p><div class="tags">ML · AIS · Geofencing</div></div>
+      <div class="card"><span class="lbl">Cloud</span><h3>Enterprise hosting platform</h3><p>Central AWS platform for multiple enterprise apps, fully in Terraform, 99%+ uptime.</p><div class="tags">AWS · Terraform · CloudWatch</div></div>
+      <div class="card"><span class="lbl">DevOps</span><h3>n8n Terraform automation</h3><p>On-demand infrastructure generation that cut provisioning time by 80%.</p><div class="tags">n8n · Terraform · CI/CD</div></div>
+      <div class="card"><span class="lbl">IoT · Winner</span><h3>Smart drainage system</h3><p>Smart Odisha Hackathon 2018 winner: flood detection and real-time drainage management.</p><div class="tags">IoT · Govt. of Odisha</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PATH + CREDS -->
+<section id="path" style="padding-top:40px">
+  <div class="wrap">
+    <div class="lbl">06 <i>·</i> Path &amp; credentials</div>
+    <h2>2017 → now.</h2>
+    <div class="two">
+      <div class="tl">
+        <div><small>JUN 2025 → PRESENT</small><b>Senior Technical Manager, DevOps &amp; Innovation Lead</b><p>Cozentus Technologies. Still leading DevOps and innovation: Agentic SDLC, voice AI and the platforms underneath.</p></div>
+        <div><small>JUN 2023 → JUN 2025</small><b>Technical Manager, DevOps &amp; Innovation Lead</b><p>Cozentus Technologies. Agentic AI, voice AI, cloud platforms. CEO Bonus four years running; 95% project success rate.</p></div>
+        <div><small>JUN 2021 → MAR 2023</small><b>Full Stack &amp; Cloud Platform Engineer</b><p>Cozentus Technologies. Track &amp; Trace, AWS hosting, CI/CD for 10+ apps.</p></div>
+        <div><small>2018</small><b>Smart Odisha Hackathon, winner</b><p>Smart drainage system for the Government of Odisha.</p></div>
+        <div><small>2017 → 2021</small><b>B.Tech, Computer Science</b><p>Silicon Institute of Technology.</p></div>
+      </div>
+      <div>
+        <div class="creds">
+          <a class="cred" href="#"><div><b>GenAI Developer, Professional</b><small>AWS · Early Adopter</small></div><span>VERIFY ↗</span></a>
+          <a class="cred" href="#"><div><b>GenAI Developer, Professional</b><small>AWS</small></div><span>VERIFY ↗</span></a>
+          <a class="cred" href="#"><div><b>Machine Learning, Specialty</b><small>AWS</small></div><span>VERIFY ↗</span></a>
+          <a class="cred" href="#"><div><b>Developer, Associate</b><small>AWS</small></div><span>VERIFY ↗</span></a>
+        </div>
+        <div class="skills"><b>GenAI</b> RAG · LangChain · LlamaIndex · MCP · Agentic AI · Vector DBs<br><b>Cloud</b> AWS (Bedrock, EKS, Lambda, VPC…) · Azure<br><b>DevOps</b> Terraform · Ansible · Docker · Jenkins · n8n · Monitoring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <canvas id="end-c"></canvas>
+  <div class="wrap" style="width:100%">
+    <div class="lbl">07 <i>·</i> Contact</div>
+    <h2>Let's build<br>the next one.</h2>
+    <div class="row"><a href="#">ashutosh.nayak.formal@gmail.com</a><a href="#">LinkedIn ↗</a><a href="#">GitHub ↗</a></div>
+  </div>
+</section>
+<footer><div class="wrap"><span>© 2026 Ashutosh Nayak</span><span>Spec first. Agents second. Ship third.</span></div></footer>
+
+<script>
+(function(){
+  const DPR=Math.min(devicePixelRatio||1,2);
+  function fit(c){const r=c.getBoundingClientRect();c.width=r.width*DPR;c.height=r.height*DPR;const x=c.getContext('2d');x.setTransform(DPR,0,0,DPR,0,0);return{x,w:r.width,h:r.height};}
+  function glow(x,px,py,r,col){const g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.beginPath();x.arc(px,py,r,0,6.28);x.fill();}
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  function progress(el){const r=el.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight));}
+
+  // ---------- Golden Engine: armillary rings + tesseract ----------
+  const ARM=[{r:1,w:2.2,rot:.2,spin:.02,tumble:.25,ph:0,ticks:36,dash:[70,12,6,22]},{r:.88,w:1.4,rot:1.3,spin:-.03,tumble:.33,ph:1,ticks:24,dash:[48,10,6,16]},{r:.76,w:1.8,rot:2.4,spin:.04,tumble:.2,ph:2,ticks:18,dash:[60,14,6,26]},{r:.64,w:1.1,rot:.7,spin:-.05,tumble:.4,ph:3,ticks:12,dash:[40,9,6,14]}];
+  const TV=[];for(let i=0;i<16;i++)TV.push([i&1?1:-1,i&2?1:-1,i&4?1:-1,i&8?1:-1]);const TE=[];for(let i=0;i<16;i++)for(let b=0;b<4;b++){const j=i^(1<<b);if(i<j)TE.push([i,j]);}
+  function rot3(p,a,b){let [X,Y,Z]=p;let c=Math.cos(a),s=Math.sin(a);[X,Z]=[X*c+Z*s,-X*s+Z*c];c=Math.cos(b);s=Math.sin(b);[Y,Z]=[Y*c-Z*s,Y*s+Z*c];return[X,Y,Z];}
+  const SH=[...Array(160)].map(()=>{const a=Math.random()*6.28,e=(Math.random()-.5)*1.2;return{dx:Math.cos(a)*Math.cos(e),dy:Math.sin(e)*.8+Math.sin(a)*.25,v:.6+Math.random()*1.8,len:4+Math.random()*16,r0:.2+Math.random()*.9};});
+  const EDIR=TE.map(()=>({ang:Math.random()*6.28,v:.8+Math.random()*1.6,spin:(Math.random()-.5)*4}));
+  const ease=u=>1-Math.pow(1-u,3);
+  function engine(x,cx,cy,R,t,o={}){const unwind=o.unwind||0,dim=o.dim??1,build=o.build??1,burst=o.burst||0;
+    x.save();x.globalAlpha=dim;
+    glow(x,cx,cy,R*1.25*Math.max(build,.2),`rgba(255,160,40,${.08*build})`);
+    // rings: sweep in during build; fly outward and fade during burst
+    ARM.forEach((A,i)=>{const bi=ease(clamp(build*1.7-.45-i*.12));if(bi<=0)return;const fi=clamp(burst*(1.2+i*.15));
+      x.save();x.globalAlpha=dim*(1-fi);x.translate(cx,cy);x.rotate(A.rot+t*A.spin+(1-bi)*1.6*(i%2?1:-1)+fi*(i%2?1.2:-1.2));
+      let sq=Math.max(.08,Math.abs(Math.cos(t*A.tumble+A.ph)));sq=sq*(1-unwind)+.04*unwind;const rr=R*A.r*(1+unwind*(.5+i*.12))*(.7+.3*bi)*(1+fi*(1.4+i*.5));
+      x.setLineDash(fi>0?A.dash.map((d,k)=>k%2?d*(1+fi*6):d):A.dash);x.lineDashOffset=-t*300*A.spin;
+      x.beginPath();x.ellipse(0,0,rr,rr*sq,0,0,6.28*bi);x.strokeStyle='rgba(255,200,110,.16)';x.lineWidth=A.w*5;x.stroke();x.strokeStyle='rgba(255,225,160,.85)';x.lineWidth=A.w;x.stroke();x.setLineDash([]);
+      for(let k=0;k<A.ticks*bi;k++){const a=k/A.ticks*6.28;x.fillStyle='rgba(255,230,170,.7)';x.fillRect(Math.cos(a)*rr-1.5,Math.sin(a)*rr*sq-1.5,3,3);}x.restore();});
+    // tesseract: edges draw in one by one; on burst every edge detaches and flies off spinning
+    const a=t*.5,c=Math.cos(a),s=Math.sin(a),S=R*.2*(1-unwind*.5);
+    const P=TV.map(([X,Y,Z,W])=>{[X,W]=[X*c-W*s,X*s+W*c];const k=1/(2.2-W*.5);const p=rot3([X*k*1.5,Y*k*1.5,Z*k*1.5],t*.2,.5);const q=1/(2.6-p[2]*.6);return[cx+p[0]*S*q*2.6,cy+p[1]*S*q*2.6,p[2]];});
+    const tb=clamp(build*1.8);glow(x,cx,cy,R*.45*(.3+.7*tb),`rgba(255,170,50,${.16*tb*(1-burst)})`);
+    if(build<.35)glow(x,cx,cy,6+build*40,`rgba(255,245,215,${clamp(build*6)})`);
+    TE.forEach(([i,j],k)=>{const eb=clamp(tb*1.6-k/TE.length);if(eb<=0)return;const d=EDIR[k];const fb=ease(clamp(burst*1.3));
+      let A=P[i],B=[A[0]+(P[j][0]-A[0])*eb,A[1]+(P[j][1]-A[1])*eb];A=[A[0],A[1]];
+      if(fb>0){const mxx=(A[0]+B[0])/2,myy=(A[1]+B[1])/2,off=fb*R*1.6*d.v,ox=Math.cos(d.ang)*off,oy=Math.sin(d.ang)*off,rot=fb*d.spin,cs=Math.cos(rot),sn=Math.sin(rot);
+        const tr=p=>{const px=p[0]-mxx,py=p[1]-myy;return[mxx+ox+px*cs-py*sn,myy+oy+px*sn+py*cs];};A=tr(A);B=tr(B);}
+      const z=((P[i][2]+P[j][2])/2+1.6)/3.2,al=1-clamp(burst*1.1);
+      x.strokeStyle=`rgba(255,${190+z*50|0},110,${(.1+z*.22)*al})`;x.lineWidth=5;x.beginPath();x.moveTo(A[0],A[1]);x.lineTo(B[0],B[1]);x.stroke();x.strokeStyle=`rgba(255,235,180,${(.35+z*.6)*al})`;x.lineWidth=1.3;x.stroke();});
+    if(tb>=1&&burst<.6)for(const p of P){const z=(p[2]+1.6)/3.2;glow(x,p[0],p[1],3+z*6,`rgba(255,245,215,${(.4+z*.6)*(1-burst*1.6)})`);}
+    // burst shards streaking outward
+    if(burst>0){const u=ease(burst);for(const sh of SH){const rr=R*(sh.r0+u*sh.v*2.2),X=cx+sh.dx*rr,Y=cy+sh.dy*rr,al=(1-burst)*.9;if(al<=0)break;
+      x.strokeStyle=`rgba(255,220,150,${al})`;x.lineWidth=1.2;x.beginPath();x.moveTo(X,Y);x.lineTo(X-sh.dx*sh.len*(1+u*3),Y-sh.dy*sh.len*(1+u*3));x.stroke();}}
+    x.restore();}
+
+  const scenes=[];let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
+  function scene(id,draw){const c=document.getElementById(id);let s=fit(c);addEventListener('resize',()=>s=fit(c));scenes.push({c,draw,get s(){return s}});}
+
+  // hero
+  const heroSec=document.getElementById('top'),hcopy=document.getElementById('hcopy');
+  let build=0,buildStart=null,ready=false;const BUILD_MS=2800;
+  const loader=document.getElementById('loader'),pct=document.getElementById('pct'),bar=document.getElementById('bar'),msg=document.getElementById('msg');
+  const MSGS=[[0,'INITIALISING'],[.2,'LOADING THE ORCHESTRATOR'],[.45,'FOLDING THE FOURTH DIMENSION'],[.7,'ALIGNING THE RINGS'],[.92,'READY']];
+  function finish(){if(ready)return;ready=true;build=1;document.body.classList.remove('loading');document.body.classList.add('ready');loader.classList.add('gone');}
+  addEventListener('pointerdown',()=>{if(!ready)finish();});addEventListener('keydown',()=>{if(!ready)finish();});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)finish();
+  scene('hero',(x,w,h,t)=>{if(buildStart===null)buildStart=performance.now();
+    if(!ready){build=clamp((performance.now()-buildStart)/BUILD_MS);const n=Math.round(build*100);pct.textContent=String(n).padStart(3,'0');bar.style.width=n+'%';msg.textContent=MSGS.filter(m=>build>=m[0]).pop()[1];if(build>=1)setTimeout(finish,250);}
+    const burst=clamp(-heroSec.getBoundingClientRect().top/(heroSec.offsetHeight-innerHeight));
+    hcopy.style.transform=`translateY(${-burst*90}px)`;hcopy.style.opacity=1-burst*1.6;
+    x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';x.lineCap='round';
+    const cxp=w/2+mx*14*(1-burst),cyp=h/2+my*10*(1-burst);
+    engine(x,cxp,cyp,Math.min(w,h)*.38*(1+burst*.15),t*(1+burst*2),{build,burst});x.globalCompositeOperation='source-over';});
+
+  // 02 one call
+  const stops=[...document.querySelectorAll('#stops .stop')];const callSec=document.getElementById('call');
+  scene('call-c',(x,w,h,t)=>{const p=progress(callSec);x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';x.lineCap='round';
+    const un=clamp(p*2.5);if(un<1)engine(x,w*.74,h*.36,Math.min(w,h)*.24,t,{unwind:un,dim:(1-un)**1.5});
+    // sound wave forming along a line
+    const y0=h*.58,L=w*.06,R=w*.94,amp=clamp((p-.15)*3);
+    if(amp>0){x.beginPath();for(let k=0;k<=240;k++){const u=k/240;const X=L+(R-L)*u;const env=Math.sin(u*Math.PI)**1.5;const Y=y0+Math.sin(u*90+t*6)*Math.sin(u*13-t*2)*24*env*amp;k?x.lineTo(X,Y):x.moveTo(X,Y);}
+      x.strokeStyle='rgba(255,200,110,.18)';x.lineWidth=6;x.stroke();x.strokeStyle='rgba(255,225,160,.9)';x.lineWidth=1.4;x.stroke();
+      const lit=clamp((p-.25)/.6)*5;for(let i=0;i<5;i++){const X=L+(R-L)*(.1+i*.2);const on=lit>i;glow(x,X,y0,on?22:8,on?'rgba(255,230,160,1)':'rgba(255,180,70,.35)');}
+      const pk=L+(R-L)*((t*.25)%1);glow(x,pk,y0,10,'rgba(255,250,230,.9)');}
+    stops.forEach((s,i)=>s.classList.toggle('on',clamp((p-.25)/.6)*5>i));
+    x.globalCompositeOperation='source-over';});
+
+  // 03 swarm (B7 with the engine as orchestrator), driven by scroll
+  const agSec=document.getElementById('agents'),stepEls=[...document.querySelectorAll('#steps span')],phaseEl=document.getElementById('phase');
+  const PH=[['SPEC','writing SPEC.md: goals, constraints, acceptance criteria'],['PLAN','the orchestrator breaks the spec into tasks'],['SWARM','agents work in parallel; failures are retried'],['VERIFY','review gate: tests · checks · spec conformance'],['SHIP','verified release, observed in production']];
+  const names=['api','schema','ui','tests','infra','docs','auth','obs','perf','security'];
+  let tiles=null;
+  scene('swarm-c',(x,w,h,t)=>{const p=progress(agSec);const ph=Math.min(4,Math.floor(p*5.2));stepEls.forEach((e,i)=>e.classList.toggle('on',i===ph));phaseEl.textContent=PH[ph][1];
+    x.clearRect(0,0,w,h);const narrow=w<860;
+    const ox=narrow?w*.5:w*.62,oy=narrow?h*.74:h*.52,R=Math.min(w,h)*(narrow?.1:.12);
+    const spec={x:narrow?w*.08:w*.555,y:narrow?h*.62:h*.16};
+    const cols=narrow?6:5,rows=narrow?3:9,gx0=narrow?w*.06:w*.705,gy0=narrow?h*.84:h*.52-9*17,tw=narrow?(w*.88)/cols:(w*.22)/cols,th=narrow?22:34;
+    const gate={x:narrow?w*.92:w*.95,y:narrow?h*.74:h*.5};
+    if(!tiles||tiles.cols!==cols){tiles=[];tiles.cols=cols;for(let i=0;i<cols;i++)for(let j=0;j<rows;j++)tiles.push({i,j,lbl:names[(i*rows+j)%names.length],seed:Math.random(),fail:Math.random()<.14});}
+    // spec doc
+    const lines=Math.round(clamp(p*5.2)*10);x.strokeStyle='rgba(243,178,74,.7)';x.lineWidth=1;x.strokeRect(spec.x,spec.y,64,86);for(let i=0;i<lines;i++){x.fillStyle='rgba(243,200,120,.6)';x.fillRect(spec.x+9,spec.y+10+i*7,22+((i*37)%28),2);}
+    x.font='500 9.5px JetBrains Mono,monospace';x.fillStyle='#c9a46a';x.fillText('SPEC.md',spec.x,spec.y+102);
+    x.globalCompositeOperation='lighter';x.lineCap='round';
+    if(ph>=1){x.strokeStyle='rgba(255,200,110,.35)';x.beginPath();x.moveTo(spec.x+64,spec.y+43);x.lineTo(ox,oy);x.stroke();}
+    engine(x,ox,oy,R,t*(ph===2?2.2:1));
+    const plan=clamp((p*5.2-1)),swarm=clamp((p*5.2-2)),ver=clamp(p*5.2-3);
+    for(const q of tiles){const tx=gx0+q.i*tw,ty=gy0+q.j*th;if(plan<=0)continue;const k=clamp(plan*1.6-q.seed*.6);const X=ox+(tx-ox)*k,Y=oy+(ty-oy)*k;
+      const start=q.seed*.6,prog=clamp((swarm-start)/.4);const failing=q.fail&&prog>.4&&prog<.7;const done=prog>=1;const sent=done&&ver>q.seed;
+      x.globalCompositeOperation='source-over';x.fillStyle=sent?'rgba(255,200,110,.10)':done?'rgba(255,200,110,.55)':failing?'rgba(255,80,60,.6)':prog>0?'rgba(255,170,60,.2)':'rgba(140,150,160,.1)';x.fillRect(X,Y,tw-5,th-6);
+      if(prog>0&&!done){x.fillStyle='rgba(255,220,140,.95)';x.fillRect(X,Y+th-9,(tw-5)*prog,3);}
+      if(tw>40){x.fillStyle=done&&!sent?'#1a1206':'#7d6e55';x.font='500 8.5px JetBrains Mono,monospace';x.fillText(q.lbl,X+5,Y+12);}
+      x.globalCompositeOperation='lighter';
+      if(prog>0&&prog<1&&Math.sin(t*4+q.seed*20)>.6){const u=(t*1.5+q.seed)%1;glow(x,ox+(tx+tw/2-ox)*u,oy+(ty+th/2-oy)*u,5,'rgba(255,235,170,1)');}
+      if(done&&!sent&&ver>0){const u=clamp((ver-q.seed*.8)*3);if(u>0)glow(x,tx+(gate.x-tx)*u,ty+(gate.y-ty)*u,5,'rgba(255,215,130,.9)');}}
+    const ship=clamp(p*5.2-4);glow(x,gate.x,gate.y,ver>0?24+ship*20:10,ship>0?'rgba(255,240,190,.95)':'rgba(255,180,60,.5)');
+    x.globalCompositeOperation='source-over';x.strokeStyle='rgba(243,178,74,.6)';x.beginPath();x.moveTo(gate.x-12,gate.y-30);x.lineTo(gate.x-12,gate.y+30);x.moveTo(gate.x+12,gate.y-30);x.lineTo(gate.x+12,gate.y+30);x.stroke();
+    x.fillStyle='#c9a46a';x.font='500 9.5px JetBrains Mono,monospace';x.fillText('GATE',gate.x-12,gate.y+46);});
+
+  // chip: a unified-memory SoC lighting up block by block as you scroll
+  function rr(x,X,Y,W,H,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath();}
+  const BLOCKS=[];
+  function grid(name,label,x0,y0,x1,y1,cols,rows,gap,start,end,detail){for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){const cw=(x1-x0-gap*(cols-1))/cols,ch=(y1-y0-gap*(rows-1))/rows;const k=(i+j*cols)/(cols*rows);BLOCKS.push({name,x:x0+i*(cw+gap),y:y0+j*(ch+gap),w:cw,h:ch,s:start+(end-start)*k*.7,detail});}}
+  // die-local coordinates 0..1
+  grid('cpu','COMPUTE',.05,.06,.42,.40,2,3,.018,.14,.36,'core');
+  grid('eff','SCHEDULERS',.05,.43,.42,.51,4,1,.014,.26,.40,'small');
+  grid('gpu','INFERENCE',.46,.06,.95,.55,4,4,.014,.36,.62,'gpu');
+  grid('npu','AGENTS',.05,.55,.42,.75,8,2,.01,.52,.72,'npu');
+  grid('slc','CACHE',.46,.59,.95,.75,1,1,0,.44,.56,'cache');
+  grid('io','CI/CD',.05,.80,.34,.94,1,1,0,.78,.86,'io');
+  grid('obs','OBSERVABILITY',.37,.80,.66,.94,1,1,0,.82,.90,'io');
+  grid('net','NETWORK',.69,.80,.95,.94,1,1,0,.86,.94,'io');
+  const LABELS=[['COMPUTE',.05,.06],['INFERENCE',.46,.06],['AGENTS',.05,.55],['CACHE',.46,.59],['CI/CD',.05,.80],['OBSERVABILITY',.37,.80],['NETWORK',.69,.80],['SCHEDULERS',.05,.43]];
+  const infSec=document.getElementById('infra'),term=document.getElementById('term');
+  const TL=['<span class="d">$</span> power on        <i>✓</i>','<span class="d">$</span> terraform apply  <i>✓ compute online</i>','<span class="d">$</span> serve llm        <i>✓ inference ready</i>','<span class="d">$</span> agents start     <i>✓ orchestrated</i>','<span class="d">$</span> pipeline deploy  <i>✓ blue/green</i>','<span class="d">$</span> cloudwatch       <i>✓ all healthy</i>'];
+  scene('infra-c',(x,w,h,t)=>{const p=progress(infSec);x.clearRect(0,0,w,h);const narrow=w<860;
+    const S=narrow?Math.min(w*.8,h*.42):Math.min(w*.34,h*.64);const PW=S*1.18,PH=S;const px=narrow?(w-PW)/2:w*.73-PW/2,py=narrow?h*.46:(h-PH)/2;
+    const L=v=>clamp(v);const on=a=>L((p-a)/.08);
+    // pins / power traces out of the package
+    const pw=on(.04);for(let k=0;k<26;k++){const side=k%4;if(side===2&&!narrow)continue;const u=(Math.floor(k/4)+.5)/7;let X0,Y0,X1,Y1;
+      if(side===0){X0=px+u*PW;Y0=py;X1=X0;Y1=py-S*.16;}else if(side===1){X0=px+u*PW;Y0=py+PH;X1=X0;Y1=py+PH+S*.16;}else if(side===2){X0=px;Y0=py+u*PH;X1=px-S*.16;Y1=Y0;}else{X0=px+PW;Y0=py+u*PH;X1=px+PW+S*.16;Y1=Y0;}
+      x.strokeStyle=`rgba(${pw>0?'255,190,90':'130,145,165'},${.15+pw*.35})`;x.lineWidth=1;x.beginPath();x.moveTo(X0,Y0);x.lineTo(X1,Y1);x.stroke();
+      if(pw>0){x.globalCompositeOperation='lighter';const f=((t*.6+k*.13)%1);glow(x,X1+(X0-X1)*f,Y1+(Y0-Y1)*f,4,`rgba(255,230,160,${pw})`);x.globalCompositeOperation='source-over';}}
+    // package
+    rr(x,px,py,PW,PH,S*.06);x.fillStyle='#0a0d13';x.fill();x.strokeStyle=`rgba(255,200,110,${.18+pw*.4})`;x.lineWidth=1.2;x.stroke();
+    // die
+    const dx=px+S*.05,dy=py+S*.05,D=S*.9;rr(x,dx,dy,D,D,S*.02);x.fillStyle='#0d1119';x.fill();x.strokeStyle='rgba(150,165,185,.25)';x.lineWidth=1;x.stroke();
+    // unified memory packages beside the die
+    const mo=on(.64),mx0=dx+D+S*.035,mw=PW-(mx0-px)-S*.05,mh=D*.47;
+    for(let k=0;k<2;k++){const my0=dy+k*(mh+D*.06);rr(x,mx0,my0,mw,mh,S*.015);x.fillStyle=mo>0?`rgba(255,190,90,${.08+mo*.22})`:'#10141c';x.fill();x.strokeStyle=`rgba(${mo>0?'255,210,130':'150,165,185'},${.25+mo*.5})`;x.stroke();
+      for(let r=0;r<6;r++){x.fillStyle=`rgba(${mo>0?'255,220,150':'150,165,185'},${.12+mo*.35})`;x.fillRect(mx0+mw*.18,my0+mh*(.12+r*.13),mw*.64,mh*.05);}
+      if(mo>0){x.globalCompositeOperation='lighter';for(let b=0;b<5;b++){const yy=my0+mh*(.15+b*.17),f=((t*1.4+b*.21+k*.5)%1);x.strokeStyle=`rgba(255,200,110,${.25*mo})`;x.beginPath();x.moveTo(dx+D,yy);x.lineTo(mx0,yy);x.stroke();glow(x,dx+D+(mx0-dx-D)*f,yy,4,`rgba(255,235,180,${mo})`);}x.globalCompositeOperation='source-over';}}
+    x.fillStyle=`rgba(${mo>0?'255,215,140':'120,130,145'},.85)`;x.font=`500 ${Math.max(7.5,S*.02)}px JetBrains Mono,monospace`;x.textAlign='right';x.fillText('UNIFIED MEMORY · DATA',px+PW-S*.05,py+PH-S*.016);x.textAlign='left';
+    // blocks
+    for(const b of BLOCKS){const X=dx+b.x*D,Y=dy+b.y*D,W=b.w*D,H=b.h*D;const l=on(b.s);const pulse=l>=1?.85+.15*Math.sin(t*2.2+b.x*9+b.y*7):1;
+      rr(x,X,Y,W,H,Math.min(W,H)*.12);
+      if(l>0){const g=x.createLinearGradient(X,Y,X+W,Y+H);g.addColorStop(0,`rgba(255,214,140,${.22+.55*l*pulse})`);g.addColorStop(1,`rgba(220,140,40,${.12+.4*l*pulse})`);x.fillStyle=g;x.fill();x.strokeStyle=`rgba(255,235,185,${.3+.6*l})`;x.lineWidth=1;x.stroke();}
+      else{x.fillStyle='#121722';x.fill();x.strokeStyle='rgba(150,165,185,.22)';x.lineWidth=1;x.stroke();}
+      const c=l>0?`rgba(40,22,4,${.25+.35*l})`:'rgba(150,165,185,.12)';x.fillStyle=c;
+      if(b.detail==='core'){for(let r=0;r<4;r++)x.fillRect(X+W*.12,Y+H*(.18+r*.18),W*(.3+((r*3)%4)*.12),H*.07);x.fillRect(X+W*.62,Y+H*.18,W*.24,H*.62);}
+      else if(b.detail==='gpu'){for(let r=0;r<3;r++)for(let q=0;q<3;q++)x.fillRect(X+W*(.14+q*.26),Y+H*(.14+r*.26),W*.18,H*.18);}
+      else if(b.detail==='cache'){for(let q=0;q<24;q++)x.fillRect(X+W*(.03+q*.04),Y+H*.22,W*.025,H*.56);}
+      else if(b.detail==='io'){for(let q=0;q<10;q++)x.fillRect(X+W*(.06+q*.09),Y+H*.55,W*.05,H*.25);}
+      if(l>0&&l<1){x.globalCompositeOperation='lighter';glow(x,X+W/2,Y+H/2,Math.max(W,H)*.9,`rgba(255,220,150,${(1-l)*.8})`);x.globalCompositeOperation='source-over';}}
+    // region labels
+    x.font=`500 ${Math.max(7.5,S*.02)}px JetBrains Mono,monospace`;x.textAlign='left';
+    for(const [n,lx,ly] of LABELS){const b=BLOCKS.find(q=>Math.abs(q.x-lx)<1e-6&&Math.abs(q.y-ly)<1e-6);const l=b?on(b.s):0;const tw2=x.measureText(n).width;const X=dx+lx*D+4,Y=dy+ly*D+4,fh=Math.max(7.5,S*.02);
+      x.fillStyle='rgba(10,13,19,.88)';x.fillRect(X-3,Y-2,tw2+6,fh+5);x.fillStyle=l>0?'rgba(255,225,165,.95)':'rgba(150,165,185,.55)';x.fillText(n,X,Y+fh);}
+    // chip mark + full-power sheen
+    x.fillStyle=`rgba(255,215,140,${.25+on(.9)*.6})`;x.font=`600 ${S*.03}px Inter Tight,sans-serif`;x.fillText('AN·1',px+S*.05,py+PH-S*.012);
+    const full=on(.9);if(full>0){x.save();rr(x,dx,dy,D,D,S*.02);x.clip();x.globalCompositeOperation='lighter';const sx=dx-D+((t*.25)%1)*D*3;const g=x.createLinearGradient(sx,dy,sx+D*.5,dy+D);g.addColorStop(0,'rgba(255,240,200,0)');g.addColorStop(.5,`rgba(255,240,200,${.18*full})`);g.addColorStop(1,'rgba(255,240,200,0)');x.fillStyle=g;x.fillRect(dx,dy,D,D);x.restore();
+      x.globalCompositeOperation='lighter';glow(x,px+PW/2,py+PH/2,S*.9,`rgba(255,170,50,${.12*full})`);x.globalCompositeOperation='source-over';}
+    const n=Math.floor(clamp(p*1.15)*TL.length);term.innerHTML=TL.slice(0,Math.max(1,n)).join('<br>');});
+
+  // contact: engine settles dim
+  scene('end-c',(x,w,h,t)=>{x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';engine(x,w/2,h/2,Math.min(w,h)*.38,t*.4,{dim:.7});x.globalCompositeOperation='source-over';});
+
+  let t=0;(function loop(){t+=.016;for(const s of scenes){const r=s.c.getBoundingClientRect();if(r.bottom<-50||r.top>innerHeight+50)continue;const {x,w,h}=s.s;s.draw(x,w,h,t);}requestAnimationFrame(loop);})();
+})();
+</script>
+</body>
+</html>

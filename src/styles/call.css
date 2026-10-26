@@ -1,0 +1,78 @@
+/* 02 · One call, step by step: pinned walkthrough. Static layout of the stop cards and
+   monitor lives in chapters.css; this file adds the pinned motion and the lit states.
+   Everything here is progressive: without html[data-capability] full|lite (no JS yet,
+   reduced motion, no WebGL) the chapter is a plain readable section. */
+
+.call {
+  --pin-screens: 3; /* 300vh: 2 screens of pinned scroll */
+}
+
+/* the band the sound wave is drawn in (measured by CallScene) */
+.call-wave {
+  height: 8px;
+}
+
+html[data-capability='full'] .call .pin,
+html[data-capability='lite'] .call .pin {
+  height: 100svh;
+  align-items: safe center;
+}
+html[data-capability='full'] .call .pin > .wrap,
+html[data-capability='lite'] .call .pin > .wrap {
+  /* glide the copy up by its overflow (if any) while the stops light (p 0.2 to 0.9) */
+  transform: translate3d(0, calc(clamp(0, (var(--p) - 0.2) / 0.7, 1) * var(--call-shift, 0px) * -1), 0);
+}
+html[data-capability='full'] .call-wave,
+html[data-capability='lite'] .call-wave {
+  height: clamp(96px, 24vh, 260px);
+}
+html[data-capability='full'] .call .stops,
+html[data-capability='lite'] .call .stops {
+  margin-top: 0;
+}
+
+/* Stop cards: all text stays at full contrast; lit cards gain the Spectrum rule,
+   a gold number and settle into place. */
+.call .stop {
+  position: relative;
+}
+.call .stop::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--spectrum);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease);
+}
+html[data-capability='full'] .call .stop,
+html[data-capability='lite'] .call .stop {
+  transform: translateY(8px);
+  transition: transform 0.5s var(--ease);
+}
+.call .stop[data-lit] {
+  transform: none;
+}
+.call .stop[data-lit]::before {
+  transform: scaleX(1);
+}
+.call .stop[aria-current='step'] h3 {
+  color: var(--label-hi-text);
+}
+
+@media (max-width: 860px) {
+  html[data-capability='full'] .call-wave,
+  html[data-capability='lite'] .call-wave {
+    height: clamp(80px, 16vh, 160px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .call .stop,
+  .call .stop::before {
+    transition: none;
+  }
+}

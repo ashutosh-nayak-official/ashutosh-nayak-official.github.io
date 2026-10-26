@@ -9,7 +9,7 @@
 - **Headline:** GenAI Developer & Cloud/DevOps Engineer
 - **Tagline (hero):** "EXPLORING WHAT'S NEXT"
 - **Role line:** GenAI Developer & Cloud/DevOps Engineer — building intelligent systems with LLMs, Agentic AI, and RAG pipelines while architecting scalable cloud infrastructure with Terraform, CI/CD, and AWS.
-- **Location:** Bhubaneswar, India (from employer entries)
+- **Location:** India
 - **Photo:** `assets/photos/Ghibli.png` (Ghibli-style portrait illustration)
 
 ## Headline stats
@@ -28,7 +28,10 @@ I design and develop intelligent systems that bridge the gap between large langu
 
 ## Career timeline
 
-### Technical Manager — Lead Innovation · Cozentus Technologies, Bhubaneswar · Jun 2023 → Present
+### Senior Technical Manager — DevOps & Innovation Lead · Cozentus Technologies · Jun 2025 → Present
+- Promoted from Technical Manager — DevOps & Innovation Lead; still the DevOps and innovation lead (confirmed by Ashutosh, 2026-10-27).
+
+### Technical Manager — DevOps & Innovation Lead · Cozentus Technologies · Jun 2023 → Jun 2025
 - Designed and developed a RAG chatbot with Agentic AI & AWS Bedrock, integrating tool calling for dynamic task execution across enterprise workflows.
 - Built a self-healing Agentic Scraping solution with MCP server integration — natural language interaction, email/Excel logging, and anomaly detection.
 - Designed AWS cloud infrastructure for enterprise apps (EC2, VPC, S3, Lambda, API Gateway, CloudWatch, DynamoDB) with 99%+ uptime.
@@ -37,7 +40,7 @@ I design and develop intelligent systems that bridge the gap between large langu
 - Led 15+ cloud & GenAI workshops for 20+ developers.
 - Awarded CEO Bonus for 4 consecutive years; 95% project success rate.
 
-### Full Stack & Cloud Platform Engineer · Cozentus Technologies, Bhubaneswar · Jun 2021 → Mar 2023
+### Full Stack & Cloud Platform Engineer · Cozentus Technologies · Jun 2021 → Mar 2023
 - Delivered an AI-powered vessel tracking system for 3PL — real-time visibility and predictive ETAs for 15,000+ vessels globally with 99% uptime.
 - Designed and managed AWS cloud hosting infrastructure (EC2, S3, RDS, Lambda, CloudWatch) for mission-critical supply chain apps.
 - Built and maintained CI/CD pipelines for 10+ applications; configured VPC, security groups, load balancers, DNS.
@@ -45,7 +48,7 @@ I design and develop intelligent systems that bridge the gap between large langu
 - Integrated GenAI-powered analytics (Qlik, ThoughtSpot, RAG dashboards) into 5+ apps for 300+ global users.
 
 ### Earlier chapters (CONFIRMED by Ashutosh, 2026-06-12)
-- **Education:** B.Tech in Computer Science & Engineering, Silicon Institute of Technology, Bhubaneswar, 2017–2021.
+- **Education:** B.Tech in Computer Science & Engineering, Silicon Institute of Technology, 2017–2021.
 - **Smart Odisha Hackathon:** won the **2018 edition** (Nov 2018, Govt. of Odisha / BPUT) with the Smart Drainage System — during college → anchors Chapter 2.
 - Years-of-experience figure: use the site's "5+ years".
 - Extras from LinkedIn (HackerRank SQL cert, recommendation quote): **excluded** per Ashutosh.
@@ -81,7 +84,7 @@ I design and develop intelligent systems that bridge the gap between large langu
 
 - Email: ashutosh.nayak.formal@gmail.com
 - LinkedIn: https://www.linkedin.com/in/ashutosh-nayak-81an
-- Phone: +91 977 810 8181
+- Agentic SDLC framework (public repo): https://github.com/ashutosh-nayak-official/agentic-sdlc-framework
 
 ## SEO meta (current)
 

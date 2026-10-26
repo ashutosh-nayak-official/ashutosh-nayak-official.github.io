@@ -1,0 +1,159 @@
+/* 03 agents: scene placement, the scroll-driven pill indicator and gate markers.
+   Static styling of .steps/.phases lives in chapters.css; this file adds the live states.
+   html[data-capability] full|lite pins the chapter; [data-live] is set by the chapter
+   while it can follow scroll progress (never without JS or in the static fallback). */
+
+.agents {
+  --pin-screens: 4;
+}
+
+/* The flow scene sits to the right of the copy. */
+.agents .scene-slot {
+  left: 52%;
+}
+.agents .lead,
+.agents .steps,
+.agents .phases,
+.agents .limits {
+  max-width: min(520px, 46vw);
+}
+.agents h2 {
+  max-width: min(20ch, 38vw);
+}
+
+/* Gate markers between the pills: one line each, never broken inside. */
+.agents .steps .gate {
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.3s, border-color 0.3s;
+}
+/* "✓ approved" flashes over the gate's own label (never over neighbouring text). */
+.agents .steps .gate-ok {
+  position: absolute;
+  inset: 0 0 0 2px;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font: 500 10px var(--mono);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+.agents[data-live] .steps .gate {
+  border-left-style: dashed;
+}
+.agents[data-live] .steps .gate.open {
+  color: var(--label-hi-text);
+  border-left-style: solid;
+}
+.agents[data-live] .steps .gate.open .gate-ok {
+  animation: agents-approved 1.2s var(--ease) both;
+}
+.agents[data-live] .steps .gate.open.settled .gate-ok {
+  animation: none;
+}
+@keyframes agents-approved {
+  0% {
+    opacity: 0;
+  }
+  18%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.agents[data-live] .steps .step.done {
+  border-color: var(--label);
+}
+
+/* While pinned, only the active phase row is shown under the pills (the pinned screen
+   has no room for all five in every locale); the others stay available to assistive
+   tech. Without JS / in the static fallback every row is visible. */
+.agents[data-live] .phases {
+  min-height: 4.8em;
+  align-content: start;
+}
+.agents[data-live] .phases li[data-phase]:not(.on) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.agents[data-live] .phases li.on b {
+  color: var(--label-hi-text);
+}
+
+@media (max-width: 860px) {
+  /* Phones/tablets: the scene fills the pinned screen behind the copy at reduced
+     intensity (the scene dims itself in a tall slot), and the copy is compressed so it
+     fits short viewports (iPhone Safari svh ~ 640-750 px) without clipping. */
+  .agents .scene-slot {
+    left: 0;
+  }
+  .agents.chapter--pinned .pin {
+    align-items: flex-start;
+    padding: calc(var(--nav-h) + 20px) 0 20px;
+  }
+  .agents .lead,
+  .agents .steps,
+  .agents .phases,
+  .agents .limits {
+    max-width: none;
+  }
+  .agents h2 {
+    max-width: 20ch;
+    font-size: clamp(26px, 7.4vw, 40px);
+    margin: 10px 0;
+  }
+  .agents .lead {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .agents .steps {
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .agents .steps .step {
+    padding: 5px 10px;
+  }
+  .agents .phases {
+    margin-top: 14px;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .agents[data-live] .phases {
+    min-height: 4.4em;
+  }
+  .agents .limits {
+    margin-top: 12px;
+  }
+}
+@media (max-width: 860px) and (max-height: 700px) {
+  .agents.chapter--pinned .pin {
+    padding-top: calc(var(--nav-h) + 10px);
+    padding-bottom: 12px;
+  }
+  .agents h2 {
+    font-size: clamp(24px, 6.6vw, 34px);
+  }
+  .agents .lead {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agents[data-live] .steps .gate.open .gate-ok {
+    animation: none;
+  }
+}
